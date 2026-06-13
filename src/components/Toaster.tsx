@@ -34,8 +34,8 @@ export default function Toaster() {
           }}
         >
           <div className="flex between center" style={{ marginBottom: 4 }}>
-            <span style={{ fontWeight: 800 }}>{t.multiplier >= 10 ? '🔥 BIG WIN' : '🎉 Win'}</span>
-            <span className="chip live">{mult(t.multiplier)}</span>
+            <span style={{ fontWeight: 800 }}>{t.title ?? (t.multiplier >= 10 ? '🔥 BIG WIN' : '🎉 Win')}</span>
+            {t.multiplier > 0 && <span className="chip live">{mult(t.multiplier)}</span>}
           </div>
           <div className="muted" style={{ fontSize: 13 }}>
             {t.game} · <span style={{ color: 'var(--green)', fontWeight: 700 }}>+{money(t.profit)}</span>

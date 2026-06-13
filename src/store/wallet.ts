@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { playResult, sound } from '../lib/sound'
 import { useFeed } from './feed'
+import { useJackpot } from './jackpot'
+import { useAchievements } from './achievements'
 
 export interface BetRecord {
   id: string
@@ -105,6 +107,25 @@ export const useWallet = create<WalletState>()(
             xp,
             level,
           }
+        })
+
+        // House-funded progressive jackpot (never reduces your payout).
+        const jackpotWon = useJackpot.getState().onBet(bet)
+        if (jackpotWon > 0) {
+          set((s) => ({ balance: s.balance + jackpotWon }))
+          useFeed.getState().pushJackpot(jackpotWon)
+          useAchievements.getState().unlock('jackpot')
+        }
+
+        // Achievements
+        const s = get()
+        useAchievements.getState().check({
+          totalBets: s.totalBets,
+          biggestWin: s.biggestWin,
+          totalWagered: s.totalWagered,
+          level: s.level,
+          lastBet: bet,
+          lastMultiplier: multiplier,
         })
       },
 

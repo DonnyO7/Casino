@@ -3,6 +3,7 @@ import { ORIGINALS } from '../data/games'
 import { SLOTS } from '../data/slots'
 import { GameCard } from '../components/GameCard'
 import LiveWins from '../components/LiveWins'
+import JackpotBanner from '../components/JackpotBanner'
 import { useWallet } from '../store/wallet'
 import { money, compact } from '../lib/format'
 
@@ -36,7 +37,11 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="stat-cards" style={{ marginTop: 20 }}>
+      <div style={{ marginTop: 18 }}>
+        <JackpotBanner />
+      </div>
+
+      <div className="stat-cards" style={{ marginTop: 18 }}>
         <div className="stat-card">
           <div className="label">Your Balance</div>
           <div className="num">{money(w.balance)} 🪙</div>

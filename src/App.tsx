@@ -10,6 +10,7 @@ import Leaderboard from './pages/Leaderboard'
 import Fairness from './pages/Fairness'
 import WalletPage from './pages/WalletPage'
 import Profile from './pages/Profile'
+import Achievements from './pages/Achievements'
 import GameRoute from './pages/GameRoute'
 import SlotRoute from './pages/SlotRoute'
 
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/fairness" element={<Fairness />} />
         <Route path="/wallet" element={<WalletPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/achievements" element={<Achievements />} />
         <Route path="/game/:slug" element={<GameRoute />} />
         <Route path="/slot/:slug" element={<SlotRoute />} />
         <Route path="*" element={<Navigate to="/" replace />} />

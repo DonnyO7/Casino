@@ -16,6 +16,7 @@ const groups: { label: string; items: { to: string; icon: string; name: string }
       { to: '/promotions', icon: '🎁', name: 'Promotions' },
       { to: '/vip', icon: '💎', name: 'VIP Club' },
       { to: '/leaderboard', icon: '🏆', name: 'Leaderboard' },
+      { to: '/achievements', icon: '🏅', name: 'Achievements' },
     ],
   },
   {

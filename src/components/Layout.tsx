@@ -4,6 +4,7 @@ import Topbar from './Topbar'
 import Toaster from './Toaster'
 import MobileNav from './MobileNav'
 import Effects from './Effects'
+import AchievementToast from './AchievementToast'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -16,6 +17,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Toaster />
       <MobileNav />
       <Effects />
+      <AchievementToast />
     </div>
   )
 }

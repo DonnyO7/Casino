@@ -5,6 +5,7 @@ import { GameShell, BetAmount, StatRow } from '../components/GameUI'
 import { money, mult } from '../lib/format'
 import { sound } from '../lib/sound'
 import { fireConfetti, screenFlash } from '../lib/confetti'
+import { useAchievements } from '../store/achievements'
 import {
   REELS,
   ROWS,
@@ -114,6 +115,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
   }
 
   async function runFreeSpins(award: number) {
+    useAchievements.getState().unlock('bonus')
     setMode('free')
     setFreeWin(0)
     setFreeTotal(award)
