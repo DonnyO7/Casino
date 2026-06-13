@@ -18,6 +18,10 @@ let canvas: HTMLCanvasElement | null = null
 let ctx: CanvasRenderingContext2D | null = null
 let particles: Particle[] = []
 let running = false
+let reducedMotion = false
+export function setReducedMotion(v: boolean) {
+  reducedMotion = v
+}
 
 const COLORS = ['#7c5cff', '#23e0c8', '#ff5c8a', '#ffd15c', '#5cffb1', '#5c8aff', '#ff7a52']
 
@@ -71,6 +75,7 @@ function loop() {
 }
 
 export function fireConfetti(opts: { count?: number; originX?: number; originY?: number; power?: number } = {}) {
+  if (reducedMotion) return
   ensureCanvas()
   if (!canvas) return
   const { count = 120, originX = 0.5, originY = 0.35, power = 12 } = opts
@@ -113,6 +118,7 @@ export function screenFlash(color = 'rgba(124,92,255,0.35)') {
 }
 
 export function screenShake() {
+  if (reducedMotion) return
   const root = document.getElementById('root')
   if (!root) return
   root.style.animation = 'shake 0.4s'

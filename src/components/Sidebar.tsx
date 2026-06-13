@@ -25,6 +25,7 @@ const groups: { label: string; items: { to: string; icon: string; name: string }
       { to: '/wallet', icon: '👛', name: 'Wallet' },
       { to: '/profile', icon: '📊', name: 'My Stats' },
       { to: '/fairness', icon: '🛡️', name: 'Provably Fair' },
+      { to: '/settings', icon: '⚙️', name: 'Settings' },
     ],
   },
 ]

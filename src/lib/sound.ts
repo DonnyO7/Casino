@@ -4,6 +4,10 @@
 let ctx: AudioContext | null = null
 const MUTE_KEY = 'nova-muted'
 let muted = localStorage.getItem(MUTE_KEY) === '1'
+let masterVolume = 1
+export function setMasterVolume(v: number) {
+  masterVolume = Math.max(0, Math.min(1, v))
+}
 
 const listeners = new Set<(m: boolean) => void>()
 
@@ -47,8 +51,9 @@ function tone(freq: number, dur: number, type: OscillatorType = 'sine', gain = 0
   const g = a.createGain()
   osc.type = type
   osc.frequency.setValueAtTime(freq, t0)
+  const peak = Math.max(0.0001, gain * masterVolume)
   g.gain.setValueAtTime(0, t0)
-  g.gain.linearRampToValueAtTime(gain, t0 + 0.01)
+  g.gain.linearRampToValueAtTime(peak, t0 + 0.01)
   g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur)
   osc.connect(g).connect(a.destination)
   osc.start(t0)
