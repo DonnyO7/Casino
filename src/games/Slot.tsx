@@ -15,6 +15,7 @@ import {
   FS_MULT,
   spinGrid,
   resolveBoard,
+  expandReels,
   freeSpinMult,
   getScale,
   payTable,
@@ -154,7 +155,13 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     setFreeWin(0)
     setFreeTotal(award)
     setFreeLeft(award)
-    setBanner(cfg.tumble ? `🌈 ${award} FREE SPINS — multiplier orbs active!` : `🌈 ${award} FREE SPINS — all wins ×${FS_MULT}!`)
+    setBanner(
+      cfg.tumble
+        ? `🌈 ${award} FREE SPINS — multiplier orbs active!`
+        : cfg.expandWilds
+          ? `🌈 ${award} FREE SPINS — expanding wilds!`
+          : `🌈 ${award} FREE SPINS — all wins ×${FS_MULT}!`,
+    )
     sound.jackpot()
     fireConfetti({ count: 200, power: 15 })
     screenFlash('rgba(255,209,92,0.45)')
@@ -168,8 +175,19 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
       left--
       used++
       setFreeLeft(left)
-      const target = spinGrid(cfg)
-      await runReelAnim(target)
+      const raw = spinGrid(cfg)
+      await runReelAnim(raw)
+      let target = raw
+      if (cfg.expandWilds) {
+        const expanded = expandReels(raw)
+        if (JSON.stringify(expanded) !== JSON.stringify(raw)) {
+          target = expanded
+          setGrid(expanded)
+          sound.cashout()
+          screenFlash('rgba(124,92,255,0.4)')
+          await sleep(550)
+        }
+      }
       const { board, paid } = await settleSpin(target, true)
       setFreeWin((w) => w + bet * paid)
       if (board.freeSpinsAwarded > 0) {
@@ -287,11 +305,11 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
         </div>
 
         <div
-          className="stage"
+          className="stage slot-stage"
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            background: `linear-gradient(160deg, ${a}22, ${b}11), var(--panel)`,
+            background: `linear-gradient(135deg, ${a}33, ${cfg.bg.split(',')[0]} 40%, ${cfg.bg.split(',')[1] ?? '#0b0e16'} 70%, ${b}22)`,
             position: 'relative',
           }}
         >
@@ -435,7 +453,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
             ))}
           </div>
           <div className="muted" style={{ marginTop: 12, fontSize: 12 }}>
-            20 paylines · {WILD} Wild · {SCATTER}×3 = Free Spins{cfg.tumble ? ' · ⬇️ Tumbling Reels' : ''} · ~{(TARGET_RTP * 100).toFixed(0)}% RTP
+            20 paylines · {WILD} Wild · {SCATTER}×3 = Free Spins{cfg.tumble ? ' · ⬇️ Tumbling Reels' : ''}{cfg.expandWilds ? ' · ↔️ Expanding Wilds' : ''} · ~{(TARGET_RTP * 100).toFixed(0)}% RTP
           </div>
         </div>
       </div>

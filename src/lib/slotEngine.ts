@@ -175,6 +175,18 @@ function collapse(cfg: SlotConfig, grid: Grid, winCells: [number, number][]): Gr
   })
 }
 
+// Expanding wilds: a wild on one of the middle reels (1–3) fills that reel.
+// Restricted to the centre reels so it boosts free spins without dominating
+// the whole RTP (keeps the base game rewarding).
+export function expandReels(grid: Grid): Grid {
+  return grid.map((col, reel) => {
+    if (reel === 0 || reel === REELS - 1) return col
+    const hasWild = col.includes(WILD)
+    const hasScatter = col.includes(SCATTER)
+    return hasWild && !hasScatter ? col.map(() => WILD) : col
+  })
+}
+
 // Resolve a whole board (with cascades for tumble slots). Pure — no animation.
 export function resolveBoard(cfg: SlotConfig, initial: Grid): BoardResult {
   const tumble = !!cfg.tumble
@@ -248,7 +260,9 @@ function roundRaw(cfg: SlotConfig): number {
     while (left > 0 && used < MAX_FREE) {
       left--
       used++
-      const fb = resolveBoard(cfg, spinGrid(cfg))
+      let fg = spinGrid(cfg)
+      if (cfg.expandWilds) fg = expandReels(fg)
+      const fb = resolveBoard(cfg, fg)
       const base = fb.rawLine + fb.rawScatter
       total += base * freeSpinMult(cfg, base > 0).mult
       if (fb.freeSpinsAwarded > 0) left = Math.min(left + fb.freeSpinsAwarded, MAX_FREE - used)
@@ -263,7 +277,7 @@ function roundRaw(cfg: SlotConfig): number {
 export function getScale(cfg: SlotConfig): number {
   const hit = scaleCache.get(cfg.slug)
   if (hit !== undefined) return hit
-  const N = cfg.tumble ? 16000 : 22000
+  const N = cfg.tumble ? 16000 : cfg.expandWilds ? 26000 : 22000
   let sum = 0
   for (let i = 0; i < N; i++) sum += roundRaw(cfg)
   const rawRTP = sum / N || 1
@@ -288,7 +302,9 @@ export function bonusRawEV(cfg: SlotConfig, startSpins = FREE_SPINS_AWARD[3]): n
     while (left > 0 && used < MAX_FREE) {
       left--
       used++
-      const r = resolveBoard(cfg, spinGrid(cfg))
+      let fg = spinGrid(cfg)
+      if (cfg.expandWilds) fg = expandReels(fg)
+      const r = resolveBoard(cfg, fg)
       const base = r.rawLine + r.rawScatter
       acc += base * freeSpinMult(cfg, base > 0).mult
       if (r.freeSpinsAwarded > 0) left = Math.min(left + r.freeSpinsAwarded, MAX_FREE - used)

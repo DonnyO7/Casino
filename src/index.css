@@ -876,6 +876,10 @@ button {
   70% { box-shadow: 0 0 0 8px rgba(47, 212, 122, 0); }
   100% { box-shadow: 0 0 0 0 rgba(47, 212, 122, 0); }
 }
+.slot-stage {
+  background-size: 220% 220% !important;
+  animation: gradientShift 18s ease infinite;
+}
 @keyframes floatUp {
   0% { transform: translateY(20px) rotate(0deg); opacity: 0; }
   10% { opacity: 0.5; }

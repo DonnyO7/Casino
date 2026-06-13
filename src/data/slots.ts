@@ -21,6 +21,7 @@ export interface SlotConfig {
   bg: string // page background gradient
   tag?: string
   tumble?: boolean // cascading reels: wins explode and new symbols drop in
+  expandWilds?: boolean // in free spins, a wild expands to fill its reel
   symbols: SlotSymbol[]
 }
 
@@ -29,6 +30,7 @@ export const TARGET_RTP = 0.99
 export const SLOTS: SlotConfig[] = [
   {
     slug: 'norse-fury',
+    expandWilds: true,
     name: 'Norse Fury',
     blurb: 'Raid the halls of Valhalla with the vikings.',
     accent: '#5c8aff,#23e0c8',
@@ -84,6 +86,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'pharaohs-gold',
+    expandWilds: true,
     name: "Pharaoh's Gold",
     blurb: 'Unearth the riches of the ancient tombs.',
     accent: '#ffd15c,#ffb15c',
@@ -170,6 +173,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'gates-of-olympus',
+    expandWilds: true,
     name: 'Mount Olympus',
     blurb: 'Summon the gods for divine multipliers.',
     accent: '#b15cff,#5c8aff',

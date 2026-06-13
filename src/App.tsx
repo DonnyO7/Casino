@@ -7,6 +7,7 @@ import OriginalsLobby from './pages/OriginalsLobby'
 import Promotions from './pages/Promotions'
 import VIP from './pages/VIP'
 import Leaderboard from './pages/Leaderboard'
+import Tournaments from './pages/Tournaments'
 import Fairness from './pages/Fairness'
 import WalletPage from './pages/WalletPage'
 import Profile from './pages/Profile'
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/promotions" element={<Promotions />} />
         <Route path="/vip" element={<VIP />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/fairness" element={<Fairness />} />
         <Route path="/wallet" element={<WalletPage />} />
         <Route path="/profile" element={<Profile />} />

@@ -4,6 +4,7 @@ import { playResult, sound } from '../lib/sound'
 import { useFeed } from './feed'
 import { useJackpot } from './jackpot'
 import { useAchievements } from './achievements'
+import { useTournament } from './tournament'
 
 export interface BetRecord {
   id: string
@@ -116,6 +117,9 @@ export const useWallet = create<WalletState>()(
           useFeed.getState().pushJackpot(jackpotWon)
           useAchievements.getState().unlock('jackpot')
         }
+
+        // Tournament race points (this cycle)
+        useTournament.getState().addWager(bet)
 
         // Achievements
         const s = get()
