@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useWallet } from '../store/wallet'
 import { money } from '../lib/format'
+import { isMuted, toggleMuted, onMuteChange, sound } from '../lib/sound'
 
 export default function Topbar() {
   const balance = useWallet((s) => s.balance)
   const deposit = useWallet((s) => s.deposit)
   const nav = useNavigate()
+  const [muted, setMutedState] = useState(isMuted())
+  useEffect(() => onMuteChange(setMutedState), [])
 
   return (
     <header className="topbar">
@@ -32,9 +36,23 @@ export default function Topbar() {
         className="btn ghost"
         title="Quick top-up +1000"
         style={{ padding: '9px 12px' }}
-        onClick={() => deposit(1000)}
+        onClick={() => {
+          deposit(1000)
+          sound.bet()
+        }}
       >
         ＋
+      </button>
+      <button
+        className="btn ghost"
+        title={muted ? 'Unmute' : 'Mute'}
+        style={{ padding: '9px 12px' }}
+        onClick={() => {
+          toggleMuted()
+          if (isMuted() === false) sound.click()
+        }}
+      >
+        {muted ? '🔇' : '🔊'}
       </button>
     </header>
   )

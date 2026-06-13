@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ORIGINALS } from '../data/games'
 import { SLOTS } from '../data/slots'
 import { GameCard } from '../components/GameCard'
+import LiveWins from '../components/LiveWins'
 import { useWallet } from '../store/wallet'
 import { money, compact } from '../lib/format'
 
@@ -53,6 +54,11 @@ export default function Home() {
           <div className="num">{money(w.biggestWin)}</div>
         </div>
       </div>
+
+      <div className="section-head">
+        <h2>🟢 Live Wins</h2>
+      </div>
+      <LiveWins />
 
       <div className="section-head">
         <h2>✨ NOVA Originals</h2>

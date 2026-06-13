@@ -645,6 +645,10 @@ button {
     grid-template-columns: 1fr;
   }
 }
+/* ---------- Mobile bottom nav ---------- */
+.mobile-nav {
+  display: none;
+}
 @media (max-width: 860px) {
   :root {
     --sidebar-w: 0px;
@@ -654,6 +658,40 @@ button {
   }
   .hero h1 {
     font-size: 30px;
+  }
+  .content {
+    padding: 16px 14px 88px;
+  }
+  .game-wrap {
+    grid-template-columns: 1fr;
+  }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(11, 14, 22, 0.94);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+  }
+  .mnav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 0;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted);
+    border-radius: 10px;
+  }
+  .mnav-item.active {
+    color: #fff;
+    background: rgba(124, 92, 255, 0.18);
   }
 }
 

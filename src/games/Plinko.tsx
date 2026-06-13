@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { rand } from '../lib/rng'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
@@ -154,7 +154,7 @@ function Ball({ path }: { path: number[] }) {
   // animate via CSS keyframe offset over the path using a moving div.
   const [step, setStep] = useState(0)
   const ref = useRef<number>()
-  useMemo(() => {
+  useEffect(() => {
     const t0 = performance.now()
     const dur = 1800
     const loop = (now: number) => {
@@ -164,6 +164,7 @@ function Ball({ path }: { path: number[] }) {
     }
     ref.current = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(ref.current!)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const i = Math.floor(step)
   const f = step - i

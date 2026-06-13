@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { playResult, sound } from '../lib/sound'
+import { useFeed } from './feed'
 
 export interface BetRecord {
   id: string
@@ -68,12 +70,15 @@ export const useWallet = create<WalletState>()(
         if (bet <= 0) return false
         if (get().balance < bet) return false
         set((s) => ({ balance: s.balance - bet }))
+        sound.bet()
         return true
       },
 
       payout: (game, bet, multiplier) => {
         const pay = bet * multiplier
         const profit = pay - bet
+        playResult(multiplier)
+        useFeed.getState().push(game, bet, multiplier)
         set((s) => {
           let xp = s.xp + bet
           let level = s.level

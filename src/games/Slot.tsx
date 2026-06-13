@@ -4,6 +4,7 @@ import { SlotConfig, scaledPayouts, TARGET_RTP } from '../data/slots'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
 import { money, mult } from '../lib/format'
+import { sound } from '../lib/sound'
 
 const REELS = 3
 const VISIBLE = 3 // rows shown per reel; centre row is the payline
@@ -31,6 +32,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
   const [spinning, setSpinning] = useState<boolean[]>([false, false, false])
   const [win, setWin] = useState<number | null>(null)
   const [auto, setAuto] = useState(false)
+  const [busy, setBusy] = useState(false)
   const intervals = useRef<number[]>([])
   const busyRef = useRef(false)
 
@@ -41,6 +43,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
       return
     }
     busyRef.current = true
+    setBusy(true)
     setWin(null)
 
     // final outcome
@@ -75,6 +78,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
           ns[reel] = false
           return ns
         })
+        sound.reel()
         if (reel === REELS - 1) settle(final)
       }, 600 + reel * 350)
     }
@@ -89,6 +93,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     wallet.payout(cfg.name, bet, m)
     setWin(m)
     busyRef.current = false
+    setBusy(false)
     if (auto) setTimeout(spin, 600)
   }
 
@@ -104,9 +109,9 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     <GameShell name={cfg.name} emoji="🎰" rtp={`${(TARGET_RTP * 100).toFixed(0)}%`}>
       <div className="game-wrap">
         <div className="bet-panel">
-          <BetAmount bet={bet} setBet={setBet} disabled={busyRef.current} />
-          <button className="btn green block lg" disabled={busyRef.current || bet <= 0} onClick={spin}>
-            {busyRef.current ? 'Spinning…' : 'Spin'}
+          <BetAmount bet={bet} setBet={setBet} disabled={busy} />
+          <button className="btn green block lg" disabled={busy || bet <= 0} onClick={spin}>
+            {busy ? 'Spinning…' : 'Spin'}
           </button>
           <button
             className={'btn block ' + (auto ? 'gold' : 'ghost')}
