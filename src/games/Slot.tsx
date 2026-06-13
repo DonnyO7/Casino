@@ -1,138 +1,236 @@
-import { useMemo, useRef, useState } from 'react'
-import { rand } from '../lib/rng'
-import { SlotConfig, scaledPayouts, TARGET_RTP } from '../data/slots'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { SlotConfig, TARGET_RTP } from '../data/slots'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
 import { money, mult } from '../lib/format'
 import { sound } from '../lib/sound'
+import { fireConfetti, screenFlash } from '../lib/confetti'
+import {
+  REELS,
+  ROWS,
+  WILD,
+  SCATTER,
+  FS_MULT,
+  spinGrid,
+  evalGrid,
+  getScale,
+  payTable,
+  buyBonusCost,
+  Grid,
+  SpinResult,
+  FREE_SPINS_AWARD,
+  MAX_FREE,
+} from '../lib/slotEngine'
 
-const REELS = 3
-const VISIBLE = 3 // rows shown per reel; centre row is the payline
-
-function weightedIndex(cfg: SlotConfig): number {
-  const W = cfg.symbols.reduce((s, x) => s + x.weight, 0)
-  let r = rand() * W
-  for (let i = 0; i < cfg.symbols.length; i++) {
-    r -= cfg.symbols[i].weight
-    if (r < 0) return i
-  }
-  return cfg.symbols.length - 1
-}
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+const key = (reel: number, row: number) => `${reel}-${row}`
 
 export default function Slot({ cfg }: { cfg: SlotConfig }) {
   const wallet = useWallet()
   const [bet, setBet] = useState(10)
-  const { multipliers } = useMemo(() => scaledPayouts(cfg), [cfg])
   const [a, b] = cfg.accent.split(',')
 
-  // grid[reel][row] -> symbol index
-  const [grid, setGrid] = useState<number[][]>(() =>
-    Array.from({ length: REELS }, () => Array.from({ length: VISIBLE }, () => weightedIndex(cfg))),
-  )
-  const [spinning, setSpinning] = useState<boolean[]>([false, false, false])
-  const [win, setWin] = useState<number | null>(null)
-  const [auto, setAuto] = useState(false)
-  const [busy, setBusy] = useState(false)
-  const intervals = useRef<number[]>([])
-  const busyRef = useRef(false)
+  const allIcons = useMemo(() => [...cfg.symbols.map((s) => s.icon), WILD, SCATTER], [cfg])
+  const randIcon = () => allIcons[(Math.random() * allIcons.length) | 0]
 
-  function spin() {
-    if (busyRef.current) return
-    if (!wallet.placeBet(bet)) {
+  const [scale, setScale] = useState<number | null>(null)
+  const [grid, setGrid] = useState<Grid>(() => spinGrid(cfg))
+  const [spinning, setSpinning] = useState<boolean[]>(Array(REELS).fill(false))
+  const [highlight, setHighlight] = useState<Set<string>>(new Set())
+  const [scatterHi, setScatterHi] = useState<Set<string>>(new Set())
+  const [lastWin, setLastWin] = useState<number | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [auto, setAuto] = useState(false)
+
+  // free spins
+  const [mode, setMode] = useState<'base' | 'free'>('base')
+  const [freeLeft, setFreeLeft] = useState(0)
+  const [freeTotal, setFreeTotal] = useState(0)
+  const [freeWin, setFreeWin] = useState(0)
+  const [banner, setBanner] = useState<string | null>(null)
+
+  const busyRef = useRef(false)
+  const autoRef = useRef(false)
+
+  // calibrate RTP off the main paint
+  useEffect(() => {
+    setScale(null)
+    const id = setTimeout(() => setScale(getScale(cfg)), 30)
+    return () => clearTimeout(id)
+  }, [cfg])
+
+  const table = useMemo(() => (scale ? payTable(cfg, scale) : []), [cfg, scale])
+  const bonusCost = useMemo(() => (scale ? buyBonusCost(cfg, scale) : 0), [cfg, scale])
+
+  function runReelAnim(target: Grid): Promise<void> {
+    return new Promise((resolve) => {
+      setSpinning(Array(REELS).fill(true))
+      for (let reel = 0; reel < REELS; reel++) {
+        const iv = window.setInterval(() => {
+          setGrid((g) => {
+            const ng = g.map((c) => c.slice())
+            ng[reel] = Array.from({ length: ROWS }, randIcon)
+            return ng
+          })
+        }, 55)
+        setTimeout(() => {
+          clearInterval(iv)
+          setGrid((g) => {
+            const ng = g.map((c) => c.slice())
+            ng[reel] = target[reel].slice()
+            return ng
+          })
+          setSpinning((s) => {
+            const ns = s.slice()
+            ns[reel] = false
+            return ns
+          })
+          sound.reel()
+          if (reel === REELS - 1) resolve()
+        }, 420 + reel * 170)
+      }
+    })
+  }
+
+  function applyHighlights(res: SpinResult) {
+    const cells = new Set<string>()
+    res.lineWins.forEach((w) => w.cells.forEach(([r, ro]) => cells.add(key(r, ro))))
+    setHighlight(cells)
+    setScatterHi(new Set(res.scatterCells.map(([r, ro]) => key(r, ro))))
+  }
+
+  function clearHi() {
+    setHighlight(new Set())
+    setScatterHi(new Set())
+  }
+
+  async function settleSpin(target: Grid, inFree: boolean): Promise<SpinResult> {
+    const res = evalGrid(cfg, target, inFree)
+    applyHighlights(res)
+    const paid = res.rawMult * (scale ?? 1)
+    wallet.payout(cfg.name, bet, paid)
+    setLastWin(paid)
+    return res
+  }
+
+  async function runFreeSpins(award: number) {
+    setMode('free')
+    setFreeWin(0)
+    setFreeTotal(award)
+    setFreeLeft(award)
+    setBanner(`🌈 ${award} FREE SPINS — all wins ×${FS_MULT}!`)
+    sound.jackpot()
+    fireConfetti({ count: 200, power: 15 })
+    screenFlash('rgba(255,209,92,0.45)')
+    await sleep(1700)
+    setBanner(null)
+
+    let left = award
+    let total = award
+    let used = 0
+    while (left > 0 && used < MAX_FREE) {
+      left--
+      used++
+      setFreeLeft(left)
+      const target = spinGrid(cfg)
+      await runReelAnim(target)
+      const res = await settleSpin(target, true)
+      setFreeWin((w) => w + bet * res.rawMult * (scale ?? 1))
+      if (res.freeSpinsAwarded > 0) {
+        const add = res.freeSpinsAwarded
+        left = Math.min(left + add, MAX_FREE - used)
+        total += add
+        setFreeTotal(total)
+        setBanner(`🔁 RETRIGGER +${add} SPINS!`)
+        sound.bigWin()
+        fireConfetti({ count: 140, power: 13 })
+        await sleep(1100)
+        setBanner(null)
+      }
+      await sleep(450)
+    }
+    setBanner(`✨ BONUS COMPLETE`)
+    await sleep(1400)
+    setBanner(null)
+    setMode('base')
+  }
+
+  async function doSpin(buyBonus = false) {
+    if (busyRef.current || scale === null) return
+    const cost = buyBonus ? bonusCost * bet : bet
+    if (!wallet.placeBet(cost)) {
       setAuto(false)
+      autoRef.current = false
       return
     }
     busyRef.current = true
     setBusy(true)
-    setWin(null)
+    setLastWin(null)
+    clearHi()
 
-    // final outcome
-    const final: number[][] = Array.from({ length: REELS }, () =>
-      Array.from({ length: VISIBLE }, () => weightedIndex(cfg)),
-    )
-
-    setSpinning([true, true, true])
-    intervals.current.forEach(clearInterval)
-    intervals.current = []
-
-    // animate each reel: fast cycling, staggered stop
-    for (let reel = 0; reel < REELS; reel++) {
-      const iv = window.setInterval(() => {
-        setGrid((g) => {
-          const ng = g.map((col) => col.slice())
-          ng[reel] = Array.from({ length: VISIBLE }, () => weightedIndex(cfg))
-          return ng
-        })
-      }, 60)
-      intervals.current.push(iv)
-
-      setTimeout(() => {
-        clearInterval(iv)
-        setGrid((g) => {
-          const ng = g.map((col) => col.slice())
-          ng[reel] = final[reel]
-          return ng
-        })
-        setSpinning((s) => {
-          const ns = s.slice()
-          ns[reel] = false
-          return ns
-        })
-        sound.reel()
-        if (reel === REELS - 1) settle(final)
-      }, 600 + reel * 350)
+    if (buyBonus) {
+      await runFreeSpins(FREE_SPINS_AWARD[3])
+    } else {
+      const target = spinGrid(cfg)
+      await runReelAnim(target)
+      const res = await settleSpin(target, false)
+      if (res.freeSpinsAwarded > 0) {
+        await sleep(500)
+        await runFreeSpins(res.freeSpinsAwarded)
+      }
     }
-  }
 
-  function settle(final: number[][]) {
-    const line = final.map((col) => col[1]) // centre row
-    let m = 0
-    if (line[0] === line[1] && line[1] === line[2]) {
-      m = multipliers[line[0]]
-    }
-    wallet.payout(cfg.name, bet, m)
-    setWin(m)
     busyRef.current = false
     setBusy(false)
-    if (auto) setTimeout(spin, 600)
+    if (autoRef.current && wallet.balance >= bet) setTimeout(() => doSpin(), 650)
   }
 
-  const payTable = useMemo(
-    () =>
-      cfg.symbols
-        .map((s, i) => ({ icon: s.icon, name: s.name, m: multipliers[i] }))
-        .sort((x, y) => y.m - x.m),
-    [cfg, multipliers],
-  )
+  function toggleAuto() {
+    const next = !auto
+    setAuto(next)
+    autoRef.current = next
+    if (next && !busyRef.current) doSpin()
+  }
+
+  const calibrating = scale === null
 
   return (
-    <GameShell name={cfg.name} emoji="🎰" rtp={`${(TARGET_RTP * 100).toFixed(0)}%`}>
+    <GameShell name={cfg.name} emoji="🎰" rtp={`~${(TARGET_RTP * 100).toFixed(0)}%`}>
       <div className="game-wrap">
         <div className="bet-panel">
           <BetAmount bet={bet} setBet={setBet} disabled={busy} />
-          <button className="btn green block lg" disabled={busy || bet <= 0} onClick={spin}>
-            {busy ? 'Spinning…' : 'Spin'}
+          <button className="btn green block lg" disabled={busy || bet <= 0 || calibrating} onClick={() => doSpin()}>
+            {calibrating ? 'Calibrating fair RTP…' : busy && mode === 'base' ? 'Spinning…' : mode === 'free' ? 'Free Spins…' : 'Spin'}
           </button>
-          <button
-            className={'btn block ' + (auto ? 'gold' : 'ghost')}
-            onClick={() => {
-              const next = !auto
-              setAuto(next)
-              if (next && !busyRef.current) spin()
-            }}
-          >
-            {auto ? '■ Stop Auto' : '▶ Auto Spin'}
-          </button>
-          {win !== null && (
-            <div className={'result-flash ' + (win >= 1 ? 'win' : 'lose')}>
-              {win > 0 ? `${mult(win)} · +${money(bet * win - bet)}` : `No line · −${money(bet)}`}
+          <div className="flex gap-s">
+            <button className={'btn ' + (auto ? 'gold' : 'ghost')} style={{ flex: 1 }} disabled={calibrating} onClick={toggleAuto}>
+              {auto ? '■ Stop' : '▶ Auto'}
+            </button>
+            <button className="btn ghost" style={{ flex: 1.4 }} disabled={busy || calibrating} onClick={() => doSpin(true)} title="Fairly priced at the bonus's true EV">
+              🌈 Buy Bonus
+            </button>
+          </div>
+          {!calibrating && (
+            <div className="muted" style={{ fontSize: 11, textAlign: 'center' }}>
+              Buy {FREE_SPINS_AWARD[3]} free spins for {mult(bonusCost)} bet = {money(bonusCost * bet)}
             </div>
           )}
-          <div className="panel tight" style={{ maxHeight: 220, overflow: 'auto' }}>
-            <div className="muted" style={{ fontSize: 11, marginBottom: 6 }}>3-OF-A-KIND PAYS</div>
-            {payTable.map((row) => (
-              <StatRow key={row.name} k={`${row.icon} ${row.name}`} v={mult(row.m)} />
+          {lastWin !== null && (
+            <div className={'result-flash ' + (lastWin >= 1 ? 'win' : 'lose')}>
+              {lastWin > 0 ? `${mult(lastWin)} · +${money(bet * lastWin - bet)}` : `No win · −${money(bet)}`}
+            </div>
+          )}
+          <div className="panel tight" style={{ maxHeight: 240, overflow: 'auto' }}>
+            <div className="muted" style={{ fontSize: 11, marginBottom: 6 }}>PAYTABLE (×bet per line · 3 / 4 / 5)</div>
+            {table.map((row) => (
+              <div key={row.name} className="stat-row">
+                <span className="k">{row.icon} {row.name}</span>
+                <span className="v" style={{ fontSize: 12 }}>
+                  {row.x3.toFixed(2)} / {row.x4.toFixed(2)} / {row.x5.toFixed(2)}
+                </span>
+              </div>
             ))}
+            <StatRow k={`${SCATTER} Scatter ×3+`} v="Free Spins" color="var(--gold)" />
           </div>
         </div>
 
@@ -142,21 +240,64 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
             alignItems: 'center',
             justifyContent: 'center',
             background: `linear-gradient(160deg, ${a}22, ${b}11), var(--panel)`,
+            position: 'relative',
           }}
         >
-          <div className="muted" style={{ marginBottom: 14 }}>{cfg.blurb}</div>
+          {mode === 'free' && (
+            <div
+              style={{
+                position: 'absolute',
+                top: 10,
+                right: 14,
+                zIndex: 6,
+                textAlign: 'right',
+                background: 'rgba(10,13,21,0.7)',
+                padding: '8px 12px',
+                borderRadius: 10,
+                border: '1px solid var(--gold)',
+              }}
+            >
+              <div style={{ color: 'var(--gold)', fontWeight: 800 }}>FREE SPINS ×{FS_MULT}</div>
+              <div className="muted" style={{ fontSize: 12 }}>
+                {freeLeft} / {freeTotal} left
+              </div>
+              <div style={{ color: 'var(--green)', fontWeight: 700 }}>+{money(freeWin)}</div>
+            </div>
+          )}
+
+          {banner && (
+            <div
+              className="rise"
+              style={{
+                position: 'absolute',
+                top: '42%',
+                left: 0,
+                right: 0,
+                textAlign: 'center',
+                zIndex: 7,
+                fontSize: 26,
+                fontWeight: 800,
+                color: 'var(--gold)',
+                textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+              }}
+            >
+              {banner}
+            </div>
+          )}
+
+          <div className="muted" style={{ marginBottom: 12 }}>{cfg.blurb}</div>
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: `repeat(${REELS}, 1fr)`,
-              gap: 12,
+              gap: 8,
               background: '#0a0d15',
-              padding: 14,
+              padding: 12,
               borderRadius: 16,
               border: `1px solid ${a}55`,
-              boxShadow: `0 0 40px ${a}33`,
+              boxShadow: mode === 'free' ? `0 0 50px ${a}66` : `0 0 30px ${a}33`,
               width: '100%',
-              maxWidth: 460,
+              maxWidth: 560,
             }}
           >
             {Array.from({ length: REELS }).map((_, reel) => (
@@ -164,36 +305,43 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
                 key={reel}
                 style={{
                   display: 'grid',
-                  gridTemplateRows: `repeat(${VISIBLE}, 1fr)`,
-                  gap: 8,
-                  filter: spinning[reel] ? 'blur(1.2px)' : 'none',
+                  gridTemplateRows: `repeat(${ROWS}, 1fr)`,
+                  gap: 6,
+                  filter: spinning[reel] ? 'blur(1.4px)' : 'none',
                 }}
               >
-                {grid[reel].map((sym, row) => (
-                  <div
-                    key={row}
-                    style={{
-                      aspectRatio: '1',
-                      display: 'grid',
-                      placeItems: 'center',
-                      fontSize: 38,
-                      borderRadius: 12,
-                      background:
-                        row === 1
-                          ? `linear-gradient(180deg, ${a}33, ${b}22)`
-                          : 'rgba(255,255,255,0.03)',
-                      border: row === 1 ? `1px solid ${a}` : '1px solid transparent',
-                      transition: 'transform 0.1s',
-                    }}
-                  >
-                    {cfg.symbols[sym].icon}
-                  </div>
-                ))}
+                {grid[reel].map((sym, row) => {
+                  const hi = highlight.has(key(reel, row))
+                  const sc = scatterHi.has(key(reel, row))
+                  return (
+                    <div
+                      key={row}
+                      style={{
+                        aspectRatio: '1',
+                        display: 'grid',
+                        placeItems: 'center',
+                        fontSize: 32,
+                        borderRadius: 10,
+                        background: sc
+                          ? 'radial-gradient(circle,#ffe9a8,#ffb15c)'
+                          : hi
+                            ? `radial-gradient(circle, ${a}, ${b})`
+                            : 'rgba(255,255,255,0.03)',
+                        border: hi || sc ? `2px solid var(--gold)` : '1px solid transparent',
+                        boxShadow: hi || sc ? '0 0 16px rgba(255,209,92,0.6)' : 'none',
+                        transition: 'background .15s, box-shadow .15s',
+                        transform: hi || sc ? 'scale(1.04)' : 'none',
+                      }}
+                    >
+                      {sym}
+                    </div>
+                  )
+                })}
               </div>
             ))}
           </div>
-          <div className="muted" style={{ marginTop: 14, fontSize: 12 }}>
-            Wins pay on the centre line · auto-balanced to {(TARGET_RTP * 100).toFixed(0)}% RTP
+          <div className="muted" style={{ marginTop: 12, fontSize: 12 }}>
+            20 paylines · {WILD} Wild substitutes · {SCATTER}×3 = Free Spins · ~{(TARGET_RTP * 100).toFixed(0)}% RTP
           </div>
         </div>
       </div>
