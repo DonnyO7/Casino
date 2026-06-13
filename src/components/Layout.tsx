@@ -6,6 +6,7 @@ import MobileNav from './MobileNav'
 import Effects from './Effects'
 import AchievementToast from './AchievementToast'
 import BigWinOverlay from './BigWinOverlay'
+import WelcomeModal from './WelcomeModal'
 import { useSettings } from '../store/settings'
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -23,6 +24,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Effects />
       <AchievementToast />
       <BigWinOverlay />
+      <WelcomeModal />
     </div>
   )
 }

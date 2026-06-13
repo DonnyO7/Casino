@@ -23,6 +23,7 @@ export const ORIGINALS: GameMeta[] = [
   { slug: 'sicbo', name: 'Sic Bo', category: 'originals', accent: '#ff7a52,#ffd15c', emoji: '🎲', blurb: 'Three dice, dozens of bets, true odds.' },
   { slug: 'scratch', name: 'Scratch Cards', category: 'originals', tag: 'NEW', accent: '#ff5c8a,#23e0c8', emoji: '🎟️', blurb: 'Scratch the panels, match 3 to win.' },
   { slug: 'diamonds', name: 'Diamonds', category: 'originals', tag: 'NEW', accent: '#5cffe0,#b15cff', emoji: '💎', blurb: 'Draw five gems, match the colours.' },
+  { slug: 'gamble', name: 'Gamble', category: 'originals', accent: '#ff5470,#1c2536', emoji: '🎴', blurb: 'Double-or-nothing colour ladder up to 1024×.' },
   { slug: 'roulette', name: 'Roulette', category: 'table', accent: '#ff5c5c,#5c8aff', emoji: '🎯', blurb: 'European single-zero roulette.' },
   { slug: 'blackjack', name: 'Blackjack', category: 'table', tag: 'HOT', accent: '#5cffb1,#5c8aff', emoji: '♠️', blurb: 'Hit, stand, double — beat the dealer to 21.' },
   { slug: 'baccarat', name: 'Baccarat', category: 'table', accent: '#b15cff,#ff5c8a', emoji: '🀄', blurb: 'Player, Banker or Tie. The high-roller classic.' },
