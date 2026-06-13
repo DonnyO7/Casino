@@ -726,3 +726,153 @@ button {
     box-shadow: 0 0 30px rgba(124, 92, 255, 0.5);
   }
 }
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-8px); }
+  40%, 60% { transform: translateX(8px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes riseFade {
+  0% { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes winPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.14); text-shadow: 0 0 30px currentColor; }
+  100% { transform: scale(1); }
+}
+@keyframes spinGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(124,92,255,.3), inset 0 0 0 1px rgba(124,92,255,.3); }
+  50% { box-shadow: 0 0 45px rgba(35,224,200,.5), inset 0 0 0 1px rgba(35,224,200,.5); }
+}
+
+/* ---------- Effect helpers ---------- */
+.rise { animation: riseFade 0.4s ease both; }
+.win-pulse { animation: winPulse 0.6s ease; }
+.float { animation: floaty 4s ease-in-out infinite; }
+
+/* shiny sweep on hover for cards */
+.game-card .shine {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s;
+  z-index: 1;
+}
+.game-card:hover .shine {
+  left: 130%;
+}
+
+/* glossy overlay on primary buttons */
+.btn.primary,
+.btn.green,
+.btn.gold,
+.btn.red {
+  position: relative;
+  overflow: hidden;
+}
+.btn.primary::after,
+.btn.green::after,
+.btn.gold::after,
+.btn.red::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 55%);
+  pointer-events: none;
+}
+.btn.lg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* animated hero gradient + grid */
+.hero {
+  background: linear-gradient(120deg, #1b1640, #0c1b2e 45%, #0b2a2a, #1b1640);
+  background-size: 300% 300%;
+  animation: gradientShift 14s ease infinite;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(124, 92, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 92, 255, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(60% 100% at 50% 0%, #000, transparent 75%);
+  pointer-events: none;
+}
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* gradient text utility */
+.grad-text {
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* shimmering skeleton / loading bar accent */
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+}
+.stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(80% 60% at 50% 0%, rgba(124, 92, 255, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.section-head h2 {
+  position: relative;
+}
+
+/* result flash gets a pulse */
+.result-flash.win {
+  animation: winPulse 0.6s ease;
+}
+
+/* live dot */
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(47, 212, 122, 0.6);
+  animation: pingDot 1.6s infinite;
+  display: inline-block;
+}
+@keyframes pingDot {
+  0% { box-shadow: 0 0 0 0 rgba(47, 212, 122, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(47, 212, 122, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 212, 122, 0); }
+}

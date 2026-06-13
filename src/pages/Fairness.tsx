@@ -1,5 +1,77 @@
 import { seedHex } from '../lib/rng'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+
+async function sha256Hex(msg: string): Promise<string> {
+  const data = new TextEncoder().encode(msg)
+  const buf = await crypto.subtle.digest('SHA-256', data)
+  return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, '0')).join('')
+}
+
+function Verifier() {
+  const [server, setServer] = useState(() => seedHex(32))
+  const [client, setClient] = useState(() => seedHex(8))
+  const [nonce, setNonce] = useState(0)
+  const [hash, setHash] = useState('')
+
+  useEffect(() => {
+    let alive = true
+    sha256Hex(`${server}:${client}:${nonce}`).then((h) => alive && setHash(h))
+    return () => {
+      alive = false
+    }
+  }, [server, client, nonce])
+
+  // first 8 hex chars -> float in [0,1) -> dice roll 0.00–100.00 (exactly how Dice resolves)
+  const intVal = hash ? parseInt(hash.slice(0, 8), 16) : 0
+  const float = intVal / 0x100000000
+  const roll = Math.floor(float * 10001) / 100
+
+  return (
+    <div className="panel" style={{ marginBottom: 20 }}>
+      <h3 style={{ marginTop: 0 }}>🔍 Verify a roll yourself</h3>
+      <p className="muted" style={{ fontSize: 13, marginTop: 0 }}>
+        We hash <code className="mono">server:client:nonce</code> with SHA-256, take the first 8 hex
+        characters and map them to a number — the same deterministic process a real provably-fair
+        casino uses. Change any field and watch the outcome recompute.
+      </p>
+      <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="field">
+          <label>Server seed</label>
+          <div className="input-group">
+            <input value={server} onChange={(e) => setServer(e.target.value)} style={{ fontSize: 12 }} />
+          </div>
+        </div>
+        <div className="field">
+          <label>Client seed</label>
+          <div className="input-group">
+            <input value={client} onChange={(e) => setClient(e.target.value)} style={{ fontSize: 12 }} />
+          </div>
+        </div>
+      </div>
+      <div className="field" style={{ marginTop: 4 }}>
+        <label>Nonce (bet number)</label>
+        <div className="input-group">
+          <input type="number" value={nonce} onChange={(e) => setNonce(parseInt(e.target.value) || 0)} />
+          <div className="adorn">
+            <button className="mini" onClick={() => setNonce((n) => n + 1)}>
+              +1
+            </button>
+            <button className="mini" onClick={() => setServer(seedHex(32))}>
+              NEW SEED
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mono" style={{ fontSize: 11, wordBreak: 'break-all', background: 'var(--bg-2)', padding: 10, borderRadius: 8, marginTop: 8 }}>
+        SHA-256 = {hash}
+      </div>
+      <div className="flex between center" style={{ marginTop: 14, padding: '12px 16px', background: 'var(--bg-2)', borderRadius: 10 }}>
+        <span className="muted">Resulting Dice roll</span>
+        <span style={{ fontSize: 30, fontWeight: 800, color: 'var(--brand-2)' }}>{roll.toFixed(2)}</span>
+      </div>
+    </div>
+  )
+}
 
 export default function Fairness() {
   const serverSeed = useMemo(() => seedHex(32), [])
@@ -27,6 +99,8 @@ export default function Fairness() {
       <div className="fair-banner" style={{ marginBottom: 20 }}>
         🎲 All randomness comes from your browser's cryptographic RNG (<code className="mono">crypto.getRandomValues</code>).
       </div>
+
+      <Verifier />
 
       <div className="card-row" style={{ gridTemplateColumns: '1fr 1fr', display: 'grid', gap: 16, marginBottom: 20 }}>
         <div className="panel">

@@ -55,10 +55,25 @@ function tone(freq: number, dur: number, type: OscillatorType = 'sine', gain = 0
   osc.stop(t0 + dur + 0.02)
 }
 
+// a short upward arpeggio over a pentatonic-ish scale
+const SCALE = [523, 587, 659, 784, 880, 1046, 1175, 1318, 1568, 1760]
+
 export const sound = {
   click: () => tone(420, 0.05, 'square', 0.04),
   tick: () => tone(900, 0.03, 'square', 0.025),
-  bet: () => tone(300, 0.08, 'sine', 0.05),
+  bet: () => {
+    tone(280, 0.07, 'sine', 0.05)
+    tone(420, 0.06, 'sine', 0.03, 0.02)
+  },
+  coin: () => {
+    tone(1320, 0.05, 'square', 0.03)
+    tone(1760, 0.07, 'square', 0.03, 0.04)
+  },
+  cashout: () => {
+    tone(660, 0.08, 'triangle', 0.06)
+    tone(990, 0.1, 'triangle', 0.06, 0.07)
+    tone(1320, 0.12, 'triangle', 0.05, 0.14)
+  },
   win: () => {
     tone(523, 0.12, 'triangle', 0.06, 0)
     tone(659, 0.12, 'triangle', 0.06, 0.08)
@@ -66,18 +81,27 @@ export const sound = {
   },
   bigWin: () => {
     ;[523, 659, 784, 1046].forEach((f, i) => tone(f, 0.2, 'triangle', 0.07, i * 0.09))
+    ;[523, 659, 784, 1046].forEach((f, i) => tone(f * 1.5, 0.25, 'sine', 0.04, 0.36 + i * 0.08))
+  },
+  jackpot: () => {
+    SCALE.forEach((f, i) => tone(f, 0.18, 'triangle', 0.06, i * 0.06))
+    setTimeout(() => SCALE.slice().reverse().forEach((f, i) => tone(f, 0.14, 'square', 0.03, i * 0.04)), 0)
   },
   lose: () => {
-    tone(220, 0.18, 'sawtooth', 0.05, 0)
-    tone(160, 0.22, 'sawtooth', 0.05, 0.1)
+    tone(220, 0.18, 'sawtooth', 0.045, 0)
+    tone(160, 0.24, 'sawtooth', 0.045, 0.1)
   },
   reel: () => tone(660, 0.04, 'square', 0.02),
 }
 
 /** Play the appropriate result cue from a settled multiplier. */
 export function playResult(multiplier: number) {
-  if (multiplier >= 10) sound.bigWin()
-  else if (multiplier > 1) sound.win()
-  else if (multiplier === 1) sound.tick()
+  if (multiplier >= 50) sound.jackpot()
+  else if (multiplier >= 10) sound.bigWin()
+  else if (multiplier > 1) {
+    // arpeggio whose length scales with how big the win is
+    const notes = Math.min(SCALE.length, 2 + Math.floor(Math.log2(multiplier + 1)))
+    for (let i = 0; i < notes; i++) tone(SCALE[i], 0.13, 'triangle', 0.06, i * 0.07)
+  } else if (multiplier === 1) sound.tick()
   else sound.lose()
 }

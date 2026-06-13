@@ -24,7 +24,8 @@ export function GameCard({
       className="game-card"
       style={{ ['--ca' as any]: a, ['--cb' as any]: b }}
     >
-      <span className="emoji">{emoji}</span>
+      <span className="shine" />
+      <span className="emoji float">{emoji}</span>
       {tag && <span className={`chip ${tagClass} tag`}>{tag}</span>}
       <div className="gname">{name}</div>
       {blurb && <div className="gblurb">{blurb}</div>}

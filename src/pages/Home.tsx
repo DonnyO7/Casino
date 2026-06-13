@@ -55,10 +55,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="section-head">
-        <h2>🟢 Live Wins</h2>
+      <div style={{ marginTop: 26 }}>
+        <LiveWins />
       </div>
-      <LiveWins />
 
       <div className="section-head">
         <h2>✨ NOVA Originals</h2>

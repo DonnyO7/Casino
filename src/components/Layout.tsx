@@ -3,6 +3,7 @@ import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import Toaster from './Toaster'
 import MobileNav from './MobileNav'
+import Effects from './Effects'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       </div>
       <Toaster />
       <MobileNav />
+      <Effects />
     </div>
   )
 }

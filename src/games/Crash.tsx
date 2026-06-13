@@ -1,10 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import { rand } from '../lib/rng'
+import { rand, randInt, pick } from '../lib/rng'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
 import { money, mult } from '../lib/format'
+import { sound } from '../lib/sound'
 
 type Phase = 'idle' | 'running' | 'crashed' | 'cashed'
+
+interface Bot {
+  name: string
+  bet: number
+  target: number
+}
+
+const BOT_NAMES = ['CryptoKnight', 'LuckyLuna', 'NeonNinja', 'MidasTouch', 'FrostByte', 'GoldRush', 'MoonShot', 'ZeroEdge', 'PixelPirate', 'HighRoller99', 'QuantumDice', 'SilkRoad']
+
+function fairTarget() {
+  return Math.max(1.05, Math.floor((1 / (1 - rand())) * 100) / 100)
+}
 
 export default function Crash() {
   const wallet = useWallet()
@@ -14,6 +27,9 @@ export default function Crash() {
   const [cur, setCur] = useState(1)
   const [cashedAt, setCashedAt] = useState<number | null>(null)
   const [history, setHistory] = useState<number[]>([])
+  const [bots, setBots] = useState<Bot[]>(() =>
+    Array.from({ length: 7 }, () => ({ name: pick(BOT_NAMES), bet: pick([5, 10, 25, 50, 100, 250, 500]), target: fairTarget() })),
+  )
   const raf = useRef<number>()
   const crashRef = useRef(1)
   const cashedRef = useRef<number | null>(null)
@@ -29,6 +45,7 @@ export default function Crash() {
     cashedRef.current = null
     setCashedAt(null)
     setCur(1)
+    setBots(Array.from({ length: randInt(5, 9) }, () => ({ name: pick(BOT_NAMES), bet: pick([5, 10, 25, 50, 100, 250, 500]), target: fairTarget() })))
     setPhase('running')
 
     const t0 = performance.now()
@@ -61,6 +78,7 @@ export default function Crash() {
     setCashedAt(m)
     setCur(m)
     setPhase('cashed')
+    sound.cashout()
     wallet.payout('Crash', bet, m)
     setHistory((h) => [crashRef.current, ...h].slice(0, 14))
   }
@@ -138,8 +156,39 @@ export default function Crash() {
               CASHED @ {mult(cashedAt ?? cur)} · +{money(bet * (cashedAt ?? cur) - bet)}
             </div>
           )}
+
+          <div className="panel tight" style={{ marginTop: 14, maxHeight: 168, overflow: 'auto' }}>
+            <div className="flex between center" style={{ marginBottom: 6 }}>
+              <strong style={{ fontSize: 13 }}>
+                <span className="live-dot" style={{ marginRight: 6 }} />Players this round
+              </strong>
+              <span className="muted" style={{ fontSize: 12 }}>{bots.length + 1} in</span>
+            </div>
+            <PlayerRow name="You" bet={bet} cashed={phase === 'cashed'} at={cashedAt} busted={phase === 'crashed'} you />
+            {bots.map((b, i) => {
+              const cashed = b.target <= cur && b.target < crashRef.current
+              const busted = phase === 'crashed' && b.target >= crashRef.current
+              return <PlayerRow key={i} name={b.name} bet={b.bet} cashed={cashed} at={cashed ? b.target : null} busted={busted} />
+            })}
+          </div>
         </div>
       </div>
     </GameShell>
+  )
+}
+
+function PlayerRow({ name, bet, cashed, at, busted, you }: { name: string; bet: number; cashed: boolean; at: number | null; busted: boolean; you?: boolean }) {
+  return (
+    <div className="flex between center" style={{ padding: '5px 4px', borderBottom: '1px solid rgba(40,51,73,0.4)', background: you ? 'rgba(124,92,255,0.1)' : undefined, borderRadius: 6 }}>
+      <span style={{ fontWeight: you ? 800 : 600, color: you ? 'var(--brand-2)' : undefined, fontSize: 13, minWidth: 110 }}>{name}</span>
+      <span className="muted" style={{ fontSize: 12, flex: 1 }}>{money(bet)}</span>
+      {cashed ? (
+        <span className="chip" style={{ background: 'rgba(47,212,122,0.14)', color: 'var(--green)' }}>{mult(at ?? 0)} · +{money(bet * (at ?? 1) - bet)}</span>
+      ) : busted ? (
+        <span className="chip" style={{ background: 'rgba(255,84,112,0.14)', color: 'var(--red)' }}>busted</span>
+      ) : (
+        <span className="muted" style={{ fontSize: 12 }}>…</span>
+      )}
+    </div>
   )
 }

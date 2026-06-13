@@ -13,6 +13,9 @@ import Roulette from '../games/Roulette'
 import Blackjack from '../games/Blackjack'
 import Baccarat from '../games/Baccarat'
 import VideoPoker from '../games/VideoPoker'
+import SicBo from '../games/SicBo'
+import Scratch from '../games/Scratch'
+import Cases from '../games/Cases'
 
 const MAP: Record<string, () => JSX.Element> = {
   dice: Dice,
@@ -29,6 +32,9 @@ const MAP: Record<string, () => JSX.Element> = {
   blackjack: Blackjack,
   baccarat: Baccarat,
   videopoker: VideoPoker,
+  sicbo: SicBo,
+  scratch: Scratch,
+  cases: Cases,
 }
 
 export default function GameRoute() {
