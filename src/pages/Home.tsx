@@ -20,8 +20,8 @@ export default function Home() {
           Welcome to <span style={{ color: 'var(--brand-2)' }}>NOVA</span> Casino
         </h1>
         <p>
-          Play 26+ originals, table classics and themed slots with{' '}
-          <strong>true mathematical odds</strong> — no rigged RNG, no hidden edge. Just you,
+          {ORIGINALS.length} originals & table classics plus {SLOTS.length} feature-packed slots —
+          all with <strong>true mathematical odds</strong>. No rigged RNG, no hidden edge. Just you,
           play-money chips and a fair shot at the jackpot.
         </p>
         <div className="cta">

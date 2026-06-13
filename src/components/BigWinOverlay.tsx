@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useFeed } from '../store/feed'
 import { money } from '../lib/format'
 import { fireConfetti } from '../lib/confetti'
-import { sound } from '../lib/sound'
 
 const TIERS = [
   { min: 150, label: 'LEGENDARY WIN', grad: 'linear-gradient(90deg,#ffd15c,#ff5c8a,#7c5cff)' },
@@ -25,7 +24,6 @@ export default function BigWinOverlay() {
       const tier = TIERS.find((t) => w.multiplier >= t.min)
       if (!tier) return
       setActive({ label: tier.label, grad: tier.grad, amount: w.profit })
-      sound.jackpot()
       fireConfetti({ count: 200, power: 15 })
       // count up the amount
       cancelAnimationFrame(raf.current!)

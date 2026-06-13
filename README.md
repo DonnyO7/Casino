@@ -20,23 +20,32 @@ All randomness comes from the browser's cryptographic RNG
 
 ## What's inside
 
-**26+ games across three categories:**
+**30+ games across three categories:**
 
-- **Originals** — Dice, Limbo, Plinko, Crash, Mines, Keno, Wheel, Hi-Lo,
-  Dragon Tower, Coin Flip
+- **Originals** — Dice, Limbo, Plinko, Crash (multiplayer-style), Mines, Keno,
+  Wheel, Hi-Lo, Dragon Tower, Coin Flip, Mystery Cases, Sic Bo, Scratch Cards,
+  Diamonds
 - **Table games** — Roulette (single-zero, fair payouts), Blackjack, Baccarat,
   Video Poker (Jacks or Better)
-- **12 themed slots** — Norse Fury, Desert Bandit, Sweet Rush, Pharaoh's Gold,
-  Neon Fruits, Lucky Koi, Jungle Quest, Frost Bite, Mount Olympus, Pirate
-  Plunder, Galaxy Spin, Diamond Vault — all driven by one engine that
-  auto-balances each machine to a 99% RTP.
+- **18 video slots** — 5×3 reels, 20 paylines, 🃏 Wilds, 🌈 Scatter → **Free
+  Spins**, with **cascading/tumbling reels** + **multiplier orbs** on several
+  machines, and a fair "Buy Bonus". One engine Monte-Carlo-calibrates every
+  machine to ~99% RTP — even with wilds, scatters, free spins and cascades.
 
-**Plus full casino chrome:** lobby with search/filter, slots & originals
-lobbies, daily-bonus promotions, a VIP tier/level system, a leaderboard, a
-wallet with deposit/reset + bet history, a personal stats dashboard, and the
-provably-fair explainer.
+**Meta & juice:**
 
-Your balance, level, XP and full bet history persist in `localStorage`.
+- **Progressive jackpot** that ticks live and drops randomly to a lucky player
+  (house-funded, never touches your odds)
+- **18 achievements** with unlock banners + a completion page
+- **Daily reward wheel** (free chips every 24h) and daily/bonus promotions
+- **Big Win** celebration overlay (Big → Mega → Epic → Legendary), confetti,
+  screen flashes, synth sound engine, animated counters, live wins feed
+- VIP tier/level system, leaderboard, wallet + bet history, stats dashboard,
+  an **interactive provably-fair verifier**, and a **Settings** page (volume,
+  reduced motion, reset)
+
+Your balance, level, XP, achievements, jackpot and bet history persist in
+`localStorage`.
 
 ## Run it
 
