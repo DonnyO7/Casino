@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useWallet } from '../store/wallet'
 import { money } from '../lib/format'
+import DailyWheel from '../components/DailyWheel'
 
 const DAILY_KEY = 'nova-daily-claim'
 
@@ -36,6 +37,10 @@ export default function Promotions() {
       <p className="page-sub">Free play-money bonuses — grab some chips and keep spinning.</p>
 
       {toast && <div className="fair-banner" style={{ marginBottom: 16 }}>✅ {toast}</div>}
+
+      <div style={{ marginBottom: 22 }}>
+        <DailyWheel />
+      </div>
 
       <div className="panel" style={{ marginBottom: 22, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, background: 'linear-gradient(120deg,#1b1640,#0c2030)' }}>
         <div>

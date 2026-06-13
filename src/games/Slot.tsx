@@ -14,6 +14,7 @@ import {
   FS_MULT,
   spinGrid,
   resolveBoard,
+  freeSpinMult,
   getScale,
   payTable,
   buyBonusCost,
@@ -49,6 +50,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
   const [freeTotal, setFreeTotal] = useState(0)
   const [freeWin, setFreeWin] = useState(0)
   const [banner, setBanner] = useState<string | null>(null)
+  const [orbs, setOrbs] = useState<number[]>([])
 
   const busyRef = useRef(false)
   const autoRef = useRef(false)
@@ -106,6 +108,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
   // Plays a resolved board (animating tumbles for cascade slots), pays it, and
   // returns the board. `paid` is the total-bet multiplier credited.
   async function settleSpin(target: Grid, inFree: boolean): Promise<{ board: BoardResult; paid: number }> {
+    setOrbs([])
     const board = resolveBoard(cfg, target)
     if (board.steps.length === 0) {
       applyHighlights([], board.scatterCells)
@@ -124,7 +127,21 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
         }
       }
     }
-    const paid = (board.rawLine + board.rawScatter) * (inFree ? FS_MULT : 1) * (scale ?? 1)
+    const base = board.rawLine + board.rawScatter
+    let freeMul = 1
+    if (inFree) {
+      const fm = freeSpinMult(cfg, base > 0)
+      freeMul = fm.mult
+      if (fm.orbs.length) {
+        setOrbs(fm.orbs)
+        sound.coin()
+        if (base > 0) {
+          screenFlash('rgba(255,209,92,0.4)')
+          await sleep(700)
+        }
+      }
+    }
+    const paid = base * freeMul * (scale ?? 1)
     wallet.payout(cfg.name, bet, paid)
     setLastWin(paid)
     return { board, paid }
@@ -136,7 +153,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     setFreeWin(0)
     setFreeTotal(award)
     setFreeLeft(award)
-    setBanner(`🌈 ${award} FREE SPINS — all wins ×${FS_MULT}!`)
+    setBanner(cfg.tumble ? `🌈 ${award} FREE SPINS — multiplier orbs active!` : `🌈 ${award} FREE SPINS — all wins ×${FS_MULT}!`)
     sound.jackpot()
     fireConfetti({ count: 200, power: 15 })
     screenFlash('rgba(255,209,92,0.45)')
@@ -167,6 +184,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
       }
       await sleep(450)
     }
+    setOrbs([])
     setBanner(`✨ BONUS COMPLETE`)
     await sleep(1400)
     setBanner(null)
@@ -280,6 +298,45 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
                 {freeLeft} / {freeTotal} left
               </div>
               <div style={{ color: 'var(--green)', fontWeight: 700 }}>+{money(freeWin)}</div>
+            </div>
+          )}
+
+          {mode === 'free' && orbs.length > 0 && (
+            <div
+              className="rise"
+              style={{
+                position: 'absolute',
+                bottom: 60,
+                left: 0,
+                right: 0,
+                display: 'flex',
+                justifyContent: 'center',
+                gap: 12,
+                zIndex: 8,
+                pointerEvents: 'none',
+              }}
+            >
+              {orbs.map((v, i) => (
+                <div
+                  key={i}
+                  className="pop"
+                  style={{
+                    width: 58,
+                    height: 58,
+                    borderRadius: '50%',
+                    display: 'grid',
+                    placeItems: 'center',
+                    fontWeight: 800,
+                    fontSize: 15,
+                    color: '#1a1304',
+                    background: 'radial-gradient(circle at 35% 30%, #ffe9a8, #ff7a52)',
+                    boxShadow: '0 0 22px rgba(255,122,82,0.8)',
+                    border: '2px solid #fff',
+                  }}
+                >
+                  {v}×
+                </div>
+              ))}
             </div>
           )}
 

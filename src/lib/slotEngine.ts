@@ -197,6 +197,47 @@ export function resolveBoard(cfg: SlotConfig, initial: Grid): BoardResult {
   return { steps, finalGrid: cur, rawLine, rawScatter: sc.rawScatter, scatters: sc.scatters, scatterCells: sc.scatterCells, freeSpinsAwarded: sc.freeSpinsAwarded }
 }
 
+// ---- Free-spin multiplier orbs (tumble slots only, Sweet-Bonanza style) ----
+const ORB_COUNT: [number, number][] = [
+  [0, 0.58],
+  [1, 0.27],
+  [2, 0.11],
+  [3, 0.04],
+]
+const ORB_VALS: [number, number][] = [
+  [2, 30],
+  [3, 22],
+  [4, 14],
+  [5, 12],
+  [6, 8],
+  [8, 6],
+  [10, 4],
+  [15, 2],
+  [25, 1.2],
+  [50, 0.6],
+  [100, 0.3],
+  [500, 0.05],
+]
+function wpick(pairs: [number, number][]): number {
+  const tot = pairs.reduce((s, p) => s + p[1], 0)
+  let r = rand() * tot
+  for (const [v, w] of pairs) if ((r -= w) < 0) return v
+  return pairs[pairs.length - 1][0]
+}
+export function rollOrbs(): { vals: number[]; total: number } {
+  const n = wpick(ORB_COUNT)
+  const vals: number[] = []
+  for (let i = 0; i < n; i++) vals.push(wpick(ORB_VALS))
+  return { vals, total: vals.reduce((a, b) => a + b, 0) }
+}
+/** Multiplier applied to a free spin: orbs for tumble slots, flat FS_MULT otherwise. */
+export function freeSpinMult(cfg: SlotConfig, hasWin: boolean): { mult: number; orbs: number[] } {
+  if (!cfg.tumble) return { mult: FS_MULT, orbs: [] }
+  const o = rollOrbs()
+  if (!hasWin || o.vals.length === 0) return { mult: 1, orbs: o.vals }
+  return { mult: Math.max(1, o.total), orbs: o.vals }
+}
+
 // raw total mult of a full round (base + free spins), for calibration/sim.
 function roundRaw(cfg: SlotConfig): number {
   const board = resolveBoard(cfg, spinGrid(cfg))
@@ -208,7 +249,8 @@ function roundRaw(cfg: SlotConfig): number {
       left--
       used++
       const fb = resolveBoard(cfg, spinGrid(cfg))
-      total += (fb.rawLine + fb.rawScatter) * FS_MULT
+      const base = fb.rawLine + fb.rawScatter
+      total += base * freeSpinMult(cfg, base > 0).mult
       if (fb.freeSpinsAwarded > 0) left = Math.min(left + fb.freeSpinsAwarded, MAX_FREE - used)
     }
   }
@@ -247,7 +289,8 @@ export function bonusRawEV(cfg: SlotConfig, startSpins = FREE_SPINS_AWARD[3]): n
       left--
       used++
       const r = resolveBoard(cfg, spinGrid(cfg))
-      acc += (r.rawLine + r.rawScatter) * FS_MULT
+      const base = r.rawLine + r.rawScatter
+      acc += base * freeSpinMult(cfg, base > 0).mult
       if (r.freeSpinsAwarded > 0) left = Math.min(left + r.freeSpinsAwarded, MAX_FREE - used)
     }
     sum += acc
