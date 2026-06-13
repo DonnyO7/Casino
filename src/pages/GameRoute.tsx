@@ -16,6 +16,7 @@ import VideoPoker from '../games/VideoPoker'
 import SicBo from '../games/SicBo'
 import Scratch from '../games/Scratch'
 import Cases from '../games/Cases'
+import Diamonds from '../games/Diamonds'
 
 const MAP: Record<string, () => JSX.Element> = {
   dice: Dice,
@@ -35,6 +36,7 @@ const MAP: Record<string, () => JSX.Element> = {
   sicbo: SicBo,
   scratch: Scratch,
   cases: Cases,
+  diamonds: Diamonds,
 }
 
 export default function GameRoute() {

@@ -6,6 +6,7 @@ import { money, mult } from '../lib/format'
 import { sound } from '../lib/sound'
 import { fireConfetti, screenFlash } from '../lib/confetti'
 import { useAchievements } from '../store/achievements'
+import ThemeParticles from '../components/ThemeParticles'
 import {
   REELS,
   ROWS,
@@ -230,6 +231,21 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
 
   const calibrating = scale === null
 
+  // Space / Enter to spin
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return
+      if (e.code === 'Space' || e.code === 'Enter') {
+        e.preventDefault()
+        if (!busyRef.current && !calibrating) doSpin()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calibrating, bet, scale])
+
   return (
     <GameShell name={cfg.name} emoji="🎰" rtp={`~${(TARGET_RTP * 100).toFixed(0)}%`}>
       <div className="game-wrap">
@@ -279,6 +295,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
             position: 'relative',
           }}
         >
+          <ThemeParticles icons={cfg.symbols.map((s) => s.icon)} />
           {mode === 'free' && (
             <div
               style={{
@@ -360,7 +377,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
             </div>
           )}
 
-          <div className="muted" style={{ marginBottom: 12 }}>{cfg.blurb}</div>
+          <div className="muted" style={{ marginBottom: 12, position: 'relative', zIndex: 1 }}>{cfg.blurb}</div>
           <div
             style={{
               display: 'grid',
@@ -373,6 +390,8 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
               boxShadow: mode === 'free' ? `0 0 50px ${a}66` : `0 0 30px ${a}33`,
               width: '100%',
               maxWidth: 560,
+              position: 'relative',
+              zIndex: 1,
             }}
           >
             {Array.from({ length: REELS }).map((_, reel) => (
