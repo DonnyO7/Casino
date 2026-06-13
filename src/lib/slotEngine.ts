@@ -100,23 +100,30 @@ export interface LineWin {
   cells: [number, number][] // [reel,row]
 }
 
-export interface SpinResult {
-  rawMult: number // total-bet multiplier before global RTP scaling
-  scatters: number
+export interface CascadeStep {
+  grid: Grid
+  winCells: [number, number][]
   lineWins: LineWin[]
+  rawLine: number
+}
+
+export interface BoardResult {
+  steps: CascadeStep[] // each winning evaluation (1 for non-tumble, N for cascades)
+  finalGrid: Grid // resting board after the last collapse
+  rawLine: number // summed line multiplier across all cascades
+  rawScatter: number
+  scatters: number
   scatterCells: [number, number][]
   freeSpinsAwarded: number
 }
 
-export function evalGrid(cfg: SlotConfig, grid: Grid, inFree: boolean): SpinResult {
+function evalLines(cfg: SlotConfig, grid: Grid): { rawLine: number; lineWins: LineWin[] } {
   const pool = buildPool(cfg)
   let rawLine = 0
   const lineWins: LineWin[] = []
-
   for (let li = 0; li < LINES.length; li++) {
     const rows = LINES[li]
     const syms = rows.map((row, reel) => grid[reel][row])
-    // target = first non-wild, non-scatter symbol
     let target: string | null = null
     for (const s of syms) {
       if (s !== WILD && s !== SCATTER) {
@@ -124,7 +131,7 @@ export function evalGrid(cfg: SlotConfig, grid: Grid, inFree: boolean): SpinResu
         break
       }
     }
-    if (target === null) target = WILD // entire line of wilds
+    if (target === null) target = WILD
     let count = 0
     for (let r = 0; r < syms.length; r++) {
       if (syms[r] === target || syms[r] === WILD) count++
@@ -135,17 +142,13 @@ export function evalGrid(cfg: SlotConfig, grid: Grid, inFree: boolean): SpinResu
       const base = pool.baseOf[target] ?? 0
       const raw = (base * t) / NUM_LINES
       rawLine += raw
-      lineWins.push({
-        line: li,
-        symbol: target,
-        count,
-        raw,
-        cells: rows.slice(0, count).map((row, reel) => [reel, row] as [number, number]),
-      })
+      lineWins.push({ line: li, symbol: target, count, raw, cells: rows.slice(0, count).map((row, reel) => [reel, row] as [number, number]) })
     }
   }
+  return { rawLine, lineWins }
+}
 
-  // scatters anywhere
+function evalScatter(grid: Grid) {
   const scatterCells: [number, number][] = []
   for (let reel = 0; reel < REELS; reel++)
     for (let row = 0; row < ROWS; row++) if (grid[reel][row] === SCATTER) scatterCells.push([reel, row])
@@ -157,25 +160,56 @@ export function evalGrid(cfg: SlotConfig, grid: Grid, inFree: boolean): SpinResu
     rawScatter = SCATTER_PAY[k] ?? SCATTER_PAY[5]
     freeSpinsAwarded = FREE_SPINS_AWARD[k] ?? FREE_SPINS_AWARD[5]
   }
-
-  const mult = (rawLine + rawScatter) * (inFree ? FS_MULT : 1)
-  return { rawMult: mult, scatters, lineWins, scatterCells, freeSpinsAwarded }
+  return { scatters, scatterCells, rawScatter, freeSpinsAwarded }
 }
 
-// Simulate one full round (base + any free spins) and return raw total mult.
-function simulateRound(cfg: SlotConfig): number {
-  const base = spinGrid(cfg)
-  const r = evalGrid(cfg, base, false)
-  let total = r.rawMult
-  if (r.freeSpinsAwarded > 0) {
-    let remaining = r.freeSpinsAwarded
+// remove winning cells, drop survivors down, refill the top (tumble mechanic)
+function collapse(cfg: SlotConfig, grid: Grid, winCells: [number, number][]): Grid {
+  const pool = buildPool(cfg)
+  const dead = new Set(winCells.map(([r, ro]) => `${r}-${ro}`))
+  return grid.map((col, reel) => {
+    const survivors = col.filter((_, row) => !dead.has(`${reel}-${row}`))
+    const missing = ROWS - survivors.length
+    const fresh = Array.from({ length: missing }, () => drawIcon(pool))
+    return [...fresh, ...survivors]
+  })
+}
+
+// Resolve a whole board (with cascades for tumble slots). Pure — no animation.
+export function resolveBoard(cfg: SlotConfig, initial: Grid): BoardResult {
+  const tumble = !!cfg.tumble
+  const sc = evalScatter(initial)
+  let cur: Grid = initial.map((c) => c.slice())
+  let rawLine = 0
+  const steps: CascadeStep[] = []
+  let casc = 0
+  while (true) {
+    const r = evalLines(cfg, cur)
+    if (r.lineWins.length === 0) break
+    rawLine += r.rawLine
+    const winCells: [number, number][] = []
+    r.lineWins.forEach((w) => w.cells.forEach((c) => winCells.push(c)))
+    steps.push({ grid: cur.map((c) => c.slice()), winCells, lineWins: r.lineWins, rawLine: r.rawLine })
+    if (!tumble) break
+    cur = collapse(cfg, cur, winCells)
+    if (++casc > 40) break
+  }
+  return { steps, finalGrid: cur, rawLine, rawScatter: sc.rawScatter, scatters: sc.scatters, scatterCells: sc.scatterCells, freeSpinsAwarded: sc.freeSpinsAwarded }
+}
+
+// raw total mult of a full round (base + free spins), for calibration/sim.
+function roundRaw(cfg: SlotConfig): number {
+  const board = resolveBoard(cfg, spinGrid(cfg))
+  let total = board.rawLine + board.rawScatter
+  if (board.freeSpinsAwarded > 0) {
+    let left = board.freeSpinsAwarded
     let used = 0
-    while (remaining > 0 && used < MAX_FREE) {
-      remaining--
+    while (left > 0 && used < MAX_FREE) {
+      left--
       used++
-      const fr = evalGrid(cfg, spinGrid(cfg), true)
-      total += fr.rawMult
-      if (fr.freeSpinsAwarded > 0) remaining = Math.min(remaining + fr.freeSpinsAwarded, MAX_FREE - used)
+      const fb = resolveBoard(cfg, spinGrid(cfg))
+      total += (fb.rawLine + fb.rawScatter) * FS_MULT
+      if (fb.freeSpinsAwarded > 0) left = Math.min(left + fb.freeSpinsAwarded, MAX_FREE - used)
     }
   }
   return total
@@ -187,9 +221,9 @@ function simulateRound(cfg: SlotConfig): number {
 export function getScale(cfg: SlotConfig): number {
   const hit = scaleCache.get(cfg.slug)
   if (hit !== undefined) return hit
-  const N = 30000
+  const N = cfg.tumble ? 16000 : 22000
   let sum = 0
-  for (let i = 0; i < N; i++) sum += simulateRound(cfg)
+  for (let i = 0; i < N; i++) sum += roundRaw(cfg)
   const rawRTP = sum / N || 1
   const scale = TARGET_RTP / rawRTP
   scaleCache.set(cfg.slug, scale)
@@ -203,7 +237,7 @@ export function bonusRawEV(cfg: SlotConfig, startSpins = FREE_SPINS_AWARD[3]): n
   const key = cfg.slug + ':' + startSpins
   const hit = bonusCache.get(key)
   if (hit !== undefined) return hit
-  const M = 12000
+  const M = 8000
   let sum = 0
   for (let i = 0; i < M; i++) {
     let left = startSpins
@@ -212,8 +246,8 @@ export function bonusRawEV(cfg: SlotConfig, startSpins = FREE_SPINS_AWARD[3]): n
     while (left > 0 && used < MAX_FREE) {
       left--
       used++
-      const r = evalGrid(cfg, spinGrid(cfg), true)
-      acc += r.rawMult
+      const r = resolveBoard(cfg, spinGrid(cfg))
+      acc += (r.rawLine + r.rawScatter) * FS_MULT
       if (r.freeSpinsAwarded > 0) left = Math.min(left + r.freeSpinsAwarded, MAX_FREE - used)
     }
     sum += acc

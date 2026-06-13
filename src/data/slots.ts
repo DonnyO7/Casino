@@ -20,6 +20,7 @@ export interface SlotConfig {
   accent: string // "colorA,colorB"
   bg: string // page background gradient
   tag?: string
+  tumble?: boolean // cascading reels: wins explode and new symbols drop in
   symbols: SlotSymbol[]
 }
 
@@ -64,6 +65,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'sweet-rush',
+    tumble: true,
     name: 'Sweet Rush',
     blurb: 'A sugar-coated cascade of candy wins.',
     accent: '#ff5c8a,#b15cff',
@@ -238,6 +240,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'aztec-sun',
+    tumble: true,
     name: 'Aztec Sun',
     blurb: 'Climb the temple steps to the golden idol.',
     accent: '#ffb15c,#5cffb1',
@@ -291,6 +294,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'fortune-panda',
+    tumble: true,
     name: 'Fortune Panda',
     blurb: 'Bamboo, blossoms and bountiful bonuses.',
     accent: '#5cffb1,#ff5c8a',
@@ -308,6 +312,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'big-bass-bonanza',
+    tumble: true,
     name: 'Big Catch',
     blurb: 'Cast a line for the lunker payout.',
     accent: '#5c8aff,#5cffe0',

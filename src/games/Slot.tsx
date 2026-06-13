@@ -13,12 +13,12 @@ import {
   SCATTER,
   FS_MULT,
   spinGrid,
-  evalGrid,
+  resolveBoard,
   getScale,
   payTable,
   buyBonusCost,
   Grid,
-  SpinResult,
+  BoardResult,
   FREE_SPINS_AWARD,
   MAX_FREE,
 } from '../lib/slotEngine'
@@ -93,11 +93,9 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     })
   }
 
-  function applyHighlights(res: SpinResult) {
-    const cells = new Set<string>()
-    res.lineWins.forEach((w) => w.cells.forEach(([r, ro]) => cells.add(key(r, ro))))
-    setHighlight(cells)
-    setScatterHi(new Set(res.scatterCells.map(([r, ro]) => key(r, ro))))
+  function applyHighlights(winCells: [number, number][], scatterCells: [number, number][]) {
+    setHighlight(new Set(winCells.map(([r, ro]) => key(r, ro))))
+    setScatterHi(new Set(scatterCells.map(([r, ro]) => key(r, ro))))
   }
 
   function clearHi() {
@@ -105,13 +103,31 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     setScatterHi(new Set())
   }
 
-  async function settleSpin(target: Grid, inFree: boolean): Promise<SpinResult> {
-    const res = evalGrid(cfg, target, inFree)
-    applyHighlights(res)
-    const paid = res.rawMult * (scale ?? 1)
+  // Plays a resolved board (animating tumbles for cascade slots), pays it, and
+  // returns the board. `paid` is the total-bet multiplier credited.
+  async function settleSpin(target: Grid, inFree: boolean): Promise<{ board: BoardResult; paid: number }> {
+    const board = resolveBoard(cfg, target)
+    if (board.steps.length === 0) {
+      applyHighlights([], board.scatterCells)
+    } else {
+      for (let i = 0; i < board.steps.length; i++) {
+        const st = board.steps[i]
+        setGrid(st.grid)
+        applyHighlights(st.winCells, i === 0 ? board.scatterCells : [])
+        if (i > 0) sound.coin()
+        await sleep(540)
+        if (cfg.tumble) {
+          clearHi()
+          const next = board.steps[i + 1]?.grid ?? board.finalGrid
+          setGrid(next)
+          await sleep(220)
+        }
+      }
+    }
+    const paid = (board.rawLine + board.rawScatter) * (inFree ? FS_MULT : 1) * (scale ?? 1)
     wallet.payout(cfg.name, bet, paid)
     setLastWin(paid)
-    return res
+    return { board, paid }
   }
 
   async function runFreeSpins(award: number) {
@@ -136,10 +152,10 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
       setFreeLeft(left)
       const target = spinGrid(cfg)
       await runReelAnim(target)
-      const res = await settleSpin(target, true)
-      setFreeWin((w) => w + bet * res.rawMult * (scale ?? 1))
-      if (res.freeSpinsAwarded > 0) {
-        const add = res.freeSpinsAwarded
+      const { board, paid } = await settleSpin(target, true)
+      setFreeWin((w) => w + bet * paid)
+      if (board.freeSpinsAwarded > 0) {
+        const add = board.freeSpinsAwarded
         left = Math.min(left + add, MAX_FREE - used)
         total += add
         setFreeTotal(total)
@@ -175,10 +191,10 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     } else {
       const target = spinGrid(cfg)
       await runReelAnim(target)
-      const res = await settleSpin(target, false)
-      if (res.freeSpinsAwarded > 0) {
+      const { board } = await settleSpin(target, false)
+      if (board.freeSpinsAwarded > 0) {
         await sleep(500)
-        await runFreeSpins(res.freeSpinsAwarded)
+        await runFreeSpins(board.freeSpinsAwarded)
       }
     }
 
@@ -343,7 +359,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
             ))}
           </div>
           <div className="muted" style={{ marginTop: 12, fontSize: 12 }}>
-            20 paylines · {WILD} Wild substitutes · {SCATTER}×3 = Free Spins · ~{(TARGET_RTP * 100).toFixed(0)}% RTP
+            20 paylines · {WILD} Wild · {SCATTER}×3 = Free Spins{cfg.tumble ? ' · ⬇️ Tumbling Reels' : ''} · ~{(TARGET_RTP * 100).toFixed(0)}% RTP
           </div>
         </div>
       </div>
