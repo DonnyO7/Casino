@@ -32,6 +32,21 @@ export default function Profile() {
         <div className="stat-card"><div className="label">Biggest Win</div><div className="num">{money(w.biggestWin)}</div></div>
       </div>
 
+      <div className="section-head"><h2>🏆 Biggest Wins</h2></div>
+      <div className="grid wide">
+        {[...w.history].sort((a, b) => b.profit - a.profit).slice(0, 6).filter((h) => h.profit > 0).map((h) => (
+          <div key={h.id} className="panel" style={{ borderTop: '3px solid var(--gold)' }}>
+            <div className="flex between center">
+              <strong>{h.game}</strong>
+              <span className="chip vip">{h.multiplier.toFixed(2)}×</span>
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--green)', marginTop: 6 }}>+{money(h.profit)}</div>
+            <div className="muted" style={{ fontSize: 12 }}>on {money(h.bet)} bet</div>
+          </div>
+        ))}
+        {w.history.filter((h) => h.profit > 0).length === 0 && <div className="muted" style={{ padding: 12 }}>No wins logged yet.</div>}
+      </div>
+
       <div className="section-head"><h2>📈 Profit curve</h2></div>
       <div className="panel"><ProfitChart history={w.history} /></div>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSettings } from '../store/settings'
+import { useSettings, THEMES } from '../store/settings'
 import { useWallet } from '../store/wallet'
 import { isMuted, setMuted, sound } from '../lib/sound'
 
@@ -50,6 +50,28 @@ export default function Settings() {
             {s.music ? 'On' : 'Off'}
           </button>
         </div>
+      </div>
+
+      <div className="panel" style={{ marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0 }}>🎨 Accent Theme</h3>
+        <div className="flex gap-s wrap">
+          {Object.entries(THEMES).map(([key, t]) => (
+            <button
+              key={key}
+              onClick={() => s.setAccent(key)}
+              title={t.name}
+              style={{
+                width: 54,
+                height: 54,
+                borderRadius: 12,
+                border: s.accent === key ? '3px solid #fff' : '1px solid var(--line)',
+                background: `linear-gradient(135deg, ${t.a}, ${t.b})`,
+                cursor: 'pointer',
+              }}
+            />
+          ))}
+        </div>
+        <div className="muted" style={{ fontSize: 13, marginTop: 8 }}>{THEMES[s.accent]?.name}</div>
       </div>
 
       <div className="panel" style={{ marginBottom: 16 }}>
