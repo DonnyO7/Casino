@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { rand } from '../lib/rng'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
+import { useAutoBet, AutoBetFields } from '../components/AutoBet'
 import { money, mult, clamp } from '../lib/format'
 
 export default function Dice() {
@@ -14,29 +15,22 @@ export default function Dice() {
   const [rolling, setRolling] = useState(false)
   const [mode, setMode] = useState<'manual' | 'auto'>('manual')
 
-  // auto-bet config
-  const [numBets, setNumBets] = useState(20)
-  const [onWin, setOnWin] = useState(0) // % change to bet after a win (0 = reset)
-  const [onLoss, setOnLoss] = useState(0)
-  const [stopProfit, setStopProfit] = useState(0)
-  const [stopLoss, setStopLoss] = useState(0)
-  const [autoRunning, setAutoRunning] = useState(false)
-  const [sessionProfit, setSessionProfit] = useState(0)
-  const auto = useRef({ running: false, left: 0, cur: 0, profit: 0 })
-
   const payout = 100 / chance
   const target = over ? 100 - chance : chance
 
-  // returns true on win
-  function rollOnce(curBet: number): boolean {
-    if (!wallet.placeBet(curBet)) return false
+  // one instant bet; returns net profit
+  function rollOnce(curBet: number): number {
+    if (!wallet.placeBet(curBet)) return 0
     const r = Math.floor(rand() * 10001) / 100
     const win = over ? r > target : r < target
     setRoll(r)
     setWon(win)
     wallet.payout('Dice', curBet, win ? payout : 0)
-    return win
+    return win ? curBet * payout - curBet : -curBet
   }
+
+  const auto = useAutoBet(rollOnce, () => bet)
+  const autoRunning = auto.running
 
   function playManual() {
     if (rolling || autoRunning) return
@@ -46,39 +40,6 @@ export default function Dice() {
       setRolling(false)
     }, 250)
   }
-
-  function startAuto() {
-    if (autoRunning) return
-    auto.current = { running: true, left: numBets > 0 ? numBets : Infinity, cur: bet, profit: 0 }
-    setSessionProfit(0)
-    setAutoRunning(true)
-    stepAuto()
-  }
-
-  function stopAuto() {
-    auto.current.running = false
-    setAutoRunning(false)
-  }
-
-  function stepAuto() {
-    const a = auto.current
-    if (!a.running) return
-    if (a.left <= 0) return stopAuto()
-    if (stopProfit > 0 && a.profit >= stopProfit) return stopAuto()
-    if (stopLoss > 0 && a.profit <= -stopLoss) return stopAuto()
-    if (wallet.balance < a.cur || a.cur <= 0) return stopAuto()
-
-    const win = rollOnce(a.cur)
-    a.profit += win ? a.cur * payout - a.cur : -a.cur
-    setSessionProfit(a.profit)
-    // adjust next bet
-    const pct = win ? onWin : onLoss
-    a.cur = pct === 0 ? bet : Math.max(0.01, Math.round(a.cur * (1 + pct / 100) * 100) / 100)
-    a.left -= 1
-    setTimeout(stepAuto, 230)
-  }
-
-  useEffect(() => () => stopAuto(), [])
 
   // hotkey
   useEffect(() => {
@@ -121,42 +82,14 @@ export default function Dice() {
             <StatRow k="Profit on win" v={money(bet * payout - bet)} color="var(--green)" />
           </div>
 
-          {mode === 'auto' && (
-            <div className="panel tight" style={{ display: 'grid', gap: 10 }}>
-              <div className="field" style={{ margin: 0 }}>
-                <label>Number of Bets (0 = ∞)</label>
-                <div className="input-group"><input type="number" value={numBets} disabled={autoRunning} onChange={(e) => setNumBets(Math.max(0, parseInt(e.target.value) || 0))} /></div>
-              </div>
-              <div className="flex gap-s">
-                <div className="field" style={{ margin: 0, flex: 1 }}>
-                  <label>On Win %</label>
-                  <div className="input-group"><input type="number" value={onWin} disabled={autoRunning} onChange={(e) => setOnWin(parseFloat(e.target.value) || 0)} /></div>
-                </div>
-                <div className="field" style={{ margin: 0, flex: 1 }}>
-                  <label>On Loss %</label>
-                  <div className="input-group"><input type="number" value={onLoss} disabled={autoRunning} onChange={(e) => setOnLoss(parseFloat(e.target.value) || 0)} /></div>
-                </div>
-              </div>
-              <div className="flex gap-s">
-                <div className="field" style={{ margin: 0, flex: 1 }}>
-                  <label>Stop on Profit</label>
-                  <div className="input-group"><input type="number" value={stopProfit} disabled={autoRunning} onChange={(e) => setStopProfit(Math.max(0, parseFloat(e.target.value) || 0))} /></div>
-                </div>
-                <div className="field" style={{ margin: 0, flex: 1 }}>
-                  <label>Stop on Loss</label>
-                  <div className="input-group"><input type="number" value={stopLoss} disabled={autoRunning} onChange={(e) => setStopLoss(Math.max(0, parseFloat(e.target.value) || 0))} /></div>
-                </div>
-              </div>
-              <StatRow k="Session profit" v={`${sessionProfit >= 0 ? '+' : ''}${money(sessionProfit)}`} color={sessionProfit >= 0 ? 'var(--green)' : 'var(--red)'} />
-            </div>
-          )}
+          {mode === 'auto' && <AutoBetFields a={auto} />}
 
           {mode === 'manual' ? (
             <button className="btn green block lg" disabled={rolling || bet <= 0} onClick={playManual}>{rolling ? 'Rolling…' : 'Roll Dice'}</button>
           ) : autoRunning ? (
-            <button className="btn red block lg" onClick={stopAuto}>■ Stop Auto</button>
+            <button className="btn red block lg" onClick={auto.stop}>■ Stop Auto</button>
           ) : (
-            <button className="btn green block lg" disabled={bet <= 0} onClick={startAuto}>▶ Start Auto</button>
+            <button className="btn green block lg" disabled={bet <= 0} onClick={auto.start}>▶ Start Auto</button>
           )}
         </div>
 
