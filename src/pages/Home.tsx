@@ -4,11 +4,13 @@ import { SLOTS } from '../data/slots'
 import { GameCard } from '../components/GameCard'
 import LiveWins from '../components/LiveWins'
 import JackpotBanner from '../components/JackpotBanner'
+import { useRecents } from '../store/recents'
 import { useWallet } from '../store/wallet'
 import { money, compact } from '../lib/format'
 
 export default function Home() {
   const w = useWallet()
+  const recents = useRecents((s) => s.items)
   return (
     <div>
       <section className="hero">
@@ -59,6 +61,19 @@ export default function Home() {
           <div className="num">{money(w.biggestWin)}</div>
         </div>
       </div>
+
+      {recents.length > 0 && (
+        <>
+          <div className="section-head">
+            <h2>🕘 Continue Playing</h2>
+          </div>
+          <div className="grid games">
+            {recents.slice(0, 8).map((r) => (
+              <GameCard key={r.to} to={r.to} name={r.name} emoji={r.emoji} accent={r.accent} />
+            ))}
+          </div>
+        </>
+      )}
 
       <div style={{ marginTop: 26 }}>
         <LiveWins />

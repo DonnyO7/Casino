@@ -1,4 +1,7 @@
+import { useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
+import { findGame } from '../data/games'
+import { useRecents } from '../store/recents'
 import Dice from '../games/Dice'
 import Limbo from '../games/Limbo'
 import Plinko from '../games/Plinko'
@@ -18,6 +21,7 @@ import Scratch from '../games/Scratch'
 import Cases from '../games/Cases'
 import Diamonds from '../games/Diamonds'
 import Gamble from '../games/Gamble'
+import Penalty from '../games/Penalty'
 
 const MAP: Record<string, () => JSX.Element> = {
   dice: Dice,
@@ -39,11 +43,17 @@ const MAP: Record<string, () => JSX.Element> = {
   cases: Cases,
   diamonds: Diamonds,
   gamble: Gamble,
+  penalty: Penalty,
 }
 
 export default function GameRoute() {
   const { slug } = useParams()
+  const add = useRecents((s) => s.add)
   const Comp = slug ? MAP[slug] : undefined
+  useEffect(() => {
+    const g = slug ? findGame(slug) : undefined
+    if (g) add({ to: `/game/${g.slug}`, name: g.name, emoji: g.emoji, accent: g.accent })
+  }, [slug, add])
   if (!Comp) return <Navigate to="/casino" replace />
   return <Comp />
 }
