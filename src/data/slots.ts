@@ -505,6 +505,15 @@ export function findSlot(slug: string): SlotConfig | undefined {
   return SLOTS.find((s) => s.slug === slug)
 }
 
+// Short feature-icon list for lobby cards.
+export function slotFeatures(cfg: SlotConfig): string[] {
+  const f = ['🌈'] // every slot has scatter free spins
+  if (cfg.tumble) f.push('⬇️')
+  if (cfg.expandWilds) f.push('↔️')
+  if (cfg.stickyWilds) f.push('📌')
+  return f
+}
+
 // Compute the auto-scaled payout table so RTP === TARGET_RTP for a
 // 3-independent-reel, 3-of-a-kind-pays model.
 export function scaledPayouts(cfg: SlotConfig): { multipliers: number[]; rtpRaw: number } {

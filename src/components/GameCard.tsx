@@ -9,6 +9,7 @@ export function GameCard({
   emoji,
   accent,
   tag,
+  features,
 }: {
   to: string
   name: string
@@ -16,6 +17,7 @@ export function GameCard({
   emoji: string
   accent: string
   tag?: string
+  features?: string[]
 }) {
   const favs = useFavorites((s) => s.favs)
   const toggle = useFavorites((s) => s.toggle)
@@ -46,6 +48,13 @@ export function GameCard({
       </button>
       {tag && <span className={`chip ${tagClass} tag`}>{tag}</span>}
       <div className="gname">{name}</div>
+      {features && features.length > 0 && (
+        <div style={{ display: 'flex', gap: 4, marginTop: 4 }}>
+          {features.map((f, i) => (
+            <span key={i} style={{ fontSize: 13, background: 'rgba(0,0,0,0.35)', borderRadius: 6, padding: '1px 5px' }}>{f}</span>
+          ))}
+        </div>
+      )}
       {blurb && <div className="gblurb">{blurb}</div>}
     </Link>
   )

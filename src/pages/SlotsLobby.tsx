@@ -1,4 +1,4 @@
-import { SLOTS } from '../data/slots'
+import { SLOTS, slotFeatures } from '../data/slots'
 import { GameCard } from '../components/GameCard'
 
 export default function SlotsLobby() {
@@ -8,9 +8,15 @@ export default function SlotsLobby() {
       <p className="page-sub">
         {SLOTS.length} machines · 5×3 reels · 20 paylines · 🃏 Wilds · 🌈 Scatters → Free Spins · auto-balanced to ~99% RTP
       </p>
+      <div className="flex gap-m wrap" style={{ marginBottom: 18, fontSize: 13, color: 'var(--muted)' }}>
+        <span>🌈 Free Spins</span>
+        <span>⬇️ Tumbling Reels</span>
+        <span>↔️ Expanding Wilds</span>
+        <span>📌 Sticky Wilds</span>
+      </div>
       <div className="grid games">
         {SLOTS.map((s) => (
-          <GameCard key={s.slug} to={`/slot/${s.slug}`} name={s.name} blurb={s.blurb} emoji="🎰" accent={s.accent} tag={s.tag} />
+          <GameCard key={s.slug} to={`/slot/${s.slug}`} name={s.name} blurb={s.blurb} emoji="🎰" accent={s.accent} tag={s.tag} features={slotFeatures(s)} />
         ))}
       </div>
     </div>
