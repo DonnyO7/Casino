@@ -25,7 +25,8 @@ export const useJackpot = create<JackpotState>()(
         const p = 0.00018 * Math.min(6, 1 + bet / 250)
         if (rand() < p) {
           const won = Math.round(get().amount)
-          set({ amount: SEED, lastDrop: { amount: won, time: Date.now() } })
+          // reseed the pot with a fresh random base after each drop
+          set({ amount: SEED + Math.floor(rand() * 50000), lastDrop: { amount: won, time: Date.now() } })
           return won
         }
         return 0

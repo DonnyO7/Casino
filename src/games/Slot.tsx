@@ -227,21 +227,25 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     setLastWin(null)
     clearHi()
 
-    if (buyBonus) {
-      await runFreeSpins(FREE_SPINS_AWARD[3])
-    } else {
-      const target = spinGrid(cfg)
-      await runReelAnim(target)
-      const { board } = await settleSpin(target, false)
-      if (board.freeSpinsAwarded > 0) {
-        await sleep(500)
-        await runFreeSpins(board.freeSpinsAwarded)
+    try {
+      if (buyBonus) {
+        await runFreeSpins(FREE_SPINS_AWARD[3])
+      } else {
+        const target = spinGrid(cfg)
+        await runReelAnim(target)
+        const { board } = await settleSpin(target, false)
+        if (board.freeSpinsAwarded > 0) {
+          await sleep(500)
+          await runFreeSpins(board.freeSpinsAwarded)
+        }
       }
+    } finally {
+      // always release the lock, even if an animation/eval throws
+      busyRef.current = false
+      setBusy(false)
+      setMode('base')
     }
-
-    busyRef.current = false
-    setBusy(false)
-    if (autoRef.current && wallet.balance >= bet) setTimeout(() => doSpin(), 650)
+    if (autoRef.current && useWallet.getState().balance >= bet) setTimeout(() => doSpin(), 650)
   }
 
   function toggleAuto() {

@@ -15,6 +15,7 @@ export default function BigWinOverlay() {
   const [active, setActive] = useState<{ label: string; grad: string; amount: number } | null>(null)
   const [shown, setShown] = useState(0)
   const raf = useRef<number>()
+  const hideTimer = useRef<number>()
 
   useEffect(() => {
     return useFeed.subscribe((s) => {
@@ -35,11 +36,16 @@ export default function BigWinOverlay() {
         if (t < 1) raf.current = requestAnimationFrame(tick)
       }
       raf.current = requestAnimationFrame(tick)
-      setTimeout(() => setActive(null), 2600)
+      // reset any previous hide timer so a fresh win shows the full duration
+      clearTimeout(hideTimer.current)
+      hideTimer.current = window.setTimeout(() => setActive(null), 2600)
     })
   }, [])
 
-  useEffect(() => () => cancelAnimationFrame(raf.current!), [])
+  useEffect(() => () => {
+    cancelAnimationFrame(raf.current!)
+    clearTimeout(hideTimer.current)
+  }, [])
 
   if (!active) return null
   return (

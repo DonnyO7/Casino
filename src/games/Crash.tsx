@@ -33,6 +33,7 @@ export default function Crash() {
   const raf = useRef<number>()
   const crashRef = useRef(1)
   const cashedRef = useRef<number | null>(null)
+  const runningRef = useRef(false)
 
   useEffect(() => () => cancelAnimationFrame(raf.current!), [])
 
@@ -43,6 +44,7 @@ export default function Crash() {
     const crash = Math.max(1, Math.floor((1 / (1 - u)) * 100) / 100) // P(>=m)=1/m
     crashRef.current = crash
     cashedRef.current = null
+    runningRef.current = true
     setCashedAt(null)
     setCur(1)
     setBots(Array.from({ length: randInt(5, 9) }, () => ({ name: pick(BOT_NAMES), bet: pick([5, 10, 25, 50, 100, 250, 500]), target: fairTarget() })))
@@ -58,6 +60,7 @@ export default function Crash() {
         return
       }
       if (m >= crash) {
+        runningRef.current = false
         setCur(crash)
         setPhase((p) => (cashedRef.current === null ? 'crashed' : p))
         if (cashedRef.current === null) wallet.payout('Crash', bet, 0)
@@ -71,9 +74,11 @@ export default function Crash() {
   }
 
   function doCash(at?: number) {
-    if (phase !== 'running' || cashedRef.current !== null) return
+    if (!runningRef.current || cashedRef.current !== null) return
+    runningRef.current = false
     cancelAnimationFrame(raf.current!)
-    const m = at ?? cur
+    // clamp manual cashout to the crash point so a same-frame click can't overpay
+    const m = Math.min(at ?? cur, crashRef.current)
     cashedRef.current = m
     setCashedAt(m)
     setCur(m)
