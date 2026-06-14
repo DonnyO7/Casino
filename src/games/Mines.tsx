@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { shuffle } from '../lib/rng'
+import { sound } from '../lib/sound'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
 import { money, mult } from '../lib/format'
@@ -53,6 +54,7 @@ export default function Mines() {
     const next = revealed.slice()
     next[i] = true
     setRevealed(next)
+    sound.coin()
     const newPicks = next.filter(Boolean).length
     if (newPicks === SIZE - mines) {
       // cleared the whole board

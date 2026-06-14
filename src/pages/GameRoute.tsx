@@ -22,6 +22,7 @@ import Cases from '../games/Cases'
 import Diamonds from '../games/Diamonds'
 import Gamble from '../games/Gamble'
 import Penalty from '../games/Penalty'
+import AndarBahar from '../games/AndarBahar'
 
 const MAP: Record<string, () => JSX.Element> = {
   dice: Dice,
@@ -44,6 +45,7 @@ const MAP: Record<string, () => JSX.Element> = {
   diamonds: Diamonds,
   gamble: Gamble,
   penalty: Penalty,
+  andarbahar: AndarBahar,
 }
 
 export default function GameRoute() {

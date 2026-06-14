@@ -5,12 +5,19 @@ import { GameCard } from '../components/GameCard'
 import LiveWins from '../components/LiveWins'
 import JackpotBanner from '../components/JackpotBanner'
 import { useRecents } from '../store/recents'
+import { useFavorites } from '../store/favorites'
 import { useWallet } from '../store/wallet'
 import { money, compact } from '../lib/format'
 
 export default function Home() {
   const w = useWallet()
   const recents = useRecents((s) => s.items)
+  const favs = useFavorites((s) => s.favs)
+  const allItems = [
+    ...ORIGINALS.map((g) => ({ to: `/game/${g.slug}`, name: g.name, emoji: g.emoji, accent: g.accent })),
+    ...SLOTS.map((s) => ({ to: `/slot/${s.slug}`, name: s.name, emoji: '🎰', accent: s.accent })),
+  ]
+  const favItems = favs.map((to) => allItems.find((i) => i.to === to)).filter(Boolean) as typeof allItems
   return (
     <div>
       <section className="hero">
@@ -61,6 +68,19 @@ export default function Home() {
           <div className="num">{money(w.biggestWin)}</div>
         </div>
       </div>
+
+      {favItems.length > 0 && (
+        <>
+          <div className="section-head">
+            <h2>★ Your Favourites</h2>
+          </div>
+          <div className="grid games">
+            {favItems.slice(0, 8).map((r) => (
+              <GameCard key={r.to} to={r.to} name={r.name} emoji={r.emoji} accent={r.accent} />
+            ))}
+          </div>
+        </>
+      )}
 
       {recents.length > 0 && (
         <>

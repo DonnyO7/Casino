@@ -3,13 +3,15 @@ import { useSearchParams } from 'react-router-dom'
 import { ORIGINALS } from '../data/games'
 import { SLOTS } from '../data/slots'
 import { GameCard } from '../components/GameCard'
+import { useFavorites } from '../store/favorites'
 
 type Item = { to: string; name: string; blurb: string; emoji: string; accent: string; tag?: string; cat: string }
 
 export default function Casino() {
   const [params] = useSearchParams()
   const [q, setQ] = useState(params.get('q') || '')
-  const [filter, setFilter] = useState<'all' | 'originals' | 'table' | 'slots'>('all')
+  const [filter, setFilter] = useState<'all' | 'favorites' | 'originals' | 'table' | 'slots'>('all')
+  const favs = useFavorites((s) => s.favs)
 
   const all: Item[] = useMemo(() => {
     const games = ORIGINALS.map((g) => ({
@@ -34,13 +36,16 @@ export default function Casino() {
   }, [])
 
   const shown = all.filter((it) => {
-    if (filter !== 'all' && it.cat !== filter) return false
+    if (filter === 'favorites') {
+      if (!favs.includes(it.to)) return false
+    } else if (filter !== 'all' && it.cat !== filter) return false
     if (q && !it.name.toLowerCase().includes(q.toLowerCase())) return false
     return true
   })
 
   const tabs: { key: typeof filter; label: string }[] = [
     { key: 'all', label: 'All' },
+    { key: 'favorites', label: '★ Favourites' },
     { key: 'originals', label: 'Originals' },
     { key: 'table', label: 'Table' },
     { key: 'slots', label: 'Slots' },

@@ -28,6 +28,7 @@ export const ORIGINALS: GameMeta[] = [
   { slug: 'roulette', name: 'Roulette', category: 'table', accent: '#ff5c5c,#5c8aff', emoji: '🎯', blurb: 'European single-zero roulette.' },
   { slug: 'blackjack', name: 'Blackjack', category: 'table', tag: 'HOT', accent: '#5cffb1,#5c8aff', emoji: '♠️', blurb: 'Hit, stand, double — beat the dealer to 21.' },
   { slug: 'baccarat', name: 'Baccarat', category: 'table', accent: '#b15cff,#ff5c8a', emoji: '🀄', blurb: 'Player, Banker or Tie. The high-roller classic.' },
+  { slug: 'andarbahar', name: 'Andar Bahar', category: 'table', accent: '#ff7a52,#5c8aff', emoji: '🎴', blurb: 'Andar or Bahar — which side matches first?' },
   { slug: 'videopoker', name: 'Video Poker', category: 'table', accent: '#23e0c8,#7c5cff', emoji: '🂡', blurb: 'Jacks or Better. Hold and draw for the win.' },
 ]
 

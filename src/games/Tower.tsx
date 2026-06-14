@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { shuffle } from '../lib/rng'
+import { sound } from '../lib/sound'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
 import { money, mult } from '../lib/format'
@@ -60,6 +61,7 @@ export default function Tower() {
       setActiveRow(-2) // won
       return
     }
+    sound.coin()
     setActiveRow(row - 1)
   }
 
