@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// During `vite build` we serve from the GitHub Pages project path
-// (https://<user>.github.io/casino/). Dev/preview stay at root.
+// Use relative asset paths in the production build so the site works under any
+// GitHub Pages project path (e.g. /Casino/) regardless of casing. HashRouter
+// keeps all app routing in the URL hash, so relative paths are safe.
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/casino/' : '/',
+  base: command === 'build' ? './' : '/',
   plugins: [react()],
   server: {
     host: true,
