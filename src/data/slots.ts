@@ -22,6 +22,7 @@ export interface SlotConfig {
   tag?: string
   tumble?: boolean // cascading reels: wins explode and new symbols drop in
   expandWilds?: boolean // in free spins, a wild expands to fill its reel
+  stickyWilds?: boolean // in free spins, wilds lock in place for the round
   symbols: SlotSymbol[]
 }
 
@@ -155,6 +156,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'frost-bite',
+    stickyWilds: true,
     name: 'Frost Bite',
     blurb: 'Icy reels with avalanche-sized payouts.',
     accent: '#5c8aff,#5cffe0',
@@ -226,6 +228,7 @@ export const SLOTS: SlotConfig[] = [
   },
   {
     slug: 'diamond-vault',
+    stickyWilds: true,
     name: 'Diamond Vault',
     blurb: 'Crack the vault for the high-roller jackpot.',
     accent: '#5cffe0,#5c8aff',

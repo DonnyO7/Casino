@@ -175,6 +175,19 @@ function collapse(cfg: SlotConfig, grid: Grid, winCells: [number, number][]): Gr
   })
 }
 
+// Force given positions to wild, then absorb any wilds on the grid into the set
+// (mutates `sticky`). Returns the resulting grid. Used for sticky-wild free spins.
+export function applySticky(grid: Grid, sticky: Set<string>): Grid {
+  const g = grid.map((c) => c.slice())
+  for (const p of sticky) {
+    const [r, o] = p.split('-').map(Number)
+    g[r][o] = WILD
+  }
+  for (let r = 0; r < REELS; r++)
+    for (let o = 0; o < ROWS; o++) if (g[r][o] === WILD) sticky.add(`${r}-${o}`)
+  return g
+}
+
 // Expanding wilds: a wild on one of the middle reels (1–3) fills that reel.
 // Restricted to the centre reels so it boosts free spins without dominating
 // the whole RTP (keeps the base game rewarding).
@@ -257,10 +270,12 @@ function roundRaw(cfg: SlotConfig): number {
   if (board.freeSpinsAwarded > 0) {
     let left = board.freeSpinsAwarded
     let used = 0
+    const sticky = new Set<string>()
     while (left > 0 && used < MAX_FREE) {
       left--
       used++
       let fg = spinGrid(cfg)
+      if (cfg.stickyWilds) fg = applySticky(fg, sticky)
       if (cfg.expandWilds) fg = expandReels(fg)
       const fb = resolveBoard(cfg, fg)
       const base = fb.rawLine + fb.rawScatter
@@ -277,7 +292,7 @@ function roundRaw(cfg: SlotConfig): number {
 export function getScale(cfg: SlotConfig): number {
   const hit = scaleCache.get(cfg.slug)
   if (hit !== undefined) return hit
-  const N = cfg.tumble ? 16000 : cfg.expandWilds ? 26000 : 22000
+  const N = cfg.tumble ? 16000 : cfg.expandWilds ? 26000 : cfg.stickyWilds ? 24000 : 22000
   let sum = 0
   for (let i = 0; i < N; i++) sum += roundRaw(cfg)
   const rawRTP = sum / N || 1
@@ -299,10 +314,12 @@ export function bonusRawEV(cfg: SlotConfig, startSpins = FREE_SPINS_AWARD[3]): n
     let left = startSpins
     let used = 0
     let acc = 0
+    const sticky = new Set<string>()
     while (left > 0 && used < MAX_FREE) {
       left--
       used++
       let fg = spinGrid(cfg)
+      if (cfg.stickyWilds) fg = applySticky(fg, sticky)
       if (cfg.expandWilds) fg = expandReels(fg)
       const r = resolveBoard(cfg, fg)
       const base = r.rawLine + r.rawScatter

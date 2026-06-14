@@ -41,6 +41,15 @@ export default function Settings() {
             onMouseUp={() => sound.coin()}
           />
         </div>
+        <div className="flex between center" style={{ marginTop: 12 }}>
+          <div>
+            <div>Ambient music</div>
+            <div className="muted" style={{ fontSize: 13 }}>A gentle generative background pad.</div>
+          </div>
+          <button className={'btn ' + (s.music ? 'green' : 'ghost')} onClick={() => s.setMusic(!s.music)}>
+            {s.music ? 'On' : 'Off'}
+          </button>
+        </div>
       </div>
 
       <div className="panel" style={{ marginBottom: 16 }}>

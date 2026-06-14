@@ -16,6 +16,7 @@ import {
   spinGrid,
   resolveBoard,
   expandReels,
+  applySticky,
   freeSpinMult,
   getScale,
   payTable,
@@ -160,7 +161,9 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
         ? `🌈 ${award} FREE SPINS — multiplier orbs active!`
         : cfg.expandWilds
           ? `🌈 ${award} FREE SPINS — expanding wilds!`
-          : `🌈 ${award} FREE SPINS — all wins ×${FS_MULT}!`,
+          : cfg.stickyWilds
+            ? `🌈 ${award} FREE SPINS — sticky wilds!`
+            : `🌈 ${award} FREE SPINS — all wins ×${FS_MULT}!`,
     )
     sound.jackpot()
     fireConfetti({ count: 200, power: 15 })
@@ -171,16 +174,17 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
     let left = award
     let total = award
     let used = 0
+    const sticky = new Set<string>()
     while (left > 0 && used < MAX_FREE) {
       left--
       used++
       setFreeLeft(left)
-      const raw = spinGrid(cfg)
-      await runReelAnim(raw)
-      let target = raw
+      let target = spinGrid(cfg)
+      if (cfg.stickyWilds) target = applySticky(target, sticky)
+      await runReelAnim(target)
       if (cfg.expandWilds) {
-        const expanded = expandReels(raw)
-        if (JSON.stringify(expanded) !== JSON.stringify(raw)) {
+        const expanded = expandReels(target)
+        if (JSON.stringify(expanded) !== JSON.stringify(target)) {
           target = expanded
           setGrid(expanded)
           sound.cashout()
@@ -453,7 +457,7 @@ export default function Slot({ cfg }: { cfg: SlotConfig }) {
             ))}
           </div>
           <div className="muted" style={{ marginTop: 12, fontSize: 12 }}>
-            20 paylines · {WILD} Wild · {SCATTER}×3 = Free Spins{cfg.tumble ? ' · ⬇️ Tumbling Reels' : ''}{cfg.expandWilds ? ' · ↔️ Expanding Wilds' : ''} · ~{(TARGET_RTP * 100).toFixed(0)}% RTP
+            20 paylines · {WILD} Wild · {SCATTER}×3 = Free Spins{cfg.tumble ? ' · ⬇️ Tumbling Reels' : ''}{cfg.expandWilds ? ' · ↔️ Expanding Wilds' : ''}{cfg.stickyWilds ? ' · 📌 Sticky Wilds' : ''} · ~{(TARGET_RTP * 100).toFixed(0)}% RTP
           </div>
         </div>
       </div>

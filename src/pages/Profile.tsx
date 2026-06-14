@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useWallet, xpForLevel } from '../store/wallet'
 import { money, compact } from '../lib/format'
+import ProfitChart from '../components/ProfitChart'
 
 export default function Profile() {
   const w = useWallet()
@@ -30,6 +31,9 @@ export default function Profile() {
         <div className="stat-card"><div className="label">Total Bets</div><div className="num">{w.totalBets}</div></div>
         <div className="stat-card"><div className="label">Biggest Win</div><div className="num">{money(w.biggestWin)}</div></div>
       </div>
+
+      <div className="section-head"><h2>📈 Profit curve</h2></div>
+      <div className="panel"><ProfitChart history={w.history} /></div>
 
       <div className="section-head"><h2>Per-game breakdown</h2></div>
       <div className="panel" style={{ padding: 0, overflow: 'hidden' }}>
