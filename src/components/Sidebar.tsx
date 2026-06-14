@@ -35,7 +35,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <NavLink to="/" className="brand">
-        <img className="logo" src="/favicon.svg" alt="" />
+        <img className="logo" src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
         <span>
           <span className="grad">NOVA</span> Casino
         </span>
