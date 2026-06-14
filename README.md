@@ -20,32 +20,36 @@ All randomness comes from the browser's cryptographic RNG
 
 ## What's inside
 
-**30+ games across three categories:**
+**50+ games across three categories:**
 
-- **Originals** — Dice, Limbo, Plinko, Crash (multiplayer-style), Mines, Keno,
-  Wheel, Hi-Lo, Dragon Tower, Coin Flip, Mystery Cases, Sic Bo, Scratch Cards,
-  Diamonds
+- **Originals** — Dice & Limbo (with Stake-style **auto-bet**), Plinko, Crash
+  (multiplayer-style with live bot bettors), Mines, Keno, Wheel, Hi-Lo, Dragon
+  Tower, Coin Flip (auto-bet), Mystery Cases, Sic Bo, Scratch Cards, Diamonds,
+  Gamble (double-or-nothing ladder), Penalty Shootout, Rock Paper Scissors,
+  Horse Racing
 - **Table games** — Roulette (single-zero, fair payouts), Blackjack, Baccarat,
-  Video Poker (Jacks or Better)
-- **18 video slots** — 5×3 reels, 20 paylines, 🃏 Wilds, 🌈 Scatter → **Free
-  Spins**, with **cascading/tumbling reels** + **multiplier orbs** on several
-  machines, and a fair "Buy Bonus". One engine Monte-Carlo-calibrates every
-  machine to ~99% RTP — even with wilds, scatters, free spins and cascades.
+  Video Poker (Jacks or Better), Andar Bahar
+- **28 video slots** — 5×3 reels, 20 paylines, 🃏 Wilds, 🌈 Scatter → **Free
+  Spins**, with **tumbling reels**, **multiplier orbs**, **expanding wilds** and
+  **sticky wilds** across different machines, plus a fairly-priced "Buy Bonus".
+  One engine Monte-Carlo-calibrates every machine to ~99% RTP — even with all
+  those mechanics in the mix.
 
 **Meta & juice:**
 
 - **Progressive jackpot** that ticks live and drops randomly to a lucky player
   (house-funded, never touches your odds)
 - **18 achievements** with unlock banners + a completion page
-- **Daily reward wheel** (free chips every 24h) and daily/bonus promotions
+- **Daily wager race** (tournament with prize pool) and a **daily reward wheel**
 - **Big Win** celebration overlay (Big → Mega → Epic → Legendary), confetti,
-  screen flashes, synth sound engine, animated counters, live wins feed
-- VIP tier/level system, leaderboard, wallet + bet history, stats dashboard,
-  an **interactive provably-fair verifier**, and a **Settings** page (volume,
-  reduced motion, reset)
+  screen flashes, generative ambient music + synth SFX, animated counters,
+  live wins feed, favourites & recently-played, accent themes
+- VIP tier/level system, leaderboard, wallet + bet history, stats dashboard with
+  a profit chart, an **interactive provably-fair verifier**, and a **Settings**
+  page (volume, music, reduced motion, accent theme, reset)
 
-Your balance, level, XP, achievements, jackpot and bet history persist in
-`localStorage`.
+Your balance, level, XP, achievements, jackpot, favourites and bet history
+persist in `localStorage`.
 
 ## Run it
 

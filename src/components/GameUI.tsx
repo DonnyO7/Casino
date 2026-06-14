@@ -26,7 +26,9 @@ export function GameShell({
             {name}
           </h1>
         </div>
-        <div className="fair-banner">🛡️ Provably fair · No house edge{rtp ? ` · RTP ${rtp}` : ''}</div>
+        <Link to="/fairness" className="fair-banner" style={{ textDecoration: 'none' }} title="How fairness works">
+          🛡️ Provably fair · No house edge{rtp ? ` · RTP ${rtp}` : ''} ›
+        </Link>
       </div>
       {children}
     </div>
