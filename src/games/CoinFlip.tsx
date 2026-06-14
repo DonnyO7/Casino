@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { rand } from '../lib/rng'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
+import { useAutoBet, AutoBetFields } from '../components/AutoBet'
 import { money } from '../lib/format'
 
 export default function CoinFlip() {
@@ -11,6 +12,19 @@ export default function CoinFlip() {
   const [face, setFace] = useState<'heads' | 'tails'>('heads')
   const [won, setWon] = useState<boolean | null>(null)
   const [flipping, setFlipping] = useState(false)
+  const [mode, setMode] = useState<'manual' | 'auto'>('manual')
+
+  // instant flip for auto mode; returns net profit
+  function flipOnce(curBet: number): number {
+    if (!wallet.placeBet(curBet)) return 0
+    const result: 'heads' | 'tails' = rand() < 0.5 ? 'heads' : 'tails'
+    const win = result === pick
+    setFace(result)
+    setWon(win)
+    wallet.payout('Coin Flip', curBet, win ? 2 : 0)
+    return win ? curBet : -curBet
+  }
+  const auto = useAutoBet(flipOnce, () => bet)
 
   function play() {
     if (flipping) return
@@ -37,12 +51,16 @@ export default function CoinFlip() {
     <GameShell name="Coin Flip" emoji="🪙" rtp="100%">
       <div className="game-wrap">
         <div className="bet-panel">
-          <BetAmount bet={bet} setBet={setBet} disabled={flipping} />
           <div className="toggle">
-            <button className={pick === 'heads' ? 'on' : ''} onClick={() => setPick('heads')}>
+            <button className={mode === 'manual' ? 'on' : ''} disabled={auto.running} onClick={() => setMode('manual')}>Manual</button>
+            <button className={mode === 'auto' ? 'on' : ''} disabled={auto.running} onClick={() => setMode('auto')}>Auto</button>
+          </div>
+          <BetAmount bet={bet} setBet={setBet} disabled={flipping || auto.running} />
+          <div className="toggle">
+            <button className={pick === 'heads' ? 'on' : ''} disabled={auto.running} onClick={() => setPick('heads')}>
               👑 Heads
             </button>
-            <button className={pick === 'tails' ? 'on' : ''} onClick={() => setPick('tails')}>
+            <button className={pick === 'tails' ? 'on' : ''} disabled={auto.running} onClick={() => setPick('tails')}>
               🪶 Tails
             </button>
           </div>
@@ -51,9 +69,16 @@ export default function CoinFlip() {
             <StatRow k="Win chance" v="50.00%" />
             <StatRow k="Profit on win" v={money(bet)} color="var(--green)" />
           </div>
-          <button className="btn green block lg" disabled={flipping || bet <= 0} onClick={play}>
-            {flipping ? 'Flipping…' : 'Flip Coin'}
-          </button>
+          {mode === 'auto' && <AutoBetFields a={auto} />}
+          {mode === 'manual' ? (
+            <button className="btn green block lg" disabled={flipping || bet <= 0} onClick={play}>
+              {flipping ? 'Flipping…' : 'Flip Coin'}
+            </button>
+          ) : auto.running ? (
+            <button className="btn red block lg" onClick={auto.stop}>■ Stop Auto</button>
+          ) : (
+            <button className="btn green block lg" disabled={bet <= 0} onClick={auto.start}>▶ Start Auto</button>
+          )}
         </div>
 
         <div className="stage" style={{ alignItems: 'center', justifyContent: 'center' }}>

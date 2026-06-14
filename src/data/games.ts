@@ -26,6 +26,7 @@ export const ORIGINALS: GameMeta[] = [
   { slug: 'gamble', name: 'Gamble', category: 'originals', accent: '#ff5470,#1c2536', emoji: '🎴', blurb: 'Double-or-nothing colour ladder up to 1024×.' },
   { slug: 'penalty', name: 'Penalty Shootout', category: 'originals', accent: '#2fd47a,#5c8aff', emoji: '⚽', blurb: 'Pick a corner and beat the keeper.' },
   { slug: 'rps', name: 'Rock Paper Scissors', category: 'originals', accent: '#ffb15c,#b15cff', emoji: '✊', blurb: 'Best the CPU — win 2×, tie pushes.' },
+  { slug: 'horse', name: 'Horse Racing', category: 'originals', accent: '#2fd47a,#ffd15c', emoji: '🐎', blurb: 'Back a horse at true 5× odds.' },
   { slug: 'roulette', name: 'Roulette', category: 'table', accent: '#ff5c5c,#5c8aff', emoji: '🎯', blurb: 'European single-zero roulette.' },
   { slug: 'blackjack', name: 'Blackjack', category: 'table', tag: 'HOT', accent: '#5cffb1,#5c8aff', emoji: '♠️', blurb: 'Hit, stand, double — beat the dealer to 21.' },
   { slug: 'baccarat', name: 'Baccarat', category: 'table', accent: '#b15cff,#ff5c8a', emoji: '🀄', blurb: 'Player, Banker or Tie. The high-roller classic.' },
