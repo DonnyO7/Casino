@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { rand } from '../lib/rng'
 import { useWallet } from '../store/wallet'
 import { GameShell, BetAmount, StatRow } from '../components/GameUI'
+import { useAutoBet, AutoBetFields } from '../components/AutoBet'
 import { money, mult } from '../lib/format'
 
 export default function Limbo() {
@@ -11,10 +12,26 @@ export default function Limbo() {
   const [result, setResult] = useState<number | null>(null)
   const [won, setWon] = useState<boolean | null>(null)
   const [rolling, setRolling] = useState(false)
+  const [mode, setMode] = useState<'manual' | 'auto'>('manual')
 
   // Fair crash point: with prob 1/x the result is >= x. EV neutral when
   // payout == target. P(win) = 1/target.
   const winChance = (100 / target).toFixed(2)
+
+  // one instant bet for auto mode; returns net profit
+  function rollOnce(curBet: number): number {
+    if (target < 1.01) return 0
+    if (!wallet.placeBet(curBet)) return 0
+    const u = rand()
+    const crash = Math.max(1, Math.floor((1 / (1 - u)) * 100) / 100)
+    const win = crash >= target
+    setResult(crash)
+    setWon(win)
+    wallet.payout('Limbo', curBet, win ? target : 0)
+    return win ? curBet * target - curBet : -curBet
+  }
+
+  const auto = useAutoBet(rollOnce, () => bet)
 
   function play() {
     if (rolling) return
@@ -49,7 +66,12 @@ export default function Limbo() {
     <GameShell name="Limbo" emoji="🚀" rtp="100%">
       <div className="game-wrap">
         <div className="bet-panel">
-          <BetAmount bet={bet} setBet={setBet} disabled={rolling} />
+          <div className="toggle">
+            <button className={mode === 'manual' ? 'on' : ''} disabled={auto.running} onClick={() => setMode('manual')}>Manual</button>
+            <button className={mode === 'auto' ? 'on' : ''} disabled={auto.running} onClick={() => setMode('auto')}>Auto</button>
+          </div>
+
+          <BetAmount bet={bet} setBet={setBet} disabled={rolling || auto.running} />
 
           <div className="field">
             <label>Target Multiplier</label>
@@ -59,14 +81,14 @@ export default function Limbo() {
                 step={0.01}
                 min={1.01}
                 value={target}
-                disabled={rolling}
+                disabled={rolling || auto.running}
                 onChange={(e) => setTarget(Math.max(1.01, parseFloat(e.target.value) || 1.01))}
               />
               <div className="adorn">
-                <button className="mini" disabled={rolling} onClick={() => setTarget((t) => Math.max(1.01, +(t / 2).toFixed(2)))}>
+                <button className="mini" disabled={rolling || auto.running} onClick={() => setTarget((t) => Math.max(1.01, +(t / 2).toFixed(2)))}>
                   ½
                 </button>
-                <button className="mini" disabled={rolling} onClick={() => setTarget((t) => +(t * 2).toFixed(2))}>
+                <button className="mini" disabled={rolling || auto.running} onClick={() => setTarget((t) => +(t * 2).toFixed(2))}>
                   2×
                 </button>
               </div>
@@ -79,9 +101,17 @@ export default function Limbo() {
             <StatRow k="Profit on win" v={money(bet * target - bet)} color="var(--green)" />
           </div>
 
-          <button className="btn green block lg" disabled={rolling || bet <= 0} onClick={play}>
-            {rolling ? 'Launching…' : 'Bet'}
-          </button>
+          {mode === 'auto' && <AutoBetFields a={auto} />}
+
+          {mode === 'manual' ? (
+            <button className="btn green block lg" disabled={rolling || bet <= 0} onClick={play}>
+              {rolling ? 'Launching…' : 'Bet'}
+            </button>
+          ) : auto.running ? (
+            <button className="btn red block lg" onClick={auto.stop}>■ Stop Auto</button>
+          ) : (
+            <button className="btn green block lg" disabled={bet <= 0} onClick={auto.start}>▶ Start Auto</button>
+          )}
         </div>
 
         <div className="stage" style={{ alignItems: 'center', justifyContent: 'center' }}>
