@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maxrema — Automobilių dalys lengviesiems automobiliams | Klaipėda</title>
+<meta name="description" content="Maxrema, MB — patikimas automobilių dalių tiekėjas Klaipėdos regione. Greitai randame ir pristatome kokybiškas detales lengviesiems automobiliams visoje Lietuvoje." />
+<meta name="theme-color" content="#0b0c10" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Maxrema — Automobilių dalys" />
+<meta property="og:description" content="Kokybiškos automobilių dalys lengviesiems automobiliams. Greita paieška, konsultacija ir pristatymas visoje Lietuvoje." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1200&q=80" />
+<link rel="icon" href="data:," />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block" />
+<style>
+  :root{
+    --bg:#0a0b0e; --bg-2:#0e1015; --surface:#131620; --surface-2:#181c28;
+    --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.14);
+    --text:#f3f5fa; --muted:#9aa3b4; --muted-2:#6b7280;
+    --brand:#e11d2a; --brand-2:#ff4332; --brand-soft:rgba(225,29,42,.14);
+    --gold:#f5b13d;
+    --radius:18px; --radius-sm:12px;
+    --maxw:1200px;
+    --shadow:0 24px 60px -24px rgba(0,0,0,.7);
+    --grad-brand:linear-gradient(135deg,#ff4332 0%,#e11d2a 55%,#a60f1a 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:90px;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.display{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;line-height:1.08;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  section{position:relative}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .msi{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;line-height:1;
+    letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;
+    -webkit-font-feature-settings:'liga';font-feature-settings:'liga'}
+
+  /* ---------- scroll progress ---------- */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:120;background:var(--grad-brand);box-shadow:0 0 12px rgba(225,29,42,.6)}
+
+  /* ---------- top bar ---------- */
+  .topbar{background:#070809;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:42px;gap:18px}
+  .topbar a{color:var(--muted);transition:color .2s}
+  .topbar a:hover{color:#fff}
+  .topbar .ti{display:inline-flex;align-items:center;gap:7px}
+  .topbar .msi{font-size:17px;color:var(--brand-2)}
+  .topbar .right{display:flex;gap:22px;align-items:center}
+  @media(max-width:860px){.topbar{display:none}}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:100;transition:background .3s,border-color .3s,box-shadow .3s;
+    background:rgba(10,11,14,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent}
+  header.scrolled{background:rgba(9,10,13,.92);border-bottom-color:var(--line);box-shadow:0 10px 30px -20px rgba(0,0,0,.9)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:700;font-size:21px;letter-spacing:.04em}
+  .logo .mark{width:38px;height:38px;border-radius:11px;background:var(--grad-brand);display:grid;place-items:center;
+    box-shadow:0 6px 18px -6px rgba(225,29,42,.7);position:relative}
+  .logo .mark .msi{font-size:22px;color:#fff}
+  .logo b{font-weight:700}
+  .logo .dot{color:var(--brand-2)}
+  .navlinks{display:flex;align-items:center;gap:6px}
+  .navlinks a{padding:9px 14px;border-radius:10px;font-size:14.5px;font-weight:500;color:var(--muted);transition:.2s}
+  .navlinks a:hover{color:#fff;background:rgba(255,255,255,.05)}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;margin-left:8px;padding:11px 18px !important;
+    background:var(--grad-brand);color:#fff !important;border-radius:11px;font-weight:600 !important;
+    box-shadow:0 10px 24px -10px rgba(225,29,42,.8)}
+  .nav-cta:hover{background:var(--grad-brand) !important;filter:brightness(1.08);transform:translateY(-1px)}
+  .nav-overlay{position:fixed;inset:0;background:rgba(4,5,7,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+    opacity:0;pointer-events:none;transition:opacity .35s;z-index:98}
+  .nav-overlay.open{opacity:1;pointer-events:auto}
+  .burger{display:none;background:none;border:1px solid var(--line-2);color:#fff;width:46px;height:46px;border-radius:12px;cursor:pointer}
+  .burger .msi{font-size:26px}
+  @media(max-width:920px){
+    header,header.scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(9,10,13,.94)}
+    .navlinks{position:fixed;inset:0 0 0 auto;width:min(82vw,340px);flex-direction:column;align-items:stretch;
+      background:#0b0d12;border-left:1px solid var(--line-2);padding:96px 22px 30px;gap:6px;transform:translateX(100%);
+      transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:99;box-shadow:-30px 0 60px -20px rgba(0,0,0,.8)}
+    .navlinks.open{transform:translateX(0)}
+    .navlinks a{padding:14px 16px;font-size:16px;border-radius:12px}
+    .nav-cta{margin:14px 0 0;justify-content:center}
+    .burger{display:grid;place-items:center;z-index:101}
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;padding:14px 24px;border-radius:13px;
+    cursor:pointer;border:1px solid transparent;transition:.22s;white-space:nowrap}
+  .btn .msi{font-size:20px}
+  .btn-primary{background:var(--grad-brand);color:#fff;box-shadow:0 14px 30px -12px rgba(225,29,42,.8)}
+  .btn-primary:hover{transform:translateY(-2px);filter:brightness(1.07);box-shadow:0 18px 40px -12px rgba(225,29,42,.9)}
+  .btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line-2);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
+  /* ---------- section heading ---------- */
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--brand-2)}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--brand);border-radius:2px}
+  .eyebrow.center::after{content:"";width:26px;height:2px;background:var(--brand);border-radius:2px}
+  .shead{max-width:680px}
+  .shead.center{margin:0 auto;text-align:center}
+  .shead h2{font-size:clamp(28px,4.4vw,46px);margin:18px 0 16px}
+  .shead p{color:var(--muted);font-size:17px}
+  .pad{padding:clamp(72px,10vw,120px) 0}
+
+  /* ---------- hero ---------- */
+  .hero{min-height:100svh;display:flex;align-items:center;padding-top:40px;
+    background:
+      radial-gradient(1100px 520px at 78% 18%,rgba(225,29,42,.22),transparent 60%),
+      linear-gradient(100deg,rgba(8,9,12,.96) 0%,rgba(8,9,12,.82) 42%,rgba(8,9,12,.5) 100%),
+      url('https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;width:100%}
+  .hero .pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.06);border:1px solid var(--line-2);
+    padding:8px 15px;border-radius:100px;font-size:13.5px;font-weight:500;color:#e7eaf0;margin-bottom:26px;backdrop-filter:blur(6px)}
+  .hero .pill .msi{font-size:18px;color:var(--brand-2)}
+  .hero h1{font-size:clamp(38px,6vw,70px)}
+  .hero h1 .accent{background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{font-size:clamp(16px,2vw,19.5px);color:#c4cad6;max-width:560px;margin:24px 0 34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:42px;padding-top:30px;border-top:1px solid var(--line)}
+  .hero-trust .t{display:flex;align-items:center;gap:11px;font-size:14px;color:#cfd5e0}
+  .hero-trust .t .msi{font-size:24px;color:var(--brand-2)}
+  .hero-trust .t b{display:block;font-family:'Space Grotesk';font-size:16px;color:#fff;line-height:1.2}
+  .hero-trust .t span{font-size:12.5px;color:var(--muted)}
+  /* hero side card */
+  .hero-card{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line-2);box-shadow:var(--shadow);
+    aspect-ratio:4/4.4;background:#11141c}
+  .hero-card img{width:100%;height:100%;object-fit:cover}
+  .hero-card .glass{position:absolute;left:16px;right:16px;bottom:16px;background:rgba(10,11,14,.62);backdrop-filter:blur(12px);
+    border:1px solid var(--line-2);border-radius:15px;padding:16px 18px;display:flex;align-items:center;gap:14px}
+  .hero-card .glass .ic{width:46px;height:46px;border-radius:12px;background:var(--grad-brand);display:grid;place-items:center;flex:0 0 auto}
+  .hero-card .glass .ic .msi{color:#fff;font-size:24px}
+  .hero-card .glass b{font-family:'Space Grotesk';font-size:16px}
+  .hero-card .glass span{font-size:13px;color:var(--muted)}
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:38px}
+    .hero-card{display:none}
+    .hero{min-height:auto;padding:120px 0 80px}
+  }
+
+  /* ---------- brand marquee ---------- */
+  .marquee-sec{background:var(--bg-2);border-bottom:1px solid var(--line);padding:30px 0}
+  .marquee-lab{text-align:center;color:var(--muted-2);font-size:12.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px}
+  .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+  .marquee-track{display:flex;gap:54px;width:max-content;animation:scroll 34s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track span{font-family:'Space Grotesk';font-weight:600;font-size:23px;color:#7d8597;white-space:nowrap;transition:color .2s}
+  .marquee-track span:hover{color:#fff}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center}
+  .about-media{position:relative}
+  .about-media .main{border-radius:20px;overflow:hidden;border:1px solid var(--line);aspect-ratio:5/5.6;box-shadow:var(--shadow)}
+  .about-media .main img{width:100%;height:100%;object-fit:cover}
+  .about-media .badge{position:absolute;right:-18px;bottom:28px;background:var(--surface);border:1px solid var(--line-2);
+    border-radius:16px;padding:18px 22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px}
+  .about-media .badge .n{font-family:'Space Grotesk';font-size:34px;font-weight:700;background:var(--grad-brand);
+    -webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .about-media .badge small{display:block;color:var(--muted);font-size:12.5px;max-width:120px}
+  .feat-list{display:grid;gap:16px;margin-top:30px}
+  .feat-list li{list-style:none;display:flex;gap:14px;align-items:flex-start}
+  .feat-list .ic{width:42px;height:42px;flex:0 0 auto;border-radius:11px;background:var(--brand-soft);
+    border:1px solid rgba(225,29,42,.25);display:grid;place-items:center}
+  .feat-list .ic .msi{color:var(--brand-2);font-size:22px}
+  .feat-list b{font-family:'Space Grotesk';font-size:15.5px;font-weight:600}
+  .feat-list p{color:var(--muted);font-size:14px;margin-top:2px}
+  .sign{display:flex;align-items:center;gap:16px;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+  .sign .av{width:54px;height:54px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2);
+    display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;color:var(--brand-2);font-size:18px}
+  .sign b{font-family:'Space Grotesk';font-size:16px;display:block}
+  .sign span{color:var(--muted);font-size:13.5px}
+  @media(max-width:920px){.about-grid{grid-template-columns:1fr;gap:46px}.about-media .badge{right:18px}}
+
+  /* ---------- services ---------- */
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:22px}
+  .svc{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--surface);
+    min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate;transition:.3s}
+  .svc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .6s}
+  .svc::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg,rgba(10,11,14,.15) 0%,rgba(10,11,14,.55) 45%,rgba(9,10,13,.96) 100%)}
+  .svc:hover{transform:translateY(-6px);border-color:var(--line-2)}
+  .svc:hover img{transform:scale(1.07)}
+  .svc .body{padding:26px;position:relative}
+  .svc .ic{width:50px;height:50px;border-radius:13px;background:var(--grad-brand);display:grid;place-items:center;
+    margin-bottom:16px;box-shadow:0 10px 24px -10px rgba(225,29,42,.8)}
+  .svc .ic .msi{color:#fff;font-size:26px}
+  .svc h3{font-size:20px;margin-bottom:8px}
+  .svc p{color:#c0c6d2;font-size:14.5px}
+
+  /* ---------- categories ---------- */
+  .grid-cat{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:20px}
+  .cat{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--surface);transition:.3s;position:relative}
+  .cat:hover{transform:translateY(-6px);border-color:rgba(225,29,42,.45);box-shadow:var(--shadow)}
+  .cat .ph{height:172px;overflow:hidden;position:relative}
+  .cat .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .cat:hover .ph img{transform:scale(1.08)}
+  .cat .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(19,22,32,.85))}
+  .cat .ic{position:absolute;left:16px;bottom:-22px;width:46px;height:46px;border-radius:12px;background:var(--surface-2);
+    border:1px solid var(--line-2);display:grid;place-items:center;z-index:2;transition:.3s}
+  .cat:hover .ic{background:var(--grad-brand);border-color:transparent}
+  .cat .ic .msi{font-size:24px;color:var(--brand-2);transition:.3s}
+  .cat:hover .ic .msi{color:#fff}
+  .cat .body{padding:32px 20px 22px}
+  .cat h3{font-size:17.5px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .cat h3 .msi{font-size:19px;color:var(--muted-2);transition:.3s}
+  .cat:hover h3 .msi{color:var(--brand-2);transform:translateX(3px)}
+  .cat p{color:var(--muted);font-size:13.6px}
+
+  /* ---------- why ---------- */
+  .why{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .grid-why{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .why-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:.3s;position:relative;overflow:hidden}
+  .why-card::before{content:"";position:absolute;left:0;top:0;height:100%;width:3px;background:var(--grad-brand);transform:scaleY(0);transform-origin:top;transition:transform .3s}
+  .why-card:hover{transform:translateY(-5px);border-color:var(--line-2)}
+  .why-card:hover::before{transform:scaleY(1)}
+  .why-card .ic{width:54px;height:54px;border-radius:14px;background:var(--brand-soft);border:1px solid rgba(225,29,42,.25);
+    display:grid;place-items:center;margin-bottom:18px}
+  .why-card .ic .msi{font-size:28px;color:var(--brand-2)}
+  .why-card h3{font-size:18.5px;margin-bottom:9px}
+  .why-card p{color:var(--muted);font-size:14.5px}
+
+  /* ---------- stats ---------- */
+  .stats{position:relative;border-bottom:1px solid var(--line);
+    background:linear-gradient(rgba(8,9,12,.93),rgba(8,9,12,.97)),
+      url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1920&q=80') center/cover fixed no-repeat}
+  .grid-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  .stat .n{font-family:'Space Grotesk';font-weight:700;font-size:clamp(40px,6vw,64px);line-height:1;
+    background:linear-gradient(180deg,#fff,#c8cdd8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .n .u{background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lab{color:var(--muted);margin-top:12px;font-size:14.5px;font-weight:500;letter-spacing:.02em}
+  .stat .ico{font-size:26px;color:var(--brand-2);margin-bottom:8px;display:block}
+  @media(max-width:760px){.grid-stats{grid-template-columns:repeat(2,1fr);gap:36px 18px}}
+
+  /* ---------- testimonials ---------- */
+  .grid-t{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+  .tcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:.3s;position:relative}
+  .tcard:hover{transform:translateY(-5px);border-color:var(--line-2)}
+  .tcard .q{font-size:46px;font-family:'Space Grotesk';color:rgba(225,29,42,.35);line-height:.6;height:24px}
+  .tstars{color:var(--gold);letter-spacing:3px;font-size:15px;margin:6px 0 14px}
+  .tcard p{color:#d3d8e2;font-size:15px}
+  .tperson{display:flex;align-items:center;gap:14px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+  .tperson img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
+  .tperson b{font-family:'Space Grotesk';font-size:15px;display:block}
+  .tperson span{color:var(--muted);font-size:13px}
+
+  /* ---------- CTA band ---------- */
+  .cta{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+    background:
+      linear-gradient(100deg,rgba(166,15,26,.92),rgba(10,11,14,.86) 70%),
+      url('https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat}
+  .cta-grid{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .cta h2{font-size:clamp(26px,4vw,42px);max-width:640px}
+  .cta p{color:#e7d6d7;margin-top:14px;max-width:560px;font-size:16.5px}
+  .cta .acts{display:flex;gap:14px;flex-wrap:wrap}
+  .cta .btn-ghost{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+  .cta .btn-white{background:#fff;color:#0a0b0e}
+  .cta .btn-white:hover{transform:translateY(-2px);filter:brightness(.95)}
+
+  /* ---------- contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:46px}
+  .cinfo .cline{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+  .cinfo .cline:first-of-type{padding-top:4px}
+  .cinfo .ic{width:48px;height:48px;flex:0 0 auto;border-radius:13px;background:var(--surface);border:1px solid var(--line-2);display:grid;place-items:center}
+  .cinfo .ic .msi{color:var(--brand-2);font-size:24px}
+  .cinfo .cline small{color:var(--muted-2);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+  .cinfo .cline b{font-family:'Space Grotesk';font-size:17px;font-weight:600;display:block;margin-top:3px}
+  .cinfo .cline a{color:#fff}.cinfo .cline a:hover{color:var(--brand-2)}
+  .cinfo .cline p{color:var(--muted);font-size:14px;margin-top:3px}
+  .cmap{margin-top:24px;border-radius:16px;overflow:hidden;border:1px solid var(--line);height:230px}
+  .cmap iframe{width:100%;height:100%;border:0;filter:grayscale(.3) invert(.92) hue-rotate(180deg) contrast(.9)}
+  .cform{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:34px}
+  .cform h3{font-size:22px;margin-bottom:6px}
+  .cform .sub{color:var(--muted);font-size:14.5px;margin-bottom:24px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px;font-weight:500}
+  .field input,.field textarea{width:100%;background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;
+    padding:13px 15px;color:#fff;font-family:inherit;font-size:15px;transition:.2s;resize:vertical}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft);background:#0c0e13}
+  .field input::placeholder,.field textarea::placeholder{color:#5a6473}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .cform .btn-primary{width:100%;justify-content:center;margin-top:6px}
+  .cform .note{text-align:center;color:var(--muted-2);font-size:12.5px;margin-top:14px}
+  @media(max-width:880px){.contact-grid{grid-template-columns:1fr;gap:34px}.frow{grid-template-columns:1fr}}
+
+  /* ---------- footer ---------- */
+  footer{background:#07080a;border-top:1px solid var(--line);padding:64px 0 26px}
+  .fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:42px;border-bottom:1px solid var(--line)}
+  .fcol h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-bottom:18px;font-family:'Inter';font-weight:700}
+  .fcol ul{list-style:none;display:grid;gap:11px}
+  .fcol a,.fcol li{color:var(--muted);font-size:14.5px;transition:.2s}
+  .fcol a:hover{color:#fff}
+  .fcol .fline{display:flex;gap:10px;align-items:flex-start}
+  .fcol .fline .msi{font-size:19px;color:var(--brand-2);flex:0 0 auto}
+  .fabout p{color:var(--muted);font-size:14.5px;margin:16px 0 18px;max-width:330px}
+  .fabout .logo{margin-bottom:4px}
+  .fsoc{display:flex;gap:10px}
+  .fsoc a{width:40px;height:40px;border-radius:11px;border:1px solid var(--line-2);display:grid;place-items:center;color:#cfd5e0}
+  .fsoc a:hover{background:var(--grad-brand);border-color:transparent;color:#fff}
+  .fbot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:24px;color:var(--muted-2);font-size:13px}
+  .fbot .legal{display:flex;gap:18px;flex-wrap:wrap}
+  @media(max-width:860px){.fgrid{grid-template-columns:1fr 1fr;gap:34px}}
+  @media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.marquee-track{animation:none}}
+  .scrolltop{position:fixed;right:22px;bottom:22px;width:50px;height:50px;border-radius:14px;background:var(--grad-brand);
+    border:none;color:#fff;display:grid;place-items:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);
+    transition:.3s;z-index:90;box-shadow:0 14px 30px -10px rgba(225,29,42,.8)}
+  .scrolltop.show{opacity:1;pointer-events:auto;transform:none}
+  .scrolltop .msi{font-size:26px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="left ti"><span class="msi">location_on</span> Sudmantų g. 9-7, Klaipėdos r., Lietuva</div>
+    <div class="right">
+      <a class="ti" href="tel:+37069992190"><span class="msi">call</span> +370 699 92190</a>
+      <a class="ti" href="mailto:info@maxrema.lt"><span class="msi">mail</span> info@maxrema.lt</a>
+      <span class="ti"><span class="msi">schedule</span> I–V 08:00–18:00</span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#pradzia" class="logo"><span class="mark"><span class="msi">settings</span></span> MAX<b>REMA</b><span class="dot">.</span></a>
+    <nav class="navlinks" id="menu">
+      <a href="#apie">Apie mus</a>
+      <a href="#paslaugos">Paslaugos</a>
+      <a href="#detales">Detalės</a>
+      <a href="#kodel">Kodėl mes</a>
+      <a href="#atsiliepimai">Atsiliepimai</a>
+      <a href="#kontaktai">Kontaktai</a>
+      <a href="#kontaktai" class="nav-cta"><span class="msi">bolt</span> Užklausti detalės</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Meniu"><span class="msi" id="burgicon">menu</span></button>
+  </div>
+</header>
+<div class="nav-overlay" id="navov"></div>
+
+<!-- HERO -->
+<section class="hero" id="pradzia">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="pill"><span class="msi">verified</span> Automobilių dalys · Klaipėdos regionas</span>
+      <h1>Kokybiškos <span class="accent">automobilių dalys</span> Jūsų automobiliui</h1>
+      <p class="lead">Maxrema — patikimas automobilių dalių tiekėjas lengviesiems automobiliams. Greitai randame reikiamą detalę, konsultuojame ir pristatome visoje Lietuvoje.</p>
+      <div class="hero-cta">
+        <a href="#kontaktai" class="btn btn-primary"><span class="msi">search</span> Užklausti detalės</a>
+        <a href="#detales" class="btn btn-ghost">Peržiūrėti katalogą <span class="msi">arrow_forward</span></a>
+      </div>
+      <div class="hero-trust">
+        <div class="t"><span class="msi">workspace_premium</span><div><b>A reitingas</b><span>Aukščiausias patikimumas</span></div></div>
+        <div class="t"><span class="msi">local_shipping</span><div><b>Greitas pristatymas</b><span>Visoje Lietuvoje</span></div></div>
+        <div class="t"><span class="msi">handshake</span><div><b>Nuo 2023 m.</b><span>Patikimas partneris</span></div></div>
+      </div>
+    </div>
+    <div class="hero-card reveal d1">
+      <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=900&q=80" alt="Variklio skyrius" loading="eager" />
+      <div class="glass">
+        <span class="ic"><span class="msi">inventory_2</span></span>
+        <div><b>Platus asortimentas</b><span>Detalės daugumai markių</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND MARQUEE -->
+<section class="marquee-sec">
+  <div class="wrap"><div class="marquee-lab">Tiekiame detales populiariausių markių automobiliams</div></div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Volkswagen</span><span>BMW</span><span>Audi</span><span>Mercedes-Benz</span><span>Toyota</span><span>Volvo</span><span>Škoda</span><span>Opel</span><span>Ford</span><span>Renault</span><span>Nissan</span><span>Peugeot</span>
+      <span>Volkswagen</span><span>BMW</span><span>Audi</span><span>Mercedes-Benz</span><span>Toyota</span><span>Volvo</span><span>Škoda</span><span>Opel</span><span>Ford</span><span>Renault</span><span>Nissan</span><span>Peugeot</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="pad" id="apie">
+  <div class="wrap about-grid">
+    <div class="about-media reveal">
+      <div class="main"><img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=1000&q=80" alt="Maxrema dirbtuvės" loading="lazy" /></div>
+      <div class="badge"><span class="n">2+</span><small>metų patirties automobilių dalių srityje</small></div>
+    </div>
+    <div class="about-copy reveal d1">
+      <span class="eyebrow">Apie mus</span>
+      <div class="shead"><h2>Jūsų patikimas partneris automobilių dalių srityje</h2></div>
+      <p style="color:var(--muted);font-size:16.5px">Maxrema, MB — Klaipėdos rajone įsikūrusi įmonė, nuo 2023 metų tiekianti kokybiškas automobilių dalis lengviesiems automobiliams. Mūsų komandą sudaro patyrę specialistai, kurie padės greitai surasti tinkamą detalę — nuo įprastų keičiamų dalių iki sunkiau randamų komponentų.</p>
+      <ul class="feat-list">
+        <li><span class="ic"><span class="msi">verified</span></span><div><b>Originalios ir kokybiškos analogiškos dalys</b><p>Tiekiame tik patikrintos kokybės detales nuo patikimų tiekėjų.</p></div></li>
+        <li><span class="ic"><span class="msi">manage_search</span></span><div><b>Greita detalių paieška pagal VIN</b><p>Tiksliai parenkame detalę pagal Jūsų automobilio duomenis.</p></div></li>
+        <li><span class="ic"><span class="msi">local_shipping</span></span><div><b>Pristatymas visoje Lietuvoje</b><p>Operatyviai išsiunčiame užsakytas dalis į patogią vietą.</p></div></li>
+      </ul>
+      <div class="sign">
+        <span class="av">MŠ</span>
+        <div><b>Mindaugas Šedys</b><span>Direktorius, Maxrema, MB</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="pad" id="paslaugos" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="shead center reveal">
+      <span class="eyebrow center">Paslaugos</span>
+      <h2>Ką siūlome savo klientams</h2>
+      <p>Nuo detalės paieškos iki pristatymo — pasirūpiname visu procesu, kad sutaupytumėte laiko ir pinigų.</p>
+    </div>
+    <div class="grid-3" style="margin-top:54px">
+      <article class="svc reveal">
+        <img src="https://images.pexels.com/photos/3806252/pexels-photo-3806252.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Dalių asortimentas" loading="lazy" />
+        <div class="body"><span class="ic"><span class="msi">inventory_2</span></span><h3>Dalių tiekimas</h3><p>Platus automobilių dalių asortimentas lengviesiems automobiliams su greitu pristatymu.</p></div>
+      </article>
+      <article class="svc reveal d1">
+        <img src="https://images.unsplash.com/photo-1619725002198-6a689b72f41d?auto=format&fit=crop&w=900&q=80" alt="Retų detalių paieška" loading="lazy" />
+        <div class="body"><span class="ic"><span class="msi">manage_search</span></span><h3>Retų detalių paieška</h3><p>Surandame net sunkiai randamas ir specifines detales pagal VIN kodą ar pavyzdį.</p></div>
+      </article>
+      <article class="svc reveal d2">
+        <img src="https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Konsultacija" loading="lazy" />
+        <div class="body"><span class="ic"><span class="msi">support_agent</span></span><h3>Profesionali konsultacija</h3><p>Padedame parinkti tinkamą detalę ir patariame techniniais klausimais.</p></div>
+      </article>
+      <article class="svc reveal d3">
+        <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=900&q=80" alt="Pristatymas" loading="lazy" />
+        <div class="body"><span class="ic"><span class="msi">local_shipping</span></span><h3>Greitas pristatymas</h3><p>Operatyviai pristatome užsakytas detales į patogią vietą visoje Lietuvoje.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="pad" id="detales">
+  <div class="wrap">
+    <div class="shead center reveal">
+      <span class="eyebrow center">Katalogas</span>
+      <h2>Automobilių dalių kategorijos</h2>
+      <p>Tiekiame plataus spektro detales — nuo variklio komponentų iki kėbulo dalių ir optikos.</p>
+    </div>
+    <div class="grid-cat" style="margin-top:54px">
+      <article class="cat reveal">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&q=80" alt="Variklio dalys" loading="lazy" /><span class="ic"><span class="msi">settings</span></span></div>
+        <div class="body"><h3>Variklio dalys <span class="msi">arrow_forward</span></h3><p>Variklių komponentai, dirželiai, siurbliai ir priedai.</p></div>
+      </article>
+      <article class="cat reveal d1">
+        <div class="ph"><img src="https://images.pexels.com/photos/279949/pexels-photo-279949.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Stabdžių sistema" loading="lazy" /><span class="ic"><span class="msi">album</span></span></div>
+        <div class="body"><h3>Stabdžių sistema <span class="msi">arrow_forward</span></h3><p>Diskai, kaladėlės, suportai, žarnelės ir kt.</p></div>
+      </article>
+      <article class="cat reveal d2">
+        <div class="ph"><img src="https://images.pexels.com/photos/3807329/pexels-photo-3807329.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Pakaba ir vairavimas" loading="lazy" /><span class="ic"><span class="msi">tune</span></span></div>
+        <div class="body"><h3>Pakaba ir vairavimas <span class="msi">arrow_forward</span></h3><p>Amortizatoriai, svirtys, guoliai, vairo detalės.</p></div>
+      </article>
+      <article class="cat reveal d3">
+        <div class="ph"><img src="https://images.pexels.com/photos/244553/pexels-photo-244553.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Ratai ir padangos" loading="lazy" /><span class="ic"><span class="msi">trip_origin</span></span></div>
+        <div class="body"><h3>Ratai ir padangos <span class="msi">arrow_forward</span></h3><p>Ratlankiai, padangos, varžtai ir priedai.</p></div>
+      </article>
+      <article class="cat reveal">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=800&q=80" alt="Tepalai ir filtrai" loading="lazy" /><span class="ic"><span class="msi">opacity</span></span></div>
+        <div class="body"><h3>Tepalai ir filtrai <span class="msi">arrow_forward</span></h3><p>Alyvos, oro, salono ir kuro filtrai, priežiūros dalys.</p></div>
+      </article>
+      <article class="cat reveal d1">
+        <div class="ph"><img src="https://images.pexels.com/photos/13065690/pexels-photo-13065690.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Elektra ir akumuliatoriai" loading="lazy" /><span class="ic"><span class="msi">bolt</span></span></div>
+        <div class="body"><h3>Elektra ir akumuliatoriai <span class="msi">arrow_forward</span></h3><p>Akumuliatoriai, generatoriai, starteriai, davikliai.</p></div>
+      </article>
+      <article class="cat reveal d2">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1606577924006-27d39b132ae2?auto=format&fit=crop&w=800&q=80" alt="Kėbulo dalys ir optika" loading="lazy" /><span class="ic"><span class="msi">light_mode</span></span></div>
+        <div class="body"><h3>Kėbulo dalys ir optika <span class="msi">arrow_forward</span></h3><p>Kėbulo elementai, žibintai, veidrodėliai, buferiai.</p></div>
+      </article>
+      <article class="cat reveal d3">
+        <div class="ph"><img src="https://images.pexels.com/photos/4489702/pexels-photo-4489702.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Diagnostika ir priežiūra" loading="lazy" /><span class="ic"><span class="msi">build</span></span></div>
+        <div class="body"><h3>Diagnostika ir priežiūra <span class="msi">arrow_forward</span></h3><p>Aptarnavimo, diagnostikos ir techninės priežiūros dalys.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="pad why" id="kodel">
+  <div class="wrap">
+    <div class="shead center reveal">
+      <span class="eyebrow center">Kodėl Maxrema</span>
+      <h2>Privalumai, kuriuos vertina klientai</h2>
+      <p>Dirbame greitai, sąžiningai ir atsakingai — todėl klientai grįžta ir rekomenduoja mus kitiems.</p>
+    </div>
+    <div class="grid-why" style="margin-top:54px">
+      <div class="why-card reveal"><span class="ic"><span class="msi">verified_user</span></span><h3>Kokybės garantija</h3><p>Tiekiame tik patikrintos kokybės detales iš patikimų tiekėjų.</p></div>
+      <div class="why-card reveal d1"><span class="ic"><span class="msi">payments</span></span><h3>Sąžiningos kainos</h3><p>Konkurencingos kainos be paslėptų mokesčių ir antkainių.</p></div>
+      <div class="why-card reveal d2"><span class="ic"><span class="msi">rocket_launch</span></span><h3>Greitas pristatymas</h3><p>Operatyvus detalių pristatymas visoje Lietuvoje.</p></div>
+      <div class="why-card reveal"><span class="ic"><span class="msi">engineering</span></span><h3>Patyrę specialistai</h3><p>Komanda, puikiai išmananti automobilių dalis ir jų suderinamumą.</p></div>
+      <div class="why-card reveal d1"><span class="ic"><span class="msi">workspace_premium</span></span><h3>A patikimumo reitingas</h3><p>Aukščiausias įmonės kreditingumo ir patikimumo įvertinimas.</p></div>
+      <div class="why-card reveal d2"><span class="ic"><span class="msi">inventory</span></span><h3>Platus asortimentas</h3><p>Detalės daugumai populiarių automobilių markių ir modelių.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="pad stats">
+  <div class="wrap">
+    <div class="grid-stats">
+      <div class="stat reveal"><span class="msi ico">calendar_month</span><div class="n">2023</div><div class="lab">Veiklos pradžia</div></div>
+      <div class="stat reveal d1"><span class="msi ico">groups</span><div class="n" data-count="4">0</div><div class="lab">Komandos specialistai</div></div>
+      <div class="stat reveal d2"><span class="msi ico">workspace_premium</span><div class="n">A</div><div class="lab">Patikimumo reitingas</div></div>
+      <div class="stat reveal d3"><span class="msi ico">deployed_code</span><div class="n"><span data-count="1000">0</span><span class="u">+</span></div><div class="lab">Pristatytų detalių</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="pad" id="atsiliepimai">
+  <div class="wrap">
+    <div class="shead center reveal">
+      <span class="eyebrow center">Atsiliepimai</span>
+      <h2>Ką sako mūsų klientai</h2>
+      <p>Patikimumas ir greitas aptarnavimas — tai, ką klientai vertina labiausiai.</p>
+    </div>
+    <div class="grid-t" style="margin-top:54px">
+      <article class="tcard reveal">
+        <div class="q">“</div><div class="tstars">★★★★★</div>
+        <p>Greitai surado man reikalingą detalę, kurios kitur niekur nebuvo. Pristatymas — jau kitą dieną. Tikrai rekomenduoju!</p>
+        <div class="tperson"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tomas K." loading="lazy" /><div><b>Tomas K.</b><span>Klaipėda</span></div></div>
+      </article>
+      <article class="tcard reveal d1">
+        <div class="q">“</div><div class="tstars">★★★★★</div>
+        <p>Dalis užsakome nuolat. Patikimas partneris, visada padeda parinkti tinkamą detalę ir pasiūlo geriausią kainą.</p>
+        <div class="tperson"><img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Andrius P." loading="lazy" /><div><b>Andrius P.</b><span>Autoservisas, Gargždai</span></div></div>
+      </article>
+      <article class="tcard reveal d2">
+        <div class="q">“</div><div class="tstars">★★★★★</div>
+        <p>Malonus aptarnavimas ir sąžiningos kainos. Pagaliau radau patikimą automobilių dalių tiekėją Klaipėdoje.</p>
+        <div class="tperson"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Rūta J." loading="lazy" /><div><b>Rūta J.</b><span>Klaipėdos r.</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="pad cta">
+  <div class="wrap cta-grid">
+    <div class="reveal">
+      <h2>Reikia konkrečios detalės? Susisiekite jau dabar</h2>
+      <p>Parašykite mums VIN kodą arba detalės pavadinimą — operatyviai surasime ir pasiūlysime geriausią variantą.</p>
+    </div>
+    <div class="acts reveal d1">
+      <a href="tel:+37069992190" class="btn btn-white"><span class="msi">call</span> +370 699 92190</a>
+      <a href="#kontaktai" class="btn btn-ghost">Užpildyti užklausą <span class="msi">arrow_forward</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="pad" id="kontaktai" style="background:var(--bg-2);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Kontaktai</span>
+      <h2>Susisiekite su mumis</h2>
+      <p>Turite klausimų ar ieškote konkrečios detalės? Užpildykite užklausą arba skambinkite — mielai padėsime.</p>
+    </div>
+    <div class="contact-grid" style="margin-top:46px">
+      <div class="cinfo reveal">
+        <div class="cline"><span class="ic"><span class="msi">location_on</span></span><div><small>Adresas</small><b>Sudmantų g. 9-7</b><p>Sudmantų k., LT-96327 Klaipėdos r.</p></div></div>
+        <div class="cline"><span class="ic"><span class="msi">call</span></span><div><small>Telefonas</small><b><a href="tel:+37069992190">+370 699 92190</a></b></div></div>
+        <div class="cline"><span class="ic"><span class="msi">mail</span></span><div><small>El. paštas</small><b><a href="mailto:info@maxrema.lt">info@maxrema.lt</a></b></div></div>
+        <div class="cline"><span class="ic"><span class="msi">schedule</span></span><div><small>Darbo laikas</small><b>I–V 08:00–18:00</b><p>VI 09:00–14:00 · VII nedirbame</p></div></div>
+        <div class="cmap">
+          <iframe title="Maxrema žemėlapis" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Sudmant%C5%B3%20g.%209-7%2C%20Klaip%C4%97dos%20r.%2C%20Lietuva&output=embed"></iframe>
+        </div>
+      </div>
+      <div class="cform reveal d1">
+        <h3>Detalės užklausa</h3>
+        <p class="sub">Užpildykite formą ir mes susisieksime su Jumis dėl detalės bei kainos.</p>
+        <form id="cf" novalidate>
+          <div class="frow">
+            <div class="field"><label>Vardas</label><input name="vardas" required placeholder="Jūsų vardas" /></div>
+            <div class="field"><label>Telefonas</label><input name="tel" required placeholder="+370 ..." /></div>
+          </div>
+          <div class="field"><label>Automobilis / VIN kodas</label><input name="auto" placeholder="Pvz.: VW Passat B8 arba VIN" /></div>
+          <div class="field"><label>Detalė ar žinutė</label><textarea name="zinute" rows="4" required placeholder="Aprašykite, kokios detalės ieškote"></textarea></div>
+          <button type="submit" class="btn btn-primary"><span class="msi">send</span> Siųsti užklausą</button>
+          <p class="note">Paspaudę „Siųsti" sukursite laišką savo el. pašto programoje.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fcol fabout">
+        <a href="#pradzia" class="logo"><span class="mark"><span class="msi">settings</span></span> MAX<b>REMA</b><span class="dot">.</span></a>
+        <p>Patikimas automobilių dalių tiekėjas lengviesiems automobiliams Klaipėdos regione. Greita paieška, konsultacija ir pristatymas visoje Lietuvoje.</p>
+        <div class="fsoc">
+          <a href="tel:+37069992190" aria-label="Skambinti"><span class="msi">call</span></a>
+          <a href="mailto:info@maxrema.lt" aria-label="El. paštas"><span class="msi">mail</span></a>
+          <a href="#kontaktai" aria-label="Vieta"><span class="msi">location_on</span></a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4>Navigacija</h4>
+        <ul>
+          <li><a href="#apie">Apie mus</a></li>
+          <li><a href="#paslaugos">Paslaugos</a></li>
+          <li><a href="#detales">Detalės</a></li>
+          <li><a href="#kodel">Kodėl mes</a></li>
+          <li><a href="#kontaktai">Kontaktai</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Kategorijos</h4>
+        <ul>
+          <li><a href="#detales">Variklio dalys</a></li>
+          <li><a href="#detales">Stabdžių sistema</a></li>
+          <li><a href="#detales">Pakaba ir vairavimas</a></li>
+          <li><a href="#detales">Ratai ir padangos</a></li>
+          <li><a href="#detales">Kėbulo dalys</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Kontaktai</h4>
+        <ul>
+          <li class="fline"><span class="msi">location_on</span><span>Sudmantų g. 9-7, Sudmantų k., LT-96327 Klaipėdos r.</span></li>
+          <li class="fline"><span class="msi">call</span><a href="tel:+37069992190">+370 699 92190</a></li>
+          <li class="fline"><span class="msi">mail</span><a href="mailto:info@maxrema.lt">info@maxrema.lt</a></li>
+          <li class="fline"><span class="msi">schedule</span><span>I–V 08:00–18:00, VI 09:00–14:00</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <div>© <span id="yr">2026</span> Maxrema, MB. Visos teisės saugomos.</div>
+      <div class="legal">
+        <span>Įmonės kodas 306551127</span>
+        <span>PVM kodas LT100016394512</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scrolltop" id="totop" aria-label="Į viršų"><span class="msi">arrow_upward</span></button>
+
+<script>
+  // header scroll state + progress + back-to-top
+  const hdr=document.getElementById('hdr'),prog=document.getElementById('progress'),totop=document.getElementById('totop');
+  function onScroll(){
+    const y=window.scrollY;
+    hdr.classList.toggle('scrolled',y>20);
+    totop.classList.toggle('show',y>700);
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    prog.style.width=(h>0?(y/h)*100:0)+'%';
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  totop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+  // mobile menu
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu'),bicon=document.getElementById('burgicon'),navov=document.getElementById('navov');
+  function toggleMenu(open){
+    menu.classList.toggle('open',open);navov.classList.toggle('open',open);
+    bicon.textContent=open?'close':'menu';document.body.style.overflow=open?'hidden':'';
+  }
+  burger.addEventListener('click',()=>toggleMenu(!menu.classList.contains('open')));
+  navov.addEventListener('click',()=>toggleMenu(false));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
+
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // count-up
+  function animateCount(el){
+    const target=+el.dataset.count,dur=1500,t0=performance.now();
+    function step(now){
+      const p=Math.min((now-t0)/dur,1),val=Math.floor((1-Math.pow(1-p,3))*target);
+      el.textContent=val.toLocaleString('lt-LT');
+      if(p<1)requestAnimationFrame(step);else el.textContent=target.toLocaleString('lt-LT');
+    }
+    requestAnimationFrame(step);
+  }
+  const co=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);co.unobserve(e.target);}});},{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+  // year
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // contact form -> mailto
+  document.getElementById('cf').addEventListener('submit',function(e){
+    e.preventDefault();
+    const f=e.target,v=n=>encodeURIComponent((f.elements[n]?.value||'').trim());
+    const body=`Vardas: ${decodeURIComponent(v('vardas'))}%0D%0ATelefonas: ${decodeURIComponent(v('tel'))}%0D%0AAutomobilis/VIN: ${decodeURIComponent(v('auto'))}%0D%0A%0D%0A${decodeURIComponent(v('zinute'))}`;
+    window.location.href=`mailto:info@maxrema.lt?subject=${encodeURIComponent('Detalės užklausa iš svetainės')}&body=${body}`;
+  });
+</script>
+</body>
+</html>
