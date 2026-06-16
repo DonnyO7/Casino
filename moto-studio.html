@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#070709" />
+<title>MDS — Motociklų Dizaino Studija · Motorcycle Design Studio · Kaunas</title>
+<meta name="description" content="An independent motorcycle design studio in Kaunas, Lithuania. From first sketch to final throttle — custom design, prototyping, restomod and engineering for the machines that move you." />
+<meta property="og:title" content="MDS — Moto Dizaino Studija" />
+<meta property="og:description" content="We shape the ride. Motorcycle design studio in Kaunas, Lithuania." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23070709'/%3E%3Cpath d='M22 74V26l16 26 16-26v48' fill='none' stroke='%23ff6a1a' stroke-width='9' stroke-linejoin='round' stroke-linecap='round'/%3E%3Ccircle cx='74' cy='66' r='9' fill='none' stroke='%23ff6a1a' stroke-width='7'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   MDS — Moto Dizaino Studija  ·  single-file premium site
+   ============================================================ */
+:root{
+  --bg:#070709; --bg2:#0b0c10; --panel:#101116; --panel2:#15171e;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.16);
+  --text:#f5f5f7; --muted:#9a9ba6; --muted2:#6c6d77;
+  --accent:#ff6a1a; --accent2:#ff9a3d; --accent3:#ff2d00;
+  --grad:linear-gradient(120deg,#ff9a3d,#ff5e1a 45%,#ff2d00);
+  --steel:#cdd0da;
+  --r:18px; --rs:12px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --container:1240px;
+  --nav-h:78px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(900px 600px at 80% -10%,rgba(255,106,26,.10),transparent 60%),
+                   radial-gradient(700px 500px at -10% 20%,rgba(255,45,0,.07),transparent 55%);
+}
+::selection{background:var(--accent);color:#0a0a0a}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.05;font-weight:700;letter-spacing:-.02em}
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#070709}
+::-webkit-scrollbar-thumb{background:#26272f;border-radius:20px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
+.container{width:min(92%,var(--container));margin-inline:auto}
+.display{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.01em;line-height:.92}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.outline-text{color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.22)}
+
+/* ---------- reveal (only hide when JS active) ---------- */
+.js [data-reveal]{opacity:0;transform:translateY(38px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js [data-reveal="left"]{transform:translateX(-46px)}
+.js [data-reveal="right"]{transform:translateX(46px)}
+.js [data-reveal="scale"]{transform:scale(.9)}
+.js [data-reveal].is-visible{opacity:1;transform:none}
+
+/* ============================ PRELOADER ============================ */
+#preloader{position:fixed;inset:0;z-index:2000;background:#070709;display:grid;place-items:center;
+  transition:opacity .6s ease,visibility .6s}
+#preloader.done{opacity:0;visibility:hidden}
+.pl-inner{text-align:center;width:min(86%,420px)}
+.pl-mark{width:74px;height:74px;margin:0 auto 26px}
+.pl-mark svg{width:100%;height:100%;filter:drop-shadow(0 0 22px rgba(255,106,26,.5))}
+.pl-mark path,.pl-mark circle{stroke-dasharray:240;stroke-dashoffset:240;animation:draw 1.6s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.pl-label{font-family:'Space Grotesk';font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.pl-bar{height:2px;width:100%;background:rgba(255,255,255,.1);border-radius:9px;overflow:hidden}
+.pl-bar i{display:block;height:100%;width:0;background:var(--grad);box-shadow:0 0 16px var(--accent)}
+.pl-pct{font-family:'Anton';font-size:13px;color:var(--muted);margin-top:14px;letter-spacing:.1em}
+
+/* ============================ CURSOR ============================ */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:1900;
+  transform:translate(-50%,-50%);mix-blend-mode:difference}
+.cursor-dot{width:7px;height:7px;background:#fff}
+.cursor-ring{width:38px;height:38px;border:1.5px solid rgba(255,255,255,.55);
+  transition:width .25s,height .25s,background .25s,border-color .25s}
+.cursor-ring.hover{width:62px;height:62px;background:rgba(255,106,26,.18);border-color:transparent;mix-blend-mode:normal}
+@media (hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+/* ============================ SCROLL PROGRESS ============================ */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:1500;background:var(--grad);box-shadow:0 0 12px var(--accent)}
+
+/* ============================ NAV ============================ */
+header{position:fixed;top:0;left:0;width:100%;z-index:1200;height:var(--nav-h);
+  display:flex;align-items:center;transition:transform .45s var(--ease),background .4s,border-color .4s,backdrop-filter .4s;
+  border-bottom:1px solid transparent}
+header.scrolled{background:rgba(8,9,12,.72);backdrop-filter:blur(16px) saturate(1.4);border-bottom-color:var(--line);height:64px}
+header.hide{transform:translateY(-110%)}
+.nav{display:flex;align-items:center;justify-content:space-between;width:min(92%,var(--container));margin-inline:auto;gap:24px}
+.brand{display:flex;align-items:center;gap:13px;font-family:'Space Grotesk';font-weight:700;letter-spacing:.02em}
+.brand .mk{width:38px;height:38px;flex:none}
+.brand .mk svg{width:100%;height:100%}
+.brand b{font-size:18px;letter-spacing:.06em}
+.brand small{display:block;font-family:'Inter';font-weight:400;font-size:9.5px;letter-spacing:.34em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:34px;list-style:none}
+.nav-links a{font-size:14px;color:var(--muted);font-weight:500;position:relative;transition:color .3s;display:inline-flex;gap:7px;align-items:center}
+.nav-links a span{font-family:'Anton';font-size:10px;color:var(--accent);opacity:.7}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1.5px;width:0;background:var(--accent);transition:width .35s var(--ease)}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;font-family:'Space Grotesk';
+  padding:11px 20px;border-radius:40px;background:var(--text);color:#0a0a0a;transition:transform .3s,box-shadow .3s}
+.nav-cta:hover{box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+.burger{display:none;flex-direction:column;gap:5px;width:30px;height:30px;justify-content:center;align-items:flex-end}
+.burger i{height:2px;width:24px;background:var(--text);border-radius:2px;transition:.35s var(--ease)}
+.burger.x i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.x i:nth-child(2){opacity:0}
+.burger.x i:nth-child(3){transform:translateY(-7px) rotate(-45deg);width:24px}
+
+#mobileMenu{position:fixed;inset:0;z-index:1150;background:rgba(7,7,9,.97);backdrop-filter:blur(8px);
+  display:flex;flex-direction:column;justify-content:center;gap:8px;padding:0 9%;
+  transform:translateY(-100%);transition:transform .6s var(--ease);visibility:hidden}
+#mobileMenu.open{transform:none;visibility:visible}
+#mobileMenu a{font-family:'Anton';font-size:clamp(34px,9vw,58px);text-transform:uppercase;color:var(--text);
+  display:flex;align-items:baseline;gap:14px;line-height:1.1;border-bottom:1px solid var(--line);padding:14px 0}
+#mobileMenu a em{font-family:'Anton';font-size:14px;color:var(--accent);font-style:normal}
+.mm-foot{margin-top:30px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:6px}
+
+/* ============================ BUTTONS ============================ */
+.btn{display:inline-flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:600;font-size:15px;
+  padding:16px 28px;border-radius:46px;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s,color .3s;will-change:transform}
+.btn svg{width:17px;height:17px;transition:transform .35s var(--ease)}
+.btn-primary{background:var(--grad);color:#120800;box-shadow:0 12px 40px -12px rgba(255,106,26,.7)}
+.btn-primary:hover{box-shadow:0 16px 50px -10px rgba(255,106,26,.95)}
+.btn-primary:hover svg{transform:translateX(5px)}
+.btn-ghost{border:1px solid var(--line2);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.06);border-color:transparent}
+.btn-ghost:hover svg{transform:rotate(45deg)}
+
+/* ============================ SECTION SHELL ============================ */
+section{position:relative;padding:clamp(80px,11vw,150px) 0}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:'Space Grotesk';font-weight:600;
+  font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:24px}
+.eyebrow::before{content:"";width:34px;height:1.5px;background:var(--accent);display:inline-block}
+.eyebrow.center::after{content:"";width:34px;height:1.5px;background:var(--accent);display:inline-block}
+.sec-head{max-width:760px}
+.sec-head.center{margin-inline:auto;text-align:center}
+.sec-title{font-size:clamp(32px,5.2vw,62px);letter-spacing:-.025em}
+.sec-sub{color:var(--muted);font-size:clamp(15px,1.5vw,18px);margin-top:22px;max-width:560px}
+.sec-head.center .sec-sub{margin-inline:auto}
+.snum{font-family:'Anton';font-size:13px;color:var(--muted2);letter-spacing:.2em;margin-bottom:14px;display:block}
+
+/* ============================ HERO ============================ */
+#hero{min-height:100svh;display:flex;align-items:flex-end;padding-bottom:clamp(40px,7vw,90px);padding-top:var(--nav-h);overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.hero-bg img{width:100%;height:120%;object-fit:cover;object-position:center 40%;will-change:transform}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,7,9,.62) 0%,rgba(7,7,9,.35) 32%,rgba(7,7,9,.78) 78%,var(--bg) 100%),
+             linear-gradient(95deg,rgba(7,7,9,.85),transparent 60%)}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(80px);z-index:-1;pointer-events:none}
+.hero-glow.g1{width:520px;height:520px;background:rgba(255,106,26,.22);top:-120px;right:-60px;animation:float1 14s ease-in-out infinite}
+.hero-glow.g2{width:420px;height:420px;background:rgba(255,45,0,.15);bottom:-140px;left:-80px;animation:float1 18s ease-in-out infinite reverse}
+@keyframes float1{50%{transform:translate(40px,30px) scale(1.12)}}
+.hero-grid{position:absolute;inset:0;z-index:-1;opacity:.4;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(70% 70% at 50% 50%,#000,transparent)}
+.hero-inner{width:min(92%,var(--container));margin-inline:auto;position:relative}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:'Space Grotesk';font-weight:600;font-size:12.5px;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-bottom:26px}
+.hero-eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(255,106,26,.2);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(255,106,26,0)}}
+.hero-title{font-size:clamp(50px,11.5vw,168px);text-transform:uppercase;font-family:'Anton';font-weight:400;letter-spacing:0;line-height:.84}
+.hero-title .ln{display:block;overflow:hidden}
+.hero-title .ln i{display:block;font-style:normal;transform:translateY(105%);animation:riseUp 1.05s var(--ease) forwards}
+.hero-title .ln:nth-child(2) i{animation-delay:.12s}
+.hero-title .ln:nth-child(3) i{animation-delay:.24s}
+@keyframes riseUp{to{transform:none}}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-top:34px}
+.hero-sub{max-width:480px;color:#d3d4da;font-size:clamp(15px,1.6vw,18.5px);opacity:0;animation:fadeIn 1s ease .55s forwards}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeIn 1s ease .7s forwards}
+@keyframes fadeIn{to{opacity:1}}
+.hero-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px;opacity:0;animation:fadeIn 1s ease .9s forwards}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border:1px solid var(--line);border-radius:40px;
+  background:rgba(255,255,255,.03);font-size:13px;color:var(--muted);backdrop-filter:blur(6px)}
+.chip b{color:var(--text);font-family:'Space Grotesk';font-weight:600}
+.chip .ic{color:var(--accent)}
+.scrollcue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--muted);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase}
+.scrollcue .mouse{width:22px;height:36px;border:1.6px solid var(--muted2);border-radius:14px;position:relative}
+.scrollcue .mouse::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;background:var(--accent);border-radius:3px;transform:translateX(-50%);animation:wheel 1.7s infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,11px)}}
+
+/* gauge */
+.gauge{position:absolute;right:2%;bottom:120px;width:184px;text-align:center;opacity:0;animation:fadeIn 1s ease 1.1s forwards}
+.gauge svg{width:100%;overflow:visible}
+.gauge .needle{transform-origin:100px 100px;animation:rev 4.5s var(--ease) infinite alternate}
+@keyframes rev{0%{transform:rotate(-96deg)}100%{transform:rotate(96deg)}}
+.gauge-read{font-family:'Anton';font-size:24px;margin-top:-6px;letter-spacing:.04em}
+.gauge-read b{color:var(--accent)}
+.gauge-lbl{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted2)}
+@media(max-width:980px){.gauge{display:none}}
+
+/* ============================ MARQUEE ============================ */
+.marquee{display:flex;overflow:hidden;user-select:none;gap:0;padding:30px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee.plain{border:none;background:var(--bg)}
+.mq-track{display:flex;flex:none;gap:0;animation:scrollX 26s linear infinite;will-change:transform}
+.marquee.rev .mq-track{animation-direction:reverse}
+@keyframes scrollX{to{transform:translateX(-50%)}}
+.mq-item{font-family:'Anton';font-size:clamp(28px,4.6vw,58px);text-transform:uppercase;padding:0 34px;display:inline-flex;align-items:center;gap:34px;white-space:nowrap}
+.mq-item.hollow{color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.2)}
+.mq-item .star{color:var(--accent);font-size:.5em}
+.marquee:hover .mq-track{animation-play-state:paused}
+
+/* ============================ ABOUT ============================ */
+#about{padding-top:clamp(70px,8vw,110px)}
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,5vw,80px);align-items:center}
+.about-media{position:relative}
+.about-media .frame{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);position:relative;aspect-ratio:4/5}
+.about-media .frame img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.about-media:hover .frame img{transform:scale(1.06)}
+.about-media .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,transparent 55%,rgba(255,45,0,.18))}
+.badge-float{position:absolute;left:-26px;bottom:34px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 24px;
+  box-shadow:0 30px 60px -30px #000;display:flex;align-items:center;gap:16px;backdrop-filter:blur(8px)}
+.badge-float .big{font-family:'Anton';font-size:42px;line-height:1}
+.badge-float .lbl{font-size:12px;color:var(--muted);max-width:120px;line-height:1.35}
+.about-copy p{color:var(--muted);font-size:16.5px;margin-top:22px}
+.about-copy p strong{color:var(--text);font-weight:600}
+.about-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:42px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.about-stats .st{background:var(--bg);padding:24px 22px}
+.about-stats .num{font-family:'Anton';font-size:clamp(30px,3.4vw,42px);line-height:1}
+.about-stats .num em{font-style:normal;color:var(--accent)}
+.about-stats .cap{font-size:13px;color:var(--muted);margin-top:6px}
+.sig{margin-top:34px;display:flex;align-items:center;gap:16px}
+.sig .nm{font-family:'Space Grotesk';font-weight:600}
+.sig .rl{font-size:13px;color:var(--muted)}
+.sig svg{width:96px;color:var(--accent)}
+
+/* ============================ SERVICES ============================ */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:60px}
+.svc{position:relative;padding:34px 30px 38px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);
+  overflow:hidden;transition:border-color .4s,transform .4s var(--ease)}
+.svc::before{content:"";position:absolute;width:280px;height:280px;background:radial-gradient(circle,rgba(255,106,26,.16),transparent 70%);
+  border-radius:50%;left:var(--mx,50%);top:var(--my,0);transform:translate(-50%,-50%);opacity:0;transition:opacity .4s;pointer-events:none}
+.svc:hover{border-color:var(--line2);transform:translateY(-6px)}
+.svc:hover::before{opacity:1}
+.svc .ic{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;background:rgba(255,106,26,.1);
+  border:1px solid rgba(255,106,26,.28);color:var(--accent);margin-bottom:26px;transition:transform .4s var(--ease)}
+.svc:hover .ic{transform:rotate(-8deg) scale(1.06)}
+.svc .ic svg{width:26px;height:26px}
+.svc .idx{position:absolute;top:24px;right:26px;font-family:'Anton';font-size:15px;color:var(--muted2);letter-spacing:.1em}
+.svc h3{font-size:21px;margin-bottom:12px}
+.svc p{color:var(--muted);font-size:14.5px}
+.svc .tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.svc .tags span{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:30px;padding:5px 11px}
+
+/* ============================ PROCESS ============================ */
+#process{background:linear-gradient(180deg,transparent,rgba(255,106,26,.03),transparent)}
+.proc-wrap{margin-top:60px;position:relative}
+.proc-line{position:absolute;left:0;top:46px;height:2px;width:100%;background:var(--line)}
+.proc-line i{display:block;height:100%;width:0;background:var(--grad);box-shadow:0 0 12px var(--accent);transition:width 1.3s var(--ease)}
+.proc-line.fill i{width:100%}
+.proc-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:26px}
+.step{position:relative;padding-top:0}
+.step .dot{width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--muted2);margin-bottom:46px;position:relative;z-index:2;transition:.5s var(--ease)}
+.step.is-visible .dot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 6px rgba(255,106,26,.18)}
+.step .no{font-family:'Anton';font-size:50px;color:transparent;-webkit-text-stroke:1.4px var(--line2);line-height:1;margin-bottom:14px;transition:.5s}
+.step.is-visible .no{-webkit-text-stroke:1.4px var(--accent);color:rgba(255,106,26,.08)}
+.step h3{font-size:19px;margin-bottom:10px}
+.step p{color:var(--muted);font-size:14px}
+
+/* ============================ SHOWCASE ============================ */
+#showcase{overflow:hidden}
+.show-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(34px,4vw,64px);align-items:center}
+.show-media{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);position:relative;aspect-ratio:16/12}
+.show-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.show-media:hover img{transform:scale(1.05)}
+.show-media .tagrow{position:absolute;left:20px;top:20px;display:flex;gap:8px}
+.show-media .tagrow span{background:rgba(7,7,9,.7);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:30px;padding:7px 14px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-family:'Space Grotesk';font-weight:500}
+.show-copy .pname{font-family:'Anton';font-size:clamp(40px,6vw,76px);text-transform:uppercase;line-height:.9;margin:10px 0 4px}
+.show-copy .psub{color:var(--accent);font-family:'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;font-size:13px}
+.show-copy p{color:var(--muted);font-size:16px;margin-top:22px;max-width:440px}
+.spec{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:34px;background:var(--line);border:1px solid var(--line);border-radius:var(--rs);overflow:hidden}
+.spec .sp{background:var(--bg);padding:18px 20px}
+.spec .v{font-family:'Anton';font-size:27px}
+.spec .v em{font-style:normal;font-size:14px;color:var(--muted);font-family:'Inter'}
+.spec .k{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+
+/* ============================ GALLERY ============================ */
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.gal-filters{display:flex;gap:10px;flex-wrap:wrap}
+.gal-filters button{font-size:13px;font-family:'Space Grotesk';font-weight:500;padding:9px 18px;border-radius:30px;border:1px solid var(--line);color:var(--muted);transition:.3s}
+.gal-filters button.active,.gal-filters button:hover{background:var(--text);color:#0a0a0a;border-color:transparent}
+.gal-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:48px;grid-auto-flow:dense}
+.gitem{position:relative;border-radius:var(--r);overflow:hidden;cursor:pointer;border:1px solid var(--line);
+  grid-column:span 4;aspect-ratio:4/3;transition:opacity .5s,transform .5s var(--ease),filter .6s}
+.gitem.tall{grid-column:span 4;grid-row:span 2;aspect-ratio:auto}
+.gitem.wide{grid-column:span 8}
+.gitem img{width:100%;height:100%;object-fit:cover;filter:grayscale(.35) brightness(.85);transition:transform 1.1s var(--ease),filter .6s}
+.gitem:hover img{transform:scale(1.08);filter:grayscale(0) brightness(1)}
+.gitem .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;
+  background:linear-gradient(0deg,rgba(7,7,9,.86),transparent 60%);opacity:1}
+.gitem .pn{font-family:'Anton';font-size:26px;text-transform:uppercase;line-height:1;transform:translateY(8px);transition:transform .5s var(--ease)}
+.gitem:hover .pn{transform:none}
+.gitem .pt{font-size:12.5px;color:var(--accent2);letter-spacing:.14em;text-transform:uppercase;margin-top:7px;opacity:0;transform:translateY(10px);transition:.5s var(--ease)}
+.gitem:hover .pt{opacity:1;transform:none}
+.gitem .view{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);
+  backdrop-filter:blur(8px);display:grid;place-items:center;opacity:0;transform:scale(.6) rotate(-30deg);transition:.45s var(--ease)}
+.gitem:hover .view{opacity:1;transform:none}
+.gitem .view svg{width:18px;height:18px}
+.gitem.hidden{display:none}
+
+/* ============================ NUMBERS ============================ */
+#numbers{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+.num-bg{position:absolute;inset:0;z-index:0;opacity:.10;overflow:hidden}
+.num-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+#numbers .container{position:relative;z-index:1}
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:54px}
+.nstat{text-align:center;padding:26px 14px;border:1px solid var(--line);border-radius:var(--r);background:rgba(16,17,22,.6);backdrop-filter:blur(6px);transition:.4s var(--ease)}
+.nstat:hover{transform:translateY(-6px);border-color:rgba(255,106,26,.4)}
+.nstat .n{font-family:'Anton';font-size:clamp(44px,6vw,78px);line-height:1;letter-spacing:.01em}
+.nstat .n em{font-style:normal;color:var(--accent)}
+.nstat .c{color:var(--muted);font-size:14px;margin-top:8px;letter-spacing:.04em}
+
+/* ============================ VOICES ============================ */
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px}
+.quote{padding:36px 34px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);position:relative;overflow:hidden}
+.quote .mark{font-family:'Anton';font-size:90px;line-height:.6;color:rgba(255,106,26,.18);position:absolute;top:24px;right:26px}
+.quote .stars{color:var(--accent);letter-spacing:3px;margin-bottom:18px;font-size:15px}
+.quote p{font-size:18px;color:#e7e7ea;font-family:'Space Grotesk';font-weight:400;line-height:1.5;position:relative;z-index:1}
+.quote .by{margin-top:24px;display:flex;align-items:center;gap:14px}
+.quote .av{width:46px;height:46px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-family:'Anton';color:#1a0a00;font-size:18px}
+.quote .by b{font-family:'Space Grotesk';font-weight:600;display:block;font-size:15px}
+.quote .by span{font-size:13px;color:var(--muted)}
+.founder{grid-column:span 2;display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:center;
+  padding:34px;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(120deg,var(--panel2),var(--panel));margin-top:2px}
+.founder .fa{width:84px;height:84px;border-radius:20px;background:var(--grad);display:grid;place-items:center;font-family:'Anton';font-size:34px;color:#1a0a00}
+.founder .ft b{font-family:'Space Grotesk';font-size:22px;font-weight:700}
+.founder .ft span{color:var(--accent);font-size:13.5px;letter-spacing:.14em;text-transform:uppercase}
+.founder .ft p{color:var(--muted);font-size:14.5px;margin-top:8px;max-width:480px}
+.founder .rate{text-align:center}
+.founder .rate b{font-family:'Anton';font-size:40px}
+.founder .rate span{display:block;font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* ============================ CONTACT ============================ */
+#contact{overflow:hidden}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,4vw,64px);align-items:stretch;margin-top:54px}
+.cform{display:flex;flex-direction:column;gap:18px}
+.field{position:relative}
+.field label{font-size:12.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-family:'Space Grotesk';font-weight:500;margin-bottom:9px;display:block}
+.field input,.field select,.field textarea{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:var(--rs);
+  padding:15px 17px;color:var(--text);font-family:'Inter';font-size:15px;transition:border-color .3s,box-shadow .3s;resize:vertical}
+.field textarea{min-height:118px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(255,106,26,.13)}
+.field .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cform .btn-primary{justify-content:center;margin-top:6px}
+.form-note{font-size:12.5px;color:var(--muted2)}
+.form-ok{display:none;align-items:center;gap:12px;background:rgba(255,106,26,.1);border:1px solid rgba(255,106,26,.4);
+  border-radius:var(--rs);padding:16px 18px;color:var(--accent2);font-size:14.5px}
+.form-ok.show{display:flex}
+.cinfo{display:flex;flex-direction:column;gap:14px}
+.cinfo .card-i{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:var(--panel);display:flex;gap:18px;align-items:flex-start;transition:.4s var(--ease)}
+.cinfo .card-i:hover{border-color:var(--line2);transform:translateX(5px)}
+.cinfo .ci-ic{width:46px;height:46px;flex:none;border-radius:12px;background:rgba(255,106,26,.1);border:1px solid rgba(255,106,26,.28);color:var(--accent);display:grid;place-items:center}
+.cinfo .ci-ic svg{width:21px;height:21px}
+.cinfo .k{font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.cinfo .v{font-family:'Space Grotesk';font-weight:600;font-size:17px;margin-top:3px}
+.cinfo .v small{display:block;font-family:'Inter';font-weight:400;font-size:13.5px;color:var(--muted);letter-spacing:0;text-transform:none;margin-top:3px}
+.map{flex:1;min-height:150px;border:1px solid var(--line);border-radius:var(--r);position:relative;overflow:hidden;
+  background:radial-gradient(circle at 60% 40%,#15171e,#0a0b0e);display:grid;place-items:center}
+.map .grid-m{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:30px 30px}
+.map .pin{position:relative;z-index:2;text-align:center}
+.map .pin .p{width:20px;height:20px;border-radius:50%;background:var(--accent);margin:0 auto;box-shadow:0 0 0 8px rgba(255,106,26,.18);animation:pulse 2s infinite}
+.map .pin .t{margin-top:12px;font-size:12.5px;color:var(--muted);letter-spacing:.1em}
+.map .coord{position:absolute;left:16px;bottom:14px;font-family:'Anton';font-size:12px;color:var(--muted2);letter-spacing:.12em}
+
+/* ============================ FOOTER ============================ */
+footer{padding:clamp(70px,8vw,110px) 0 40px;position:relative;border-top:1px solid var(--line);overflow:hidden}
+.foot-big{font-family:'Anton';font-size:clamp(58px,17vw,250px);text-transform:uppercase;line-height:.8;text-align:center;
+  color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.1);margin-bottom:50px;white-space:nowrap}
+.foot-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:40px;padding-bottom:50px;border-bottom:1px solid var(--line)}
+.foot-cols h5{font-family:'Space Grotesk';font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:20px}
+.foot-cols ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.foot-cols a{color:var(--muted);font-size:14.5px;transition:color .3s}
+.foot-cols a:hover{color:var(--accent)}
+.foot-brand p{color:var(--muted);font-size:14.5px;margin-top:18px;max-width:300px}
+.socials{display:flex;gap:10px;margin-top:22px}
+.socials a{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--muted);transition:.3s}
+.socials a:hover{background:var(--accent);color:#0a0a0a;border-color:transparent;transform:translateY(-3px)}
+.socials svg{width:17px;height:17px}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:30px;color:var(--muted2);font-size:13px}
+.foot-bottom .legal{max-width:640px;line-height:1.6}
+.totop{display:inline-flex;align-items:center;gap:9px;color:var(--muted);font-size:13px;font-family:'Space Grotesk';font-weight:500}
+.totop .ar{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:.3s}
+.totop:hover .ar{background:var(--accent);color:#0a0a0a;border-color:transparent;transform:translateY(-3px)}
+
+/* ============================ LIGHTBOX ============================ */
+#lightbox{position:fixed;inset:0;z-index:1800;background:rgba(5,5,7,.94);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;padding:5vh 5vw;
+  opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+#lightbox.open{opacity:1;visibility:visible}
+#lightbox .lb-img{max-width:100%;max-height:74vh;border-radius:14px;border:1px solid var(--line2);
+  box-shadow:0 40px 100px -30px #000;transform:scale(.94);transition:transform .5s var(--ease)}
+#lightbox.open .lb-img{transform:none}
+.lb-cap{text-align:center}
+.lb-cap b{font-family:'Anton';font-size:30px;text-transform:uppercase;display:block}
+.lb-cap span{color:var(--accent2);font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.lb-close{position:absolute;top:24px;right:30px;width:50px;height:50px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:.3s}
+.lb-close:hover{background:var(--accent);color:#0a0a0a;border-color:transparent;transform:rotate(90deg)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:.3s}
+.lb-nav:hover{background:var(--accent);color:#0a0a0a;border-color:transparent}
+.lb-nav.prev{left:24px}.lb-nav.next{right:24px}
+.lb-count{font-family:'Anton';color:var(--muted);letter-spacing:.18em;font-size:13px}
+
+/* ============================ RESPONSIVE ============================ */
+@media(max-width:1080px){
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .proc-steps{grid-template-columns:repeat(3,1fr);row-gap:44px}
+  .proc-line{display:none}
+}
+@media(max-width:900px){
+  .nav-links,.nav-cta.desk{display:none}
+  .burger{display:flex}
+  .about-grid,.show-grid,.contact-grid{grid-template-columns:1fr}
+  .about-media{order:-1;max-width:460px}
+  .badge-float{left:auto;right:18px}
+  .num-grid{grid-template-columns:repeat(2,1fr)}
+  .voice-grid{grid-template-columns:1fr}
+  .founder{grid-template-columns:auto 1fr;grid-column:span 1}
+  .founder .rate{grid-column:span 2}
+  .foot-cols{grid-template-columns:1fr 1fr}
+  .show-media{order:-1}
+}
+@media(max-width:600px){
+  .svc-grid,.proc-steps,.num-grid,.spec,.about-stats{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .gitem,.gitem.wide,.gitem.tall{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}
+  .field .two{grid-template-columns:1fr}
+  .foot-cols{grid-template-columns:1fr}
+  .hero-row{flex-direction:column;align-items:flex-start}
+  .badge-float{position:static;margin-top:16px}
+  .about-media .frame{aspect-ratio:4/3}
+  .foot-bottom{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  .js [data-reveal]{opacity:1!important;transform:none!important}
+  .hero-title .ln i,.hero-sub,.hero-cta,.hero-meta,.gauge{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader">
+  <div class="pl-inner">
+    <div class="pl-mark">
+      <svg viewBox="0 0 100 100" fill="none"><path d="M22 74V26l16 26 16-26v48" stroke="#ff6a1a" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="74" cy="64" r="10" stroke="#ff6a1a" stroke-width="7"/></svg>
+    </div>
+    <div class="pl-label">Moto Dizaino Studija</div>
+    <div class="pl-bar"><i id="plBar"></i></div>
+    <div class="pl-pct"><span id="plPct">0</span>% — Warming up the engines</div>
+  </div>
+</div>
+
+<!-- ============ CURSOR / PROGRESS ============ -->
+<div class="cursor-dot" id="cDot"></div>
+<div class="cursor-ring" id="cRing"></div>
+<div id="progress"></div>
+
+<!-- ============ NAV ============ -->
+<header id="hdr">
+  <nav class="nav">
+    <a href="#hero" class="brand" data-cursor>
+      <span class="mk"><svg viewBox="0 0 100 100" fill="none"><rect width="100" height="100" rx="24" fill="#101116" stroke="rgba(255,255,255,.1)"/><path d="M28 72V30l14 22 14-22v42" stroke="url(#g)" stroke-width="7.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="70" cy="63" r="9" stroke="url(#g)" stroke-width="6"/><defs><linearGradient id="g" x1="20" y1="20" x2="80" y2="80"><stop stop-color="#ff9a3d"/><stop offset="1" stop-color="#ff2d00"/></linearGradient></defs></svg></span>
+      <span><b>MOTO·DS</b><small>Dizaino Studija</small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about" data-cursor><span>01</span>Studio</a></li>
+      <li><a href="#services" data-cursor><span>02</span>Services</a></li>
+      <li><a href="#process" data-cursor><span>03</span>Process</a></li>
+      <li><a href="#gallery" data-cursor><span>04</span>Work</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta desk magnetic" data-cursor>Start a Project
+      <svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i><i></i></button>
+  </nav>
+</header>
+
+<div id="mobileMenu">
+  <a href="#about"><em>01</em>Studio</a>
+  <a href="#services"><em>02</em>Services</a>
+  <a href="#process"><em>03</em>Process</a>
+  <a href="#gallery"><em>04</em>Work</a>
+  <a href="#contact"><em>05</em>Contact</a>
+  <div class="mm-foot">
+    <span>+370 650 80638</span>
+    <span>Chemijos g. 27C, Kaunas · Lietuva</span>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ 1 · HERO ============ -->
+<section id="hero">
+  <div class="hero-bg">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1622185135505-2d795003994a?auto=format&fit=crop&q=80&w=2000" alt="Motorcycle silhouette against a dramatic sky" />
+  </div>
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot"></span>Motociklų Dizaino Studija · Kaunas, LT</div>
+    <h1 class="hero-title">
+      <span class="ln"><i>We Shape</i></span>
+      <span class="ln"><i>The <span class="grad-text">Ride</span></i></span>
+    </h1>
+    <div class="hero-row">
+      <p class="hero-sub">An independent motorcycle design studio turning raw engineering into objects of desire — from the first pencil stroke to the final throttle.</p>
+      <div class="hero-cta">
+        <a href="#gallery" class="btn btn-primary magnetic" data-cursor>Explore the Work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#contact" class="btn btn-ghost magnetic" data-cursor>Start a Project
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <span class="chip"><span class="ic">★</span><b>10 / 10</b> client rating</span>
+      <span class="chip"><span class="ic">●</span> Established <b>2023</b></span>
+      <span class="chip"><span class="ic">◆</span> Based in <b>Kaunas</b></span>
+    </div>
+  </div>
+
+  <div class="gauge" aria-hidden="true">
+    <svg viewBox="0 0 200 130">
+      <path d="M16 110 A92 92 0 0 1 184 110" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M16 110 A92 92 0 0 1 120 24" fill="none" stroke="url(#gg)" stroke-width="8" stroke-linecap="round"/>
+      <g stroke="rgba(255,255,255,.3)" stroke-width="2">
+        <line x1="100" y1="22" x2="100" y2="32"/><line x1="44" y1="40" x2="51" y2="48"/><line x1="156" y1="40" x2="149" y2="48"/>
+      </g>
+      <line class="needle" x1="100" y1="100" x2="100" y2="40" stroke="#ff6a1a" stroke-width="3.4" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="7" fill="#15171e" stroke="#ff6a1a" stroke-width="2.5"/>
+      <defs><linearGradient id="gg" x1="16" y1="110" x2="160" y2="24"><stop stop-color="#ff2d00"/><stop offset="1" stop-color="#ff9a3d"/></linearGradient></defs>
+    </svg>
+    <div class="gauge-read"><b id="rpm">9.4</b>k</div>
+    <div class="gauge-lbl">Design RPM · redline</div>
+  </div>
+
+  <div class="scrollcue"><span class="mouse"></span>Scroll</div>
+</section>
+
+<!-- marquee -->
+<div class="marquee">
+  <div class="mq-track" id="mq1">
+    <span class="mq-item">Custom Design <span class="star">✦</span> Prototyping <span class="star">✦</span> Restomod <span class="star">✦</span> Engineering <span class="star">✦</span> Bodywork <span class="star">✦</span></span>
+    <span class="mq-item">Custom Design <span class="star">✦</span> Prototyping <span class="star">✦</span> Restomod <span class="star">✦</span> Engineering <span class="star">✦</span> Bodywork <span class="star">✦</span></span>
+  </div>
+</div>
+
+<!-- ============ 2 · ABOUT ============ -->
+<section id="about">
+  <div class="container about-grid">
+    <div class="about-media" data-reveal="left">
+      <div class="frame tilt"><img src="https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&q=80&w=1100" alt="Designer sketching a motorcycle concept" loading="lazy"/></div>
+      <div class="badge-float">
+        <span class="big grad-text">3+</span>
+        <span class="lbl">Years sculpting two-wheeled machines in Kaunas</span>
+      </div>
+    </div>
+    <div class="about-copy">
+      <span class="snum">02 — The Studio</span>
+      <div class="eyebrow" data-reveal>About the house</div>
+      <h2 class="sec-title" data-reveal>A design house for the modern motorcycle.</h2>
+      <p data-reveal>We are a small, obsessive studio that treats every motorcycle as a piece of moving sculpture. <strong>Founded in 2023 in Kaunas, Lithuania,</strong> we blend old-world craftsmanship with digital engineering — clay, steel and pixels in the same breath.</p>
+      <p data-reveal>From a napkin sketch to a road-ready prototype, we own every surface, every weld line and every reflection. The result is machines that feel inevitable — like they could only ever have looked this way.</p>
+      <div class="about-stats" data-reveal>
+        <div class="st"><div class="num" data-count="27" data-suffix="">0<em></em></div><div class="cap">Concepts realised</div></div>
+        <div class="st"><div class="num" data-count="1200" data-suffix="+">0</div><div class="cap">Components engineered</div></div>
+        <div class="st"><div class="num"><em>1of1</em></div><div class="cap">Every build, bespoke</div></div>
+        <div class="st"><div class="num" data-count="100" data-suffix="%">0</div><div class="cap">In-house design</div></div>
+      </div>
+      <div class="sig" data-reveal>
+        <svg viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 30c10-22 16 8 22-2s8-18 12 0 6 14 14 2 12-16 18-2 10 8 18-6 14 6 24-4"/></svg>
+        <div><span class="nm">Mantas Šumskis</span><span class="rl"> — Founder & Lead Designer</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · SERVICES ============ -->
+<section id="services">
+  <div class="container">
+    <div class="sec-head">
+      <span class="snum">03 — Capabilities</span>
+      <div class="eyebrow" data-reveal>What we do</div>
+      <h2 class="sec-title" data-reveal>Everything between the idea and the asphalt.</h2>
+      <p class="sec-sub" data-reveal>Six disciplines under one roof — so a single team carries your machine from concept to the open road.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc tilt" data-reveal><span class="idx">01</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l4-1L20 7a2.8 2.8 0 0 0-4-4L3 16l-1 4z"/><path d="M14 5l4 4"/></svg></div>
+        <h3>Custom Design</h3><p>Bespoke motorcycle concepts drawn from scratch — silhouette, stance and surface tailored to one rider, one story.</p>
+        <div class="tags"><span>Concept art</span><span>Surfacing</span><span>Stance</span></div>
+      </div>
+      <div class="svc tilt" data-reveal data-delay="80"><span class="idx">02</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>
+        <h3>3D &amp; Prototyping</h3><p>CAD modelling, clay-to-digital workflows and rapid prototyping that turn a sketch into something you can hold.</p>
+        <div class="tags"><span>CAD</span><span>3D print</span><span>Clay</span></div>
+      </div>
+      <div class="svc tilt" data-reveal data-delay="160"><span class="idx">03</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg></div>
+        <h3>Restomod &amp; Restoration</h3><p>Heritage bikes reborn with a modern soul — period-correct lines, contemporary performance and reliability.</p>
+        <div class="tags"><span>Heritage</span><span>Cafe racer</span><span>Resto</span></div>
+      </div>
+      <div class="svc tilt" data-reveal><span class="idx">04</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div>
+        <h3>Engineering &amp; Ergonomics</h3><p>Frames, geometry, ergonomics and aero — design decisions validated against the way a body actually rides.</p>
+        <div class="tags"><span>Frame</span><span>Ergonomics</span><span>Aero</span></div>
+      </div>
+      <div class="svc tilt" data-reveal data-delay="80"><span class="idx">05</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14c0-4 4-8 8-8s8 4 8 8M2 18h20"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
+        <h3>Bodywork &amp; Aero</h3><p>Tanks, fairings and seats sculpted for flow — every panel earns its place through both line and air.</p>
+        <div class="tags"><span>Tank</span><span>Fairing</span><span>Seat</span></div>
+      </div>
+      <div class="svc tilt" data-reveal data-delay="160"><span class="idx">06</span>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Brand &amp; Livery</h3><p>Paint, graphics and identity — the finishing language that turns a machine into a name people remember.</p>
+        <div class="tags"><span>Paint</span><span>Livery</span><span>Identity</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · PROCESS ============ -->
+<section id="process">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="snum">04 — How we ride</span>
+      <div class="eyebrow center" data-reveal>The process</div>
+      <h2 class="sec-title" data-reveal>Five gears from brief to road.</h2>
+    </div>
+    <div class="proc-wrap">
+      <div class="proc-line" id="procLine"><i></i></div>
+      <div class="proc-steps">
+        <div class="step" data-reveal><div class="dot"></div><div class="no">01</div><h3>Discovery</h3><p>We dig into the brief, references and the feeling you're chasing — then map the soul of the build.</p></div>
+        <div class="step" data-reveal data-delay="120"><div class="dot"></div><div class="no">02</div><h3>Sketch</h3><p>Hand sketches and digital ideation explore dozens of directions before a single line is locked.</p></div>
+        <div class="step" data-reveal data-delay="240"><div class="dot"></div><div class="no">03</div><h3>Design</h3><p>CAD, surfacing and simulation turn the chosen direction into millimetre-accurate geometry.</p></div>
+        <div class="step" data-reveal data-delay="360"><div class="dot"></div><div class="no">04</div><h3>Prototype</h3><p>Fabrication, fitment and finishing — the digital model becomes metal, paint and presence.</p></div>
+        <div class="step" data-reveal data-delay="480"><div class="dot"></div><div class="no">05</div><h3>Ride</h3><p>Final QA, handover and ongoing support — we stay with the machine long after the keys change hands.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 · SHOWCASE ============ -->
+<section id="showcase">
+  <div class="container show-grid">
+    <div class="show-media tilt" data-reveal="left">
+      <div class="tagrow"><span>Featured Build</span><span>1 of 1</span></div>
+      <img src="https://images.unsplash.com/photo-1502744688674-c619d1586c9e?auto=format&fit=crop&q=80&w=1400" alt="Custom cafe racer motorcycle" loading="lazy"/>
+    </div>
+    <div class="show-copy">
+      <span class="snum">05 — Selected work</span>
+      <span class="psub" data-reveal>Bespoke cafe racer</span>
+      <div class="pname" data-reveal>Heritage<br>750</div>
+      <p data-reveal>A donor classic stripped to the spine and re-imagined around a single brief: timeless, fast, and unmistakably hand-built. Every bracket was drawn, printed, tested and re-drawn until the silhouette read as one continuous line.</p>
+      <div class="spec" data-reveal>
+        <div class="sp"><div class="v">750<em>cc</em></div><div class="k">Engine</div></div>
+        <div class="sp"><div class="v">184<em>kg</em></div><div class="k">Dry weight</div></div>
+        <div class="sp"><div class="v">480<em>hrs</em></div><div class="k">Build time</div></div>
+        <div class="sp"><div class="v">2025</div><div class="k">Delivered</div></div>
+      </div>
+      <a href="#gallery" class="btn btn-ghost magnetic" data-cursor style="margin-top:34px">See the full portfolio
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- giant hollow marquee -->
+<div class="marquee rev plain">
+  <div class="mq-track">
+    <span class="mq-item hollow">Motorcycle Design ✦ Kaunas ✦</span>
+    <span class="mq-item hollow">Motorcycle Design ✦ Kaunas ✦</span>
+  </div>
+</div>
+
+<!-- ============ 6 · GALLERY ============ -->
+<section id="gallery">
+  <div class="container">
+    <div class="gal-head">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="snum">06 — Portfolio</span>
+        <div class="eyebrow" data-reveal>Selected machines</div>
+        <h2 class="sec-title" data-reveal>The work speaks loudest.</h2>
+      </div>
+      <div class="gal-filters" data-reveal>
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="sport">Sport</button>
+        <button data-filter="custom">Custom</button>
+        <button data-filter="electric">Electric</button>
+      </div>
+    </div>
+    <div class="gal-grid" id="galGrid">
+      <!-- items injected -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7 · NUMBERS ============ -->
+<section id="numbers">
+  <div class="num-bg"><img src="https://images.unsplash.com/photo-1504222490345-c075b6008014?auto=format&fit=crop&q=80&w=1600" alt="" loading="lazy"/></div>
+  <div class="container">
+    <div class="sec-head center">
+      <span class="snum">07 — By the numbers</span>
+      <div class="eyebrow center" data-reveal>Measured in metal</div>
+      <h2 class="sec-title" data-reveal>Small studio, serious output.</h2>
+    </div>
+    <div class="num-grid">
+      <div class="nstat" data-reveal><div class="n" data-count="3" data-suffix="+">0</div><div class="c">Years of obsession</div></div>
+      <div class="nstat" data-reveal data-delay="100"><div class="n" data-count="27" data-suffix="">0</div><div class="c">Concepts realised</div></div>
+      <div class="nstat" data-reveal data-delay="200"><div class="n" data-count="1200" data-suffix="+">0</div><div class="c">Parts engineered</div></div>
+      <div class="nstat" data-reveal data-delay="300"><div class="n"><em>10</em>/10</div><div class="c">Client rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 · VOICES ============ -->
+<section id="voices">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="snum">08 — Recognition</span>
+      <div class="eyebrow center" data-reveal>In their words</div>
+      <h2 class="sec-title" data-reveal>Trusted by the people who ride them.</h2>
+    </div>
+    <div class="voice-grid">
+      <div class="quote" data-reveal="left"><span class="mark">”</span>
+        <div class="stars">★★★★★</div>
+        <p>They didn't just design a motorcycle — they read my mind and then drew something better than I could imagine. Every detail has a reason.</p>
+        <div class="by"><div class="av">R</div><div><b>Rokas V.</b><span>Private commission · Vilnius</span></div></div>
+      </div>
+      <div class="quote" data-reveal="right"><span class="mark">”</span>
+        <div class="stars">★★★★★</div>
+        <p>The level of craft is unreal for a young studio. Renders that became metal with zero compromise. Worth every kilometre of the wait.</p>
+        <div class="by"><div class="av">G</div><div><b>Greta M.</b><span>Restomod build · Kaunas</span></div></div>
+      </div>
+      <div class="founder" data-reveal>
+        <div class="fa">MŠ</div>
+        <div class="ft">
+          <b>Mantas Šumskis</b>
+          <span>Founder &amp; Lead Designer</span>
+          <p>"I started this studio because Lithuania deserves a motorcycle design house of its own. We sketch, we weld, we obsess — and we don't sign off until it's perfect."</p>
+        </div>
+        <div class="rate"><b class="grad-text">10/10</b><span>Verified rating</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 · CONTACT ============ -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-head">
+      <span class="snum">09 — Let's build</span>
+      <div class="eyebrow" data-reveal>Start a project</div>
+      <h2 class="sec-title" data-reveal>Have a machine in mind?</h2>
+      <p class="sec-sub" data-reveal>Tell us about the bike you're dreaming of. We reply to every serious enquiry within two working days.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="cform" id="cForm" data-reveal="left">
+        <div class="field two">
+          <div><label>Your name</label><input type="text" name="name" placeholder="Jonas Jonaitis" required/></div>
+          <div><label>Email</label><input type="email" name="email" placeholder="you@email.com" required/></div>
+        </div>
+        <div class="field">
+          <label>Project type</label>
+          <select name="type">
+            <option>Custom design — new build</option>
+            <option>Restomod / restoration</option>
+            <option>Prototyping &amp; 3D</option>
+            <option>Bodywork &amp; livery</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label>Tell us about it</label><textarea name="msg" placeholder="Donor bike, the feeling you're chasing, budget, timeline…" required></textarea></div>
+        <button type="submit" class="btn btn-primary magnetic" data-cursor>Send the brief
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+        <div class="form-ok" id="formOk"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Brief received — we'll be in touch within two working days.</div>
+        <p class="form-note">By sending, you agree to be contacted about your enquiry. This demo form does not store data.</p>
+      </form>
+
+      <div class="cinfo" data-reveal="right">
+        <a href="tel:+37065080638" class="card-i" data-cursor>
+          <div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg></div>
+          <div><div class="k">Call the studio</div><div class="v">+370 650 80638</div></div>
+        </a>
+        <a href="mailto:studio@motodizainas.lt" class="card-i" data-cursor>
+          <div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg></div>
+          <div><div class="k">Email</div><div class="v">studio@motodizainas.lt</div></div>
+        </a>
+        <div class="card-i">
+          <div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="k">Visit / post</div><div class="v">Chemijos g. 27C-62<small>LT-51331 Kaunas · Lietuva</small></div></div>
+        </div>
+        <div class="map">
+          <div class="grid-m"></div>
+          <div class="pin"><div class="p"></div><div class="t">Kaunas Design District</div></div>
+          <div class="coord">54.8985° N · 23.9036° E</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-big outline-text">RIDE WITH US</div>
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <a href="#hero" class="brand"><span class="mk"><svg viewBox="0 0 100 100" fill="none"><rect width="100" height="100" rx="24" fill="#101116" stroke="rgba(255,255,255,.1)"/><path d="M28 72V30l14 22 14-22v42" stroke="url(#gf)" stroke-width="7.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="70" cy="63" r="9" stroke="url(#gf)" stroke-width="6"/><defs><linearGradient id="gf" x1="20" y1="20" x2="80" y2="80"><stop stop-color="#ff9a3d"/><stop offset="1" stop-color="#ff2d00"/></linearGradient></defs></svg></span><span><b>MOTO·DS</b><small>Dizaino Studija</small></span></a>
+        <p>An independent motorcycle design studio shaping the machines that move you. Hand-built in Kaunas, Lithuania.</p>
+        <div class="socials">
+          <a href="#" data-cursor aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" data-cursor aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" data-cursor aria-label="Behance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h6a3 3 0 0 1 0 6H2zM2 13h6.5a3 3 0 0 1 0 6H2zM15 8h6M14 14h8a4 4 0 0 0-8 0 4 4 0 0 0 7 2.5"/></svg></a>
+          <a href="#" data-cursor aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 3h-3a4 4 0 0 0-4 4v3H5v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div><h5>Studio</h5><ul><li><a href="#about">About</a></li><li><a href="#process">Process</a></li><li><a href="#voices">Recognition</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h5>Services</h5><ul><li><a href="#services">Custom design</a></li><li><a href="#services">Restomod</a></li><li><a href="#services">Prototyping</a></li><li><a href="#services">Bodywork</a></li></ul></div>
+      <div><h5>Studio hours</h5><ul><li>Mon–Fri · 09:00–18:00</li><li>Sat · by appointment</li><li>Sun · closed</li><li><a href="tel:+37065080638">+370 650 80638</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <div class="legal">© 2026 Motociklų dizaino studija, MB · Company code 306223269 · Chemijos g. 27C-62, LT-51331 Kaunas, Lietuva. Imagery for presentation only.</div>
+      <a href="#hero" class="totop magnetic" data-cursor>Back to top <span class="ar"><svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" width="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <button class="lb-nav prev" id="lbPrev" aria-label="Prev"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="lb-nav next" id="lbNext" aria-label="Next"><svg viewBox="0 0 24 24" width="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></button>
+  <img class="lb-img" id="lbImg" src="" alt=""/>
+  <div class="lb-cap"><b id="lbTitle"></b><span id="lbSub"></span></div>
+  <div class="lb-count"><span id="lbIdx">1</span> / <span id="lbTot">8</span></div>
+</div>
+
+<script>
+/* ====================== DATA ====================== */
+const U = (id,w)=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&q=80&w=${w}`;
+const BIKES = [
+  {id:"1558981403-c5f9899a28bc", name:"Volt",     tag:"Electric Concept", cat:"electric", size:"wide"},
+  {id:"1568772585407-9361f9bf3a87", name:"Rosso",  tag:"Track Edition",    cat:"sport",    size:"tall"},
+  {id:"1591637333184-19aa84b3e01f", name:"Duke",   tag:"Naked Series",     cat:"custom",   size:""},
+  {id:"1609630875171-b1321377ee65", name:"Solaris",tag:"Supersport",       cat:"sport",    size:""},
+  {id:"1547549082-6bc09f2049ae", name:"Midnight",  tag:"Urban GT",         cat:"sport",    size:"wide"},
+  {id:"1580310614729-ccd69652491d", name:"Circuit",tag:"Track Spec",       cat:"sport",    size:""},
+  {id:"1502744688674-c619d1586c9e", name:"Heritage",tag:"Cafe Racer",      cat:"custom",   size:""},
+  {id:"1622185135505-2d795003994a", name:"Noir",   tag:"Classic Restomod", cat:"custom",   size:""},
+];
+
+/* ====================== GALLERY BUILD ====================== */
+const grid = document.getElementById('galGrid');
+BIKES.forEach((b,i)=>{
+  const el = document.createElement('div');
+  el.className = 'gitem '+b.size;
+  el.dataset.cat = b.cat; el.dataset.i = i;
+  el.setAttribute('data-cursor','');
+  el.innerHTML = `
+    <img src="${U(b.id,900)}" alt="${b.name} — ${b.tag}" loading="lazy"/>
+    <div class="view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6M10 14l-7 7"/></svg></div>
+    <div class="ov"><div class="pn">${b.name}</div><div class="pt">${b.tag}</div></div>`;
+  grid.appendChild(el);
+});
+document.getElementById('lbTot').textContent = BIKES.length;
+
+/* ====================== FILTERS ====================== */
+document.querySelectorAll('.gal-filters button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelector('.gal-filters .active').classList.remove('active');
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.gitem').forEach(it=>{
+      const show = f==='all'||it.dataset.cat===f;
+      it.classList.toggle('hidden',!show);
+    });
+  });
+});
+
+/* ====================== LIGHTBOX ====================== */
+const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg'),
+      lbTitle=document.getElementById('lbTitle'), lbSub=document.getElementById('lbSub'),
+      lbIdx=document.getElementById('lbIdx');
+let cur=0;
+function openLB(i){cur=i;const b=BIKES[i];lbImg.src=U(b.id,1600);lbImg.alt=b.name;
+  lbTitle.textContent=b.name;lbSub.textContent=b.tag;lbIdx.textContent=i+1;
+  lb.classList.add('open');document.body.style.overflow='hidden';}
+function closeLB(){lb.classList.remove('open');document.body.style.overflow='';}
+function step(d){let n=cur;do{n=(n+d+BIKES.length)%BIKES.length;}while(document.querySelector(`.gitem[data-i="${n}"]`).classList.contains('hidden'));openLB(n);}
+grid.addEventListener('click',e=>{const it=e.target.closest('.gitem');if(it)openLB(+it.dataset.i);});
+document.getElementById('lbClose').onclick=closeLB;
+document.getElementById('lbPrev').onclick=()=>step(-1);
+document.getElementById('lbNext').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+
+/* ====================== PRELOADER ====================== */
+const pre=document.getElementById('preloader'),plBar=document.getElementById('plBar'),plPct=document.getElementById('plPct');
+let p=0;const ld=setInterval(()=>{p+=Math.random()*16;if(p>=100){p=100;clearInterval(ld);
+    setTimeout(()=>{pre.classList.add('done');document.body.style.overflow='';},450);}
+  plBar.style.width=p+'%';plPct.textContent=Math.floor(p);},120);
+document.body.style.overflow='hidden';
+document.documentElement.classList.add('js');
+
+/* ====================== CURSOR ====================== */
+const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+if(fine){
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+  (function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,[data-cursor],input,select,textarea,.gitem').forEach(el=>{
+    el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
+    el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
+  });
+}else{dot.style.display=ring.style.display='none';}
+
+/* ====================== SCROLL: progress, nav ====================== */
+const hdr=document.getElementById('hdr'),prog=document.getElementById('progress');
+let lastY=0,ticking=false;
+function onScroll(){
+  const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(y/h*100)+'%';
+  hdr.classList.toggle('scrolled',y>40);
+  if(y>lastY&&y>400)hdr.classList.add('hide');else hdr.classList.remove('hide');
+  lastY=y;ticking=false;
+}
+addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(onScroll);ticking=true;}},{passive:true});
+
+/* ====================== HERO PARALLAX ====================== */
+const heroImg=document.getElementById('heroImg');
+addEventListener('scroll',()=>{const y=scrollY;if(y<innerHeight)heroImg.style.transform=`translateY(${y*.28}px) scale(1.05)`;},{passive:true});
+
+/* ====================== REVEAL + COUNTERS + PROC LINE ====================== */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const t=e.target;
+      const d=t.dataset.delay?+t.dataset.delay:0;
+      setTimeout(()=>t.classList.add('is-visible'),d);
+      if(t.dataset.count!==undefined)runCount(t);
+      io.unobserve(t);
+    }
+  });
+},{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('[data-reveal],.step').forEach(el=>io.observe(el));
+document.querySelectorAll('[data-count]').forEach(el=>io.observe(el));
+
+function runCount(el){
+  const end=+el.dataset.count,suf=el.dataset.suffix||'';const dur=1600;let s=null;
+  function tick(ts){if(!s)s=ts;const pr=Math.min((ts-s)/dur,1);
+    const val=Math.floor((1-Math.pow(1-pr,3))*end);
+    el.textContent=val.toLocaleString()+suf;
+    if(pr<1)requestAnimationFrame(tick);else el.textContent=end.toLocaleString()+suf;}
+  requestAnimationFrame(tick);
+}
+/* process line fill */
+const procLine=document.getElementById('procLine');
+if(procLine){const lio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){procLine.classList.add('fill');lio.disconnect();}});},{threshold:.4});lio.observe(document.querySelector('.proc-steps'));}
+
+/* ====================== GAUGE RPM readout ====================== */
+const rpm=document.getElementById('rpm');
+if(rpm){let t=0;setInterval(()=>{t+=.05;const v=(6.8+Math.abs(Math.sin(t))*4.2);rpm.textContent=v.toFixed(1);},90);}
+
+/* ====================== TILT ====================== */
+if(fine){
+  document.querySelectorAll('.tilt').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(900px) rotateY(${px*7}deg) rotateX(${-py*7}deg) translateY(-4px)`;
+      card.style.setProperty('--mx',(px+.5)*100+'%');
+      card.style.setProperty('--my',(py+.5)*100+'%');
+    });
+    card.addEventListener('mouseleave',()=>card.style.transform='');
+  });
+}
+
+/* ====================== MAGNETIC BUTTONS ====================== */
+if(fine){
+  document.querySelectorAll('.magnetic').forEach(el=>{
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();
+      el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.35}px)`;});
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+}
+
+/* ====================== MOBILE MENU ====================== */
+const burger=document.getElementById('burger'),mm=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>{const o=mm.classList.toggle('open');burger.classList.toggle('x',o);
+  document.body.style.overflow=o?'hidden':'';});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('open');burger.classList.remove('x');document.body.style.overflow='';}));
+
+/* ====================== FORM ====================== */
+document.getElementById('cForm').addEventListener('submit',e=>{
+  e.preventDefault();const ok=document.getElementById('formOk');
+  ok.classList.add('show');e.target.querySelector('button').style.display='none';
+  setTimeout(()=>{e.target.reset();},400);
+});
+
+/* ====================== MARQUEE speed on scroll (subtle) ====================== */
+let mqV=0;addEventListener('scroll',()=>{mqV=Math.min(Math.abs(scrollY-lastY),20);},{passive:true});
+</script>
+</body>
+</html>
