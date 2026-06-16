@@ -17,6 +17,10 @@
 <!-- Bulletproof image fallback: if a photo URL fails, draw an on-brand SVG graphic so the site never shows a broken image. -->
 <script>
 function ergFallback(img){
+  // Try each pipe-separated fallback URL in turn before drawing the SVG graphic.
+  var fbs=(img.getAttribute('data-fallbacks')||'').split('|').filter(function(s){return !!s.trim();});
+  var fi=parseInt(img.getAttribute('data-fi')||'0',10);
+  if(fi<fbs.length){ img.setAttribute('data-fi',fi+1); img.src=fbs[fi].trim(); return; }
   img.onerror=null;
   var label=(img.getAttribute('data-label')||'ERSEDA').toUpperCase();
   var v=img.getAttribute('data-variant')||'orange';
@@ -369,7 +373,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 30px;background:var(--b
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=70" alt="Suvirinimo darbai su kibirkštimis" data-label="Suvirinimas" data-variant="orange" onerror="ergFallback(this)">
+    <img src="https://images.pexels.com/photos/2760343/pexels-photo-2760343.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1600&h=900" alt="Suvirinimo darbai su kibirkštimis" data-label="Suvirinimas" data-variant="orange" data-fallbacks="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=70|https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1600&q=70" onerror="ergFallback(this)">
   </div>
   <canvas id="sparks"></canvas>
   <div class="wrap">
@@ -402,7 +406,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 30px;background:var(--b
 <section class="sec" id="about">
   <div class="wrap about-grid">
     <div class="about-media reveal">
-      <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1000&q=70" alt="ERSEDA metalo dirbtuvės" data-label="ERSEDA dirbtuvės" data-variant="steel" onerror="ergFallback(this)">
+      <img src="https://images.pexels.com/photos/3822802/pexels-photo-3822802.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1000&h=800" alt="ERSEDA metalo dirbtuvės" data-label="ERSEDA dirbtuvės" data-variant="steel" data-fallbacks="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=70" onerror="ergFallback(this)">
       <div class="badge">
         <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.5 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg></span>
         <div><b>Kokybė</b><span>kiekviename darbe</span></div>
@@ -524,7 +528,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 30px;background:var(--b
   <div class="wrap feature-grid">
     <div class="feature-media reveal">
       <span class="ribbon">Naujiena</span>
-      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1100&q=70" alt="Profesionalus suvirinimo stalas" data-label="Suvirinimo stalas" data-variant="amber" onerror="ergFallback(this)">
+      <img src="https://images.pexels.com/photos/15888226/pexels-photo-15888226.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1100&h=900" alt="Suvirintojas dirba prie metalo stalo" data-label="Suvirinimo stalas" data-variant="amber" data-fallbacks="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1100&q=70" onerror="ergFallback(this)">
     </div>
     <div class="feature-text">
       <span class="tag">Suvirinimo stalas</span>
@@ -551,34 +555,39 @@ footer{border-top:1px solid var(--border);padding:64px 0 30px;background:var(--b
     </div>
     <div class="gallery reveal">
       <figure class="gitem tall" data-cap="Profesionalus suvirinimo stalas">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=900&q=70" alt="Suvirinimo stalas" data-label="Suvirinimo stalas" data-variant="orange" onerror="ergFallback(this)">
+        <img loading="lazy" src="https://images.pexels.com/photos/6331025/pexels-photo-6331025.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=600&h=900" alt="Suvirinimo stalo paviršius su skylėmis" data-label="Suvirinimo stalas" data-variant="orange" data-fallbacks="https://images.unsplash.com/photo-1426927308491-6380b6a9936f?auto=format&fit=crop&w=600&h=900&q=70" onerror="ergFallback(this)">
         <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
         <figcaption class="cap"><small>Stalai</small>Suvirinimo stalas</figcaption>
       </figure>
       <figure class="gitem" data-cap="Metaliniai laiptai ir turėklai">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=70" alt="Metaliniai laiptai" data-label="Metaliniai laiptai" data-variant="steel" onerror="ergFallback(this)">
+        <img loading="lazy" src="https://images.pexels.com/photos/5826451/pexels-photo-5826451.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600" alt="Metaliniai laiptai su turėklais" data-label="Metaliniai laiptai" data-variant="steel" data-fallbacks="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=70" onerror="ergFallback(this)">
         <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
         <figcaption class="cap"><small>Laiptai</small>Metaliniai laiptai</figcaption>
       </figure>
       <figure class="gitem" data-cap="Vartai ir tvoros pagal užsakymą">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1597844808175-9e1b6a8b7b5e?auto=format&fit=crop&w=900&q=70" alt="Vartai ir tvoros" data-label="Vartai ir tvoros" data-variant="red" onerror="ergFallback(this)">
+        <img loading="lazy" src="https://images.pexels.com/photos/31082801/pexels-photo-31082801.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600" alt="Kalvystės vartai ir tvora" data-label="Vartai ir tvoros" data-variant="red" data-fallbacks="https://images.unsplash.com/photo-1426927308491-6380b6a9936f?auto=format&fit=crop&w=800&q=70" onerror="ergFallback(this)">
         <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
         <figcaption class="cap"><small>Vartai</small>Vartai ir tvoros</figcaption>
       </figure>
       <figure class="gitem wide" data-cap="Suvirinimo darbai dirbtuvėse">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=70" alt="Suvirinimo darbai" data-label="Suvirinimas" data-variant="orange" onerror="ergFallback(this)">
+        <img loading="lazy" src="https://images.pexels.com/photos/5362681/pexels-photo-5362681.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=600" alt="Suvirintojas su kibirkštimis dirbtuvėse" data-label="Suvirinimas" data-variant="orange" data-fallbacks="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=70" onerror="ergFallback(this)">
         <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
         <figcaption class="cap"><small>Suvirinimas</small>Kibirkštys dirbtuvėse</figcaption>
       </figure>
       <figure class="gitem" data-cap="Metalo konstrukcijos">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=70" alt="Metalo konstrukcijos" data-label="Konstrukcijos" data-variant="dark" onerror="ergFallback(this)">
+        <img loading="lazy" src="https://images.pexels.com/photos/4053706/pexels-photo-4053706.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600" alt="Metalo apdirbimas ir pjovimas" data-label="Konstrukcijos" data-variant="dark" data-fallbacks="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=70" onerror="ergFallback(this)">
         <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
         <figcaption class="cap"><small>Konstrukcijos</small>Metalo rėmai</figcaption>
       </figure>
       <figure class="gitem" data-cap="Darbas pas užsakovą objekte">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1426927308491-6380b6a9936f?auto=format&fit=crop&w=900&q=70" alt="Darbas pas užsakovą" data-label="Pas užsakovą" data-variant="steel" onerror="ergFallback(this)">
+        <img loading="lazy" src="https://images.pexels.com/photos/19757234/pexels-photo-19757234.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600" alt="Darbas pas užsakovą — suvirinimas vietoje" data-label="Pas užsakovą" data-variant="steel" data-fallbacks="https://images.unsplash.com/photo-1426927308491-6380b6a9936f?auto=format&fit=crop&w=800&q=70" onerror="ergFallback(this)">
         <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
         <figcaption class="cap"><small>Objektas</small>Darbas pas užsakovą</figcaption>
+      </figure>
+      <figure class="gitem" data-cap="Tikslus metalo darbas — nerūdijantis plienas">
+        <img loading="lazy" src="https://images.pexels.com/photos/9756760/pexels-photo-9756760.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=800&h=600" alt="Nerūdijančio plieno turėklai" data-label="Tikslus darbas" data-variant="amber" data-fallbacks="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=800&q=70" onerror="ergFallback(this)">
+        <span class="plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        <figcaption class="cap"><small>Nerūdijantis plienas</small>Tikslus darbas</figcaption>
       </figure>
     </div>
   </div>
