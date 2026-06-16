@@ -199,10 +199,14 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
    HERO
    ========================================================= */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding-top:140px;padding-bottom:90px}
-.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
     radial-gradient(60% 50% at 50% 26%,rgba(255,106,26,.12),transparent 60%),
     radial-gradient(75% 60% at 50% 118%,rgba(79,182,230,.12),transparent 60%);}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.30}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,13,17,.62) 0%,rgba(10,13,17,.78) 55%,#0a0d11 100%)}
 /* technical grid overlay */
 .hero-grid{position:absolute;inset:0;z-index:1;opacity:.5;pointer-events:none;
   background-image:linear-gradient(rgba(208,222,236,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(208,222,236,.05) 1px,transparent 1px);
@@ -350,9 +354,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
 .proj.tall{grid-row:span 2;min-height:0}
 .proj:nth-child(1){grid-column:span 4;grid-row:span 2}
 .proj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .6s var(--ease);filter:saturate(.9)}
-.proj::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(8,10,13,.9))}
+.proj::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(8,10,13,.12) 0%,transparent 26%,rgba(8,10,13,.5) 60%,rgba(8,10,13,.95) 100%)}
 .proj:hover img{transform:scale(1.08);filter:saturate(1.05)}
-.proj .meta{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px;transform:translateY(8px);opacity:.92;transition:transform .5s var(--ease)}
+.proj .meta{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:24px;transform:translateY(8px);opacity:.92;transition:transform .5s var(--ease)}
 .proj:hover .meta{transform:translateY(0)}
 .proj .tag{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
   font-family:var(--font-display);font-weight:600;margin-bottom:8px}
@@ -366,9 +370,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
 .sectors{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .sector{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:1/1.04}
 .sector img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);opacity:.62}
-.sector::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,13,.15) 0%,rgba(8,10,13,.6) 55%,rgba(8,10,13,.95))}
+.sector::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(8,10,13,.2) 0%,rgba(8,10,13,.55) 52%,rgba(8,10,13,.95))}
 .sector:hover img{transform:scale(1.07)}
-.sector .body{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:26px}
+.sector .body{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:26px}
 .sector .knum{font-family:var(--font-display);font-weight:700;color:var(--accent);font-size:.85rem;letter-spacing:.1em;margin-bottom:auto}
 .sector h3{font-size:1.32rem;margin-bottom:8px}
 .sector p{color:#c4d0dc;font-size:.92rem;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s var(--ease)}
@@ -389,13 +393,17 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
   background-image:linear-gradient(rgba(208,222,236,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(208,222,236,.06) 1px,transparent 1px);
   background-size:26px 26px;
   -webkit-mask-image:radial-gradient(120% 110% at 50% 35%,#000,transparent 82%);mask-image:radial-gradient(120% 110% at 50% 35%,#000,transparent 82%)}
-.visual .art{position:absolute;inset:0;z-index:1;display:grid;place-items:center;color:var(--steel-2)}
+.visual .art{position:absolute;inset:0;z-index:0;display:grid;place-items:center;color:var(--steel-2)}
 .visual .art svg{width:46%;max-width:150px;height:auto;filter:drop-shadow(0 12px 26px rgba(0,0,0,.55));transition:transform .8s var(--ease)}
 .visual .art.art-lg svg{width:56%;max-width:210px}
 .proj .art{padding-bottom:24%}
 .sector .art{padding-bottom:30%}
 .proj:hover .art svg{transform:scale(1.07) translateY(-5px)}
 .sector:hover .art svg{transform:scale(1.07)}
+/* real photo layered above the fallback graphic; if it 404s, JS removes it and the graphic shows */
+.visual .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  background:linear-gradient(135deg,#16202b,#0d141b);transition:transform .8s var(--ease),filter .6s var(--ease);filter:saturate(.96)}
+.proj:hover .photo,.sector:hover .photo{transform:scale(1.06);filter:saturate(1.04)}
 
 /* =========================================================
    TESTIMONIALS + CERTS
@@ -718,6 +726,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
 
 <!-- ============================ HERO ============================ -->
 <section class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="https://loremflickr.com/1600/900/welding,metal?lock=5" alt="" loading="eager" decoding="async" onerror="this.remove()">
+  </div>
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-glow g1" aria-hidden="true"></div>
   <div class="hero-glow g2" aria-hidden="true"></div>
@@ -804,6 +815,7 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
         <div class="frame visual visual--b">
           <span class="pattern" aria-hidden="true"></span>
           <span class="art art-lg"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-tank"/></svg></span>
+          <img class="photo" src="https://loremflickr.com/760/940/welding,metal?lock=11" alt="NORDINOX gamyba — nerūdijančio plieno suvirinimas ir apdirbimas" loading="lazy" decoding="async" onerror="this.remove()">
         </div>
         <div class="badge-float">
           <div class="big">100%</div>
@@ -966,26 +978,31 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
       <article class="proj visual visual--a" data-reveal="scale" style="--i:0">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-pipes"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/1200/800/stainless,steel?lock=21" alt="Pieno perdirbimo linijos nerūdijančio plieno vamzdynai" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="meta"><span class="tag">Vamzdynai</span><h3>Pieno perdirbimo linija</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Kaunas</span></div>
       </article>
       <article class="proj visual visual--b" data-reveal="scale" style="--i:1">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-tank"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/900/900/brewery,beer?lock=22" alt="Alaus daryklos nerūdijančio plieno talpos ir vamzdynai" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="meta"><span class="tag">Talpos</span><h3>Alaus daryklos vamzdynai</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Vilnius</span></div>
       </article>
       <article class="proj visual visual--c" data-reveal="scale" style="--i:2">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-spray"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/900/900/factory,industry?lock=23" alt="CIP plovimo stotis maisto pramonės gamykloje" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="meta"><span class="tag">CIP / SIP</span><h3>CIP plovimo stotis</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Klaipėda</span></div>
       </article>
       <article class="proj visual visual--a" data-reveal="scale" style="--i:1">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-gauge"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/900/900/stainless,steel?lock=24" alt="Nerūdijančio plieno buferinės talpos" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="meta"><span class="tag">Rezervuarai</span><h3>Buferinės talpos 20 m³</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Panevėžys</span></div>
       </article>
       <article class="proj visual visual--b" data-reveal="scale" style="--i:2">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-bottles"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/900/900/bottle,factory?lock=25" alt="Gėrimų išpilstymo linija" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="meta"><span class="tag">Linijos</span><h3>Gėrimų išpilstymo linija</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Šiauliai</span></div>
       </article>
     </div>
@@ -1005,31 +1022,37 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
       <article class="sector visual visual--b" data-reveal style="--i:0">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-drop"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/720/760/dairy,milk?lock=31" alt="Pieno pramonė" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="body"><span class="knum">01</span><h3>Pieno pramonė</h3><p>Higieniški vamzdynai, talpos ir CIP sistemos pieno ir sūrio gamybai.</p></div>
       </article>
       <article class="sector visual visual--a" data-reveal style="--i:1">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-hops"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/720/760/brewery,beer?lock=32" alt="Alaus daryklos" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="body"><span class="knum">02</span><h3>Alaus daryklos</h3><p>Virimo, fermentavimo ir išpilstymo įrangos vamzdynai bei talpos.</p></div>
       </article>
       <article class="sector visual visual--c" data-reveal style="--i:2">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-bottles"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/720/760/bottle,glass?lock=33" alt="Gėrimų gamyba" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="body"><span class="knum">03</span><h3>Gėrimų gamyba</h3><p>Sirupų, sulčių ir vandens linijos su aukščiausiais higienos reikalavimais.</p></div>
       </article>
       <article class="sector visual visual--a" data-reveal style="--i:0">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-factory"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/720/760/food,factory?lock=34" alt="Mėsos perdirbimas" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="body"><span class="knum">04</span><h3>Mėsos perdirbimas</h3><p>Atsparios, lengvai plaunamos konstrukcijos ir technologinė įranga.</p></div>
       </article>
       <article class="sector visual visual--b" data-reveal style="--i:1">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-flask"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/720/760/laboratory,science?lock=35" alt="Farmacija ir kosmetika" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="body"><span class="knum">05</span><h3>Farmacija ir kosmetika</h3><p>Švarūs vamzdynai, WFI sistemos ir aukšto poliravimo paviršiai.</p></div>
       </article>
       <article class="sector visual visual--c" data-reveal style="--i:2">
         <span class="pattern" aria-hidden="true"></span>
         <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-conveyor"/></svg></span>
+        <img class="photo" src="https://loremflickr.com/720/760/food,production?lock=36" alt="Maisto gamyba" loading="lazy" decoding="async" onerror="this.remove()">
         <div class="body"><span class="knum">06</span><h3>Maisto gamyba</h3><p>Padažų, konservų ir kepinių linijų vamzdynai bei nerūdijančio plieno gaminiai.</p></div>
       </article>
     </div>
