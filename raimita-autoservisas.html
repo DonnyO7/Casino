@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Raimita | Autoservisas Utenoje — automobilių remontas ir diagnostika</title>
+<meta name="description" content="Raimita, MB — patikimas autoservisas Utenoje nuo 2022 m. Variklio ir važiuoklės remontas, stabdžiai, kompiuterinė diagnostika, tepalų keitimas. Skaidrios kainos, patyrę meistrai." />
+<meta name="theme-color" content="#0b0c0f" />
+<meta property="og:title" content="Raimita — Autoservisas Utenoje" />
+<meta property="og:description" content="Profesionalus automobilių remontas ir diagnostika Utenoje. Skaidrios kainos, asmeniškas dėmesys." />
+<meta property="og:type" content="website" />
+
+<!--
+  Raimita, MB — autoservisas, Garažų g. 4, LT-28139 Utena. Įmonės kodas 306059275.
+  Telefonas +370 659 79264 (patvirtintas). Vadovas: Raimundas Lankininkas. Veikla nuo 2022.
+  PASTABA savininkui: el. paštas (info@raimita.lt) ir atsiliepimai yra pavyzdiniai —
+  prašome pakeisti tikrais duomenimis prieš publikuojant.
+  Nuotraukos: Unsplash / Pexels (tiesioginės nuorodos).
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#0b0c0f;
+    --bg-2:#0e1014;
+    --bg-soft:#14161c;
+    --card:#16181f;
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(255,255,255,.14);
+    --ink:#f5f6f8;
+    --muted:#a6acb8;
+    --muted-2:#7b818d;
+    --gold:#f5a623;
+    --gold-2:#ffcb5e;
+    --gold-ink:#c97f0a;
+    --grad:linear-gradient(135deg,#ffd680 0%,#f5a623 48%,#e07f06 100%);
+    --grad-soft:linear-gradient(135deg,rgba(245,166,35,.16),rgba(245,166,35,.04));
+    --light:#f5f6f8;
+    --light-2:#ffffff;
+    --light-ink:#13151b;
+    --light-muted:#596072;
+    --light-line:#e7e9ee;
+    --radius:18px;
+    --radius-lg:24px;
+    --container:1180px;
+    --shadow:0 30px 70px -28px rgba(0,0,0,.7);
+    --shadow-gold:0 22px 50px -18px rgba(245,166,35,.45);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:86px;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4{font-family:"Sora",sans-serif;line-height:1.08;letter-spacing:-.02em;margin:0;font-weight:700}
+  p{margin:0}
+  ::selection{background:rgba(245,166,35,.32)}
+
+  .container{width:100%;max-width:var(--container);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;position:relative}
+  .section--light{background:var(--light);color:var(--light-ink)}
+  .section--soft{background:var(--bg-2)}
+
+  /* ---------- shared bits ---------- */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    font-family:"Sora",sans-serif;font-weight:600;font-size:13px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:20px;
+  }
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--grad);border-radius:2px}
+  .section--light .eyebrow{color:var(--gold-ink)}
+  .h2{font-size:clamp(2rem,4.2vw,3.3rem);font-weight:800}
+  .lead{color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.18rem);max-width:60ch}
+  .section--light .lead{color:var(--light-muted)}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .center{text-align:center;margin-inline:auto}
+  .sect-head{max-width:720px;margin-bottom:54px}
+  .sect-head.center{margin-inline:auto}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:"Sora",sans-serif;font-weight:600;font-size:15px;letter-spacing:.01em;
+    padding:15px 26px;border-radius:999px;cursor:pointer;border:1px solid transparent;
+    transition:transform .25s ease,box-shadow .25s ease,background .25s ease,border-color .25s ease,color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--grad);color:#1a1206;box-shadow:var(--shadow-gold)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 28px 60px -16px rgba(245,166,35,.6)}
+  .btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line-2);color:var(--ink)}
+  .btn-ghost:hover{transform:translateY(-3px);border-color:var(--gold);background:rgba(245,166,35,.08)}
+  .section--light .btn-ghost{background:#fff;border-color:var(--light-line);color:var(--light-ink)}
+  .section--light .btn-ghost:hover{border-color:var(--gold)}
+
+  .tick{
+    flex:none;width:22px;height:22px;border-radius:50%;background:var(--grad-soft);
+    border:1px solid rgba(245,166,35,.45);color:var(--gold);
+    display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:fixed;inset:0 0 auto 0;z-index:60;
+    transition:background .3s ease,border-color .3s ease,backdrop-filter .3s ease,box-shadow .3s;
+    border-bottom:1px solid transparent;
+  }
+  header.nav.scrolled{
+    background:rgba(10,11,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);box-shadow:0 10px 30px -20px rgba(0,0,0,.8);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px;gap:24px;flex-wrap:nowrap}
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Sora";font-weight:800;font-size:21px;letter-spacing:.02em;flex:0 0 auto}
+  .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--grad);box-shadow:0 0 16px rgba(245,166,35,.8)}
+  .brand small{display:block;font-family:"Inter";font-weight:500;font-size:10.5px;letter-spacing:.34em;color:var(--muted);text-transform:uppercase;margin-top:-3px;white-space:nowrap}
+  .nav-links{display:flex;align-items:center;gap:26px;flex-wrap:nowrap}
+  .nav-links a{font-size:14.5px;font-weight:500;color:var(--muted);transition:color .2s;position:relative;white-space:nowrap}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--grad);transition:width .25s;border-radius:2px}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+  .nav-phone{font-family:"Sora";font-weight:600;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .nav-phone span{color:var(--gold)}
+  .burger{display:none;flex-direction:column;gap:5px;width:44px;height:44px;border:1px solid var(--line-2);border-radius:12px;background:rgba(255,255,255,.03);cursor:pointer;align-items:center;justify-content:center}
+  .burger i{width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+  .burger.open i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open i:nth-child(2){opacity:0}
+  .burger.open i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  .mobile-menu{
+    position:fixed;inset:74px 0 auto 0;z-index:55;background:rgba(9,10,13,.97);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.3s;
+  }
+  .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .mobile-menu a{display:block;padding:15px 24px;font-family:"Sora";font-weight:500;color:var(--ink);border-top:1px solid var(--line)}
+  .mobile-menu .btn{margin:18px 24px;display:flex}
+
+  /* ---------- scroll progress ---------- */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:70;transition:width .1s linear}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:slowzoom 18s ease-out forwards}
+  @keyframes slowzoom{to{transform:scale(1)}}
+  .hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(120% 80% at 18% 30%,rgba(11,12,15,.55),transparent 60%),
+      linear-gradient(90deg,rgba(8,9,12,.93) 0%,rgba(8,9,12,.78) 38%,rgba(8,9,12,.42) 70%,rgba(8,9,12,.66) 100%),
+      linear-gradient(0deg,var(--bg) 2%,transparent 30%);
+  }
+  .hero-inner{position:relative;z-index:2;padding-top:90px;padding-bottom:40px;max-width:760px}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.6rem);font-weight:800;letter-spacing:-.03em;margin:18px 0 22px}
+  .hero .lead{font-size:clamp(1.05rem,1.7vw,1.28rem);color:#d7dbe2;max-width:54ch}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 30px}
+  .hero-trust{display:flex;flex-wrap:wrap;gap:14px 26px;color:#cfd4dd;font-size:14.5px;font-weight:500}
+  .hero-trust span{display:inline-flex;align-items:center;gap:9px}
+  .pill-tag{
+    display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;
+    background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.34);
+    font-family:"Sora";font-weight:600;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2);
+  }
+  .scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;color:var(--muted);font-size:12px;letter-spacing:.25em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .scroll-hint i{width:1px;height:42px;background:linear-gradient(var(--gold),transparent);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+  /* ---------- brands strip ---------- */
+  .brands{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .brands .container{display:flex;align-items:center;gap:30px;flex-wrap:wrap;padding-top:26px;padding-bottom:26px}
+  .brands .label{font-family:"Sora";font-weight:600;font-size:13px;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
+  .brand-list{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center}
+  .brand-list span{font-family:"Sora";font-weight:600;font-size:16px;color:#c7ccd6;opacity:.62;transition:.25s;letter-spacing:.01em}
+  .brand-list span:hover{opacity:1;color:var(--gold-2)}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .stat{padding:32px 26px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0));position:relative;overflow:hidden}
+  .stat::before{content:"";position:absolute;top:0;left:0;width:46px;height:3px;background:var(--grad)}
+  .stat .num{font-family:"Sora";font-weight:800;font-size:clamp(2.4rem,4.6vw,3.4rem);letter-spacing:-.03em;line-height:1}
+  .stat .lbl{margin-top:10px;color:var(--muted);font-size:14.5px;font-weight:500}
+
+  /* ---------- about ---------- */
+  .split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(36px,5vw,70px);align-items:center}
+  .about-media{position:relative}
+  .about-media>img{width:100%;height:540px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+  .about-badge{
+    position:absolute;left:-22px;bottom:-26px;background:#101218;border:1px solid var(--line-2);
+    border-radius:18px;padding:20px 24px;box-shadow:var(--shadow);max-width:230px;
+  }
+  .about-badge .big{font-family:"Sora";font-weight:800;font-size:30px;color:#fff}
+  .about-badge .small{color:var(--muted);font-size:13.5px;margin-top:4px}
+  .about-badge .rule{height:1px;background:var(--line);margin:14px 0}
+  .about-badge .sig{font-family:"Sora";font-weight:600;font-size:14.5px;color:var(--gold-2)}
+  .about-badge .sig small{display:block;color:var(--muted);font-weight:400;font-size:12px;letter-spacing:.02em}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin:28px 0 32px}
+  .check-grid li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-weight:500;font-size:15.5px}
+  .about p+p{margin-top:16px}
+
+  /* ---------- services ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:24px}
+  .svc{
+    position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;background:var(--card);
+    transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+  }
+  .svc:hover{transform:translateY(-8px);border-color:rgba(245,166,35,.5);box-shadow:var(--shadow)}
+  .svc-img{position:relative;height:210px;overflow:hidden}
+  .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .svc:hover .svc-img img{transform:scale(1.07)}
+  .svc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(22,24,31,.92))}
+  .svc-no{position:absolute;top:14px;left:14px;font-family:"Sora";font-weight:700;font-size:13px;letter-spacing:.05em;color:#0d0f14;background:var(--grad);padding:5px 11px;border-radius:8px;z-index:2}
+  .svc-body{padding:24px 24px 28px}
+  .svc-body h3{font-size:1.28rem;font-weight:700;margin-bottom:9px}
+  .svc-body p{color:var(--muted);font-size:15px}
+  .svc-more{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}
+  .svc-more .tag{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border:1px solid var(--line);border-radius:999px;background:var(--bg-soft);font-weight:500;font-size:14.5px;color:#cdd2db}
+  .svc-more .tag b{color:var(--gold);font-weight:700}
+
+  /* ---------- why ---------- */
+  .why-media img{width:100%;height:100%;min-height:420px;max-height:560px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+  .why-list{display:flex;flex-direction:column;gap:8px}
+  .why-item{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
+  .why-item:last-child{border-bottom:none}
+  .why-item .no{font-family:"Sora";font-weight:800;font-size:1.5rem;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;min-width:46px}
+  .why-item h3{font-size:1.18rem;font-weight:700;margin-bottom:5px}
+  .why-item p{color:var(--muted);font-size:15px}
+
+  /* ---------- process ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:step}
+  .step{position:relative;padding:30px 24px;border-radius:var(--radius);background:var(--light-2);border:1px solid var(--light-line);box-shadow:0 18px 40px -30px rgba(20,30,60,.35)}
+  .step .no{font-family:"Sora";font-weight:800;font-size:2.6rem;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.03em}
+  .step h3{margin:14px 0 8px;font-size:1.2rem}
+  .step p{color:var(--light-muted);font-size:14.5px}
+  .step:not(:last-child)::after{content:"";position:absolute;top:46px;right:-14px;width:28px;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 6px,transparent 6px 11px);opacity:.6}
+
+  /* ---------- gallery ---------- */
+  .gallery{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:180px;gap:16px}
+  .gallery a{position:relative;overflow:hidden;border-radius:16px;border:1px solid var(--line)}
+  .gallery img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .gallery a::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(8,9,12,.55));opacity:0;transition:.4s}
+  .gallery a:hover img{transform:scale(1.08)}
+  .gallery a:hover::after{opacity:1}
+  .g1{grid-column:span 3;grid-row:span 2}
+  .g2{grid-column:span 3}
+  .g3{grid-column:span 3}
+  .g4{grid-column:span 2}
+  .g5{grid-column:span 2}
+  .g6{grid-column:span 2}
+
+  /* ---------- testimonials ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .quote{background:var(--light-2);border:1px solid var(--light-line);border-radius:var(--radius-lg);padding:30px 28px;box-shadow:0 24px 50px -34px rgba(20,30,60,.35);position:relative}
+  .quote .stars{color:var(--gold);letter-spacing:3px;font-size:15px;margin-bottom:14px}
+  .quote p{font-size:16px;color:#2b2f3a;line-height:1.6}
+  .quote .who{display:flex;align-items:center;gap:13px;margin-top:22px;padding-top:20px;border-top:1px solid var(--light-line)}
+  .quote .av{width:44px;height:44px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:"Sora";font-weight:700;color:#1a1206;font-size:16px}
+  .quote .who b{display:block;font-family:"Sora";font-weight:600;font-size:15px;color:var(--light-ink)}
+  .quote .who small{color:var(--light-muted)}
+
+  /* ---------- cta band ---------- */
+  .cta{position:relative;overflow:hidden}
+  .cta-bg{position:absolute;inset:0;z-index:0}
+  .cta-bg img{width:100%;height:100%;object-fit:cover}
+  .cta-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,9,12,.95) 10%,rgba(8,9,12,.72) 55%,rgba(8,9,12,.55))}
+  .cta-inner{position:relative;z-index:2;max-width:640px;padding:clamp(60px,8vw,96px) 0}
+  .cta h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;margin-bottom:18px}
+  .cta .lead{color:#d7dbe2;margin-bottom:30px}
+  .cta-actions{display:flex;flex-wrap:wrap;gap:14px}
+
+  /* ---------- contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:start}
+  .info-list{display:flex;flex-direction:column;gap:6px;margin:6px 0 28px}
+  .info{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .info .k{min-width:118px;font-family:"Sora";font-weight:600;font-size:12.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);padding-top:3px}
+  .info .v{font-size:16.5px;font-weight:500}
+  .info .v a:hover{color:var(--gold-2)}
+  .info .v small{display:block;color:var(--muted);font-size:13.5px;font-weight:400;margin-top:3px}
+  .map{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);height:260px;margin-top:6px}
+  .map iframe{width:100%;height:100%;border:0;filter:grayscale(.25) contrast(1.05)}
+
+  .form{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:clamp(26px,3vw,38px);box-shadow:var(--shadow)}
+  .form h3{font-size:1.5rem;margin-bottom:6px}
+  .form .sub{color:var(--muted);font-size:14.5px;margin-bottom:24px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--muted);margin-bottom:8px;font-family:"Sora"}
+  .field input,.field textarea{
+    width:100%;background:#0d0f14;border:1px solid var(--line-2);border-radius:12px;padding:14px 16px;
+    color:var(--ink);font-family:inherit;font-size:15px;transition:border-color .2s,box-shadow .2s;
+  }
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(245,166,35,.14)}
+  .field textarea{resize:vertical;min-height:110px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .form .btn{width:100%;margin-top:8px}
+  .form-note{margin-top:14px;font-size:12.5px;color:var(--muted-2);text-align:center}
+  .form-ok{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.4);color:var(--gold-2);font-size:14.5px;font-weight:500}
+  .form-ok.show{display:block}
+
+  /* ---------- footer ---------- */
+  footer{background:#08090c;border-top:1px solid var(--line);padding:64px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding-bottom:42px;border-bottom:1px solid var(--line)}
+  .foot-brand .brand{margin-bottom:16px}
+  .foot-brand p{color:var(--muted);font-size:15px;max-width:38ch}
+  .foot-col h4{font-family:"Sora";font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-bottom:16px;font-weight:600}
+  .foot-col a,.foot-col p{display:block;color:#c2c7d1;font-size:15px;margin-bottom:11px;transition:color .2s}
+  .foot-col a:hover{color:var(--gold-2)}
+  .foot-bottom{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding-top:24px;color:var(--muted-2);font-size:13.5px}
+  .foot-bottom .reg{color:var(--muted)}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .hero-bg img{animation:none;transform:none}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1000px){
+    .nav-links,.nav-phone{display:none}
+    .burger{display:flex}
+    .split,.contact-grid{grid-template-columns:1fr}
+    .about-media>img{height:420px}
+    .stats{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .step:not(:last-child)::after{display:none}
+    .quotes{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .why .split{direction:ltr}
+  }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .hero{min-height:92svh}
+    .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
+    .gallery a{grid-column:auto !important;grid-row:auto !important}
+    .g1{grid-column:span 2 !important;grid-row:span 2 !important}
+    .check-grid{grid-template-columns:1fr}
+    .row2{grid-template-columns:1fr}
+    .about-badge{position:static;margin-top:18px;max-width:none}
+    .foot-grid{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr 1fr;gap:16px}
+  }
+  @media (max-width:430px){
+    .stats{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Raimita autoservisas">
+      <span class="dot"></span>
+      <span>RAIMITA<small>Autoservisas · Utena</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Pagrindinis meniu">
+      <a href="#apie">Apie mus</a>
+      <a href="#paslaugos">Paslaugos</a>
+      <a href="#kodel">Kodėl mes</a>
+      <a href="#procesas">Kaip dirbame</a>
+      <a href="#galerija">Galerija</a>
+      <a href="#kontaktai">Kontaktai</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:+37065979264"><span>☎</span> +370 659 79264</a>
+      <a class="btn btn-primary" href="#kontaktai">Registruotis</a>
+      <button class="burger" id="burger" aria-label="Atidaryti meniu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#apie">Apie mus</a>
+  <a href="#paslaugos">Paslaugos</a>
+  <a href="#kodel">Kodėl mes</a>
+  <a href="#procesas">Kaip dirbame</a>
+  <a href="#galerija">Galerija</a>
+  <a href="#kontaktai">Kontaktai</a>
+  <a class="btn btn-primary" href="tel:+37065979264">☎ Skambinti +370 659 79264</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&q=80&w=1920" alt="Meistras remontuoja automobilį švarioje autoserviso dirbtuvėje" fetchpriority="high" />
+  </div>
+  <div class="container hero-inner">
+    <span class="pill-tag reveal">Autoservisas Utenoje · nuo 2022</span>
+    <h1 class="reveal">Jūsų automobilis – <span class="grad-text">patikimose rankose</span></h1>
+    <p class="lead reveal">Raimita – Utenos autoservisas, teikiantis kokybišką variklio, važiuoklės ir stabdžių remontą bei tikslią kompiuterinę diagnostiką. Skaidrios kainos ir asmeniškas dėmesys kiekvienam automobiliui.</p>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="#kontaktai">Registruotis remontui</a>
+      <a class="btn btn-ghost" href="tel:+37065979264">☎ +370 659 79264</a>
+    </div>
+    <div class="hero-trust reveal">
+      <span><span class="tick">✓</span> Patyrę meistrai</span>
+      <span><span class="tick">✓</span> Skaidrios kainos</span>
+      <span><span class="tick">✓</span> Visų markių automobiliai</span>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Slinkite žemyn</span><i></i></div>
+</section>
+
+<!-- ============ BRANDS ============ -->
+<section class="brands">
+  <div class="container">
+    <div class="label">Dirbame su visomis markėmis</div>
+    <div class="brand-list">
+      <span>Audi</span><span>BMW</span><span>Volkswagen</span><span>Toyota</span><span>Škoda</span>
+      <span>Mercedes-Benz</span><span>Volvo</span><span>Opel</span><span>Ford</span><span>Renault</span><span>Nissan</span><span>Peugeot</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="stats">
+      <div class="stat reveal"><div class="num">2022</div><div class="lbl">Patikimas servisas nuo</div></div>
+      <div class="stat reveal"><div class="num" data-count="4">0</div><div class="lbl">Komandos specialistai</div></div>
+      <div class="stat reveal"><div class="num" data-count="9">0</div><div class="lbl">Paslaugų sritys</div></div>
+      <div class="stat reveal"><div class="num"><span data-count="100">0</span>%</div><div class="lbl">Skaidrios kainos</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section section--light about" id="apie">
+  <div class="container split">
+    <div class="about-media reveal">
+      <img src="https://images.pexels.com/photos/3807329/pexels-photo-3807329.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Raimita meistras dirba prie automobilio variklio" loading="lazy" />
+      <div class="about-badge">
+        <div class="big">nuo 2022</div>
+        <div class="small">Vietinis autoservisas Utenoje</div>
+        <div class="rule"></div>
+        <div class="sig">Raimundas Lankininkas<small>Vadovas</small></div>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow reveal">Apie mus</span>
+      <h2 class="h2 reveal">Vietinis autoservisas, <br/>kuriam rūpi rezultatas</h2>
+      <div class="reveal" style="margin-top:22px">
+        <p>Raimita, MB – nuo 2022 metų Utenoje veikiantis automobilių remonto servisas. Mūsų komandą sudaro patyrę meistrai, kuriems galite patikėti tiek kasdienę automobilio priežiūrą, tiek sudėtingesnius remonto darbus.</p>
+        <p>Dirbame su modernia diagnostikos įranga ir naudojame kokybiškas detales, kad jūsų automobilis kuo greičiau ir saugiau grįžtų į kelią. Aiškiai informuojame apie darbų eigą bei kainą – be netikėtumų.</p>
+      </div>
+      <ul class="check-grid reveal">
+        <li><span class="tick">✓</span> Patyrusi meistrų komanda</li>
+        <li><span class="tick">✓</span> Modernios diagnostikos įranga</li>
+        <li><span class="tick">✓</span> Kokybiškos atsarginės dalys</li>
+        <li><span class="tick">✓</span> Aiškios, skaidrios kainos</li>
+      </ul>
+      <div class="reveal" style="display:flex;flex-wrap:wrap;gap:14px">
+        <a class="btn btn-primary" href="#paslaugos">Mūsų paslaugos</a>
+        <a class="btn btn-ghost" href="#kontaktai">Susisiekti</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section" id="paslaugos">
+  <div class="container">
+    <div class="sect-head center reveal">
+      <span class="eyebrow">Paslaugos</span>
+      <h2 class="h2">Ką galime padaryti <span class="grad-text">dėl jūsų automobilio</span></h2>
+      <p class="lead center" style="margin-top:16px">Nuo kasdienės priežiūros iki rimtesnio remonto – pasirūpinsime, kad jūsų automobilis būtų saugus ir patikimas.</p>
+    </div>
+    <div class="cards">
+      <article class="svc reveal">
+        <div class="svc-img"><span class="svc-no">01</span><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="Kompiuterinė automobilio diagnostika" loading="lazy" /></div>
+        <div class="svc-body"><h3>Kompiuterinė diagnostika</h3><p>Tiksliai nustatome gedimus naudodami modernią diagnostikos įrangą – be spėliojimų.</p></div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><span class="svc-no">02</span><img src="https://images.pexels.com/photos/3807277/pexels-photo-3807277.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Variklio remontas autoservise" loading="lazy" /></div>
+        <div class="svc-body"><h3>Variklio remontas</h3><p>Nuo smulkių gedimų iki kapitalinio remonto – grąžiname variklio našumą ir patikimumą.</p></div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><span class="svc-no">03</span><img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&q=80&w=800" alt="Tepalų ir filtrų keitimas" loading="lazy" /></div>
+        <div class="svc-body"><h3>Tepalų ir filtrų keitimas</h3><p>Reguliari priežiūra, kuri prailgina variklio tarnavimo laiką ir saugo nuo gedimų.</p></div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><span class="svc-no">04</span><img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&q=80&w=800" alt="Stabdžių sistemos remontas" loading="lazy" /></div>
+        <div class="svc-body"><h3>Stabdžių sistema</h3><p>Kaladėlių, diskų ir skysčių keitimas – jūsų saugumui kelyje bet kuriuo oru.</p></div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><span class="svc-no">05</span><img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=800" alt="Važiuoklės ir pakabos remontas" loading="lazy" /></div>
+        <div class="svc-body"><h3>Važiuoklės remontas</h3><p>Pakabos, vairo ir važiuoklės elementų diagnostika bei remontas – komfortui ir saugumui.</p></div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><span class="svc-no">06</span><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80&w=800" alt="Paskirstymo diržo keitimas" loading="lazy" /></div>
+        <div class="svc-body"><h3>Paskirstymo diržo keitimas</h3><p>Laiku pakeistas diržas apsaugo variklį nuo brangaus ir nemalonaus remonto.</p></div>
+      </article>
+    </div>
+    <div class="svc-more reveal">
+      <span class="tag"><b>+</b> Padangų montavimas ir balansavimas</span>
+      <span class="tag"><b>+</b> Oro kondicionieriaus priežiūra</span>
+      <span class="tag"><b>+</b> Paruošimas techninei apžiūrai</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="section section--soft why" id="kodel">
+  <div class="container split">
+    <div class="why-media reveal">
+      <img src="https://images.pexels.com/photos/4489702/pexels-photo-4489702.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Autoserviso dirbtuvė su automobiliu ant keltuvo" loading="lazy" />
+    </div>
+    <div>
+      <span class="eyebrow reveal">Kodėl mes</span>
+      <h2 class="h2 reveal" style="margin-bottom:14px">Priežastys, dėl kurių <span class="grad-text">klientai grįžta</span></h2>
+      <div class="why-list">
+        <div class="why-item reveal"><div class="no">01</div><div><h3>Skaidrios kainos</h3><p>Kainą sužinote iš anksto, be paslėptų mokesčių ir netikėtumų sąskaitoje.</p></div></div>
+        <div class="why-item reveal"><div class="no">02</div><div><h3>Patyrę meistrai</h3><p>Komanda, turinti realią automobilių remonto patirtį ir nuolat tobulėjanti.</p></div></div>
+        <div class="why-item reveal"><div class="no">03</div><div><h3>Kokybiškos dalys</h3><p>Naudojame patikimas, kokybiškas atsargines detales, kurios tarnauja ilgai.</p></div></div>
+        <div class="why-item reveal"><div class="no">04</div><div><h3>Asmeniškas dėmesys</h3><p>Kiekvienam automobiliui skiriame tiek laiko, kiek reikia darbui atlikti gerai.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section section--light" id="procesas">
+  <div class="container">
+    <div class="sect-head center reveal">
+      <span class="eyebrow">Kaip dirbame</span>
+      <h2 class="h2">Paprastas kelias iki <span class="grad-text">sutvarkyto automobilio</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="no">01</div><h3>Registracija</h3><p>Paskambinkite arba užpildykite formą – suderinsime jums patogų laiką.</p></div>
+      <div class="step reveal"><div class="no">02</div><h3>Diagnostika</h3><p>Apžiūrime automobilį ir tiksliai nustatome gedimo priežastį.</p></div>
+      <div class="step reveal"><div class="no">03</div><h3>Remontas</h3><p>Suderinę kainą, atliekame darbus kokybiškai ir sutartu laiku.</p></div>
+      <div class="step reveal"><div class="no">04</div><h3>Atsiimate</h3><p>Atsiimate sutvarkytą automobilį ir saugiai keliaujate toliau.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section" id="galerija">
+  <div class="container">
+    <div class="sect-head center reveal">
+      <span class="eyebrow">Galerija</span>
+      <h2 class="h2">Žvilgsnis į <span class="grad-text">mūsų kasdienybę</span></h2>
+    </div>
+    <div class="gallery reveal">
+      <a class="g1" href="#kontaktai"><img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&q=80&w=900" alt="Autoserviso įrankiai ir įranga" loading="lazy" /></a>
+      <a class="g2" href="#kontaktai"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=900" alt="Automobilis kelyje po remonto" loading="lazy" /></a>
+      <a class="g3" href="#kontaktai"><img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&q=80&w=900" alt="Tvarkingas automobilis žiemą" loading="lazy" /></a>
+      <a class="g4" href="#kontaktai"><img src="https://images.pexels.com/photos/6873084/pexels-photo-6873084.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Automobilio priežiūra ir plovimas" loading="lazy" /></a>
+      <a class="g5" href="#kontaktai"><img src="https://images.pexels.com/photos/4488660/pexels-photo-4488660.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Autoserviso darbastalis ir įrankiai" loading="lazy" /></a>
+      <a class="g6" href="#kontaktai"><img src="https://images.pexels.com/photos/4480505/pexels-photo-4480505.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Automobilio remonto darbai dirbtuvėje" loading="lazy" /></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section section--light">
+  <div class="container">
+    <div class="sect-head center reveal">
+      <span class="eyebrow">Atsiliepimai</span>
+      <h2 class="h2">Ką sako <span class="grad-text">mūsų klientai</span></h2>
+    </div>
+    <!-- PASTABA: pavyzdiniai atsiliepimai — pakeiskite tikrais klientų atsiliepimais. -->
+    <div class="quotes">
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>„Greitai surado gedimą, kurio kitur nerado. Kaina – kaip ir sutarta, jokių netikėtumų. Aptarnavimas profesionalus.“</p>
+        <div class="who"><div class="av">T</div><div><b>Tomas K.</b><small>Utena</small></div></div>
+      </div>
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>„Keičiau tepalus ir stabdžius. Viską aiškiai paaiškino, darbą atliko laiku ir draugiškai. Tikrai rekomenduoju.“</p>
+        <div class="who"><div class="av">G</div><div><b>Greta M.</b><small>Anykščiai</small></div></div>
+      </div>
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>„Patiko, kad iš anksto pasakė kainą ir darbus padarė kokybiškai. Pagaliau radau servisą, kuriuo pasitikiu.“</p>
+        <div class="who"><div class="av">D</div><div><b>Darius P.</b><small>Utena</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="cta-bg"><img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=1920" alt="Automobilis saugiai keliauja keliu" loading="lazy" /></div>
+  <div class="container">
+    <div class="cta-inner reveal">
+      <h2>Reikia patikimo autoserviso Utenoje?</h2>
+      <p class="lead">Paskambinkite ir suderinkime jums patogų laiką – pasirūpinsime jūsų automobiliu greitai, kokybiškai ir už aiškią kainą.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="tel:+37065979264">☎ +370 659 79264</a>
+        <a class="btn btn-ghost" href="#kontaktai">Užpildyti užklausą</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section section--soft" id="kontaktai">
+  <div class="container">
+    <div class="sect-head reveal">
+      <span class="eyebrow">Kontaktai</span>
+      <h2 class="h2">Susisiekime</h2>
+      <p class="lead" style="margin-top:14px">Užpildykite formą arba paskambinkite – atsakysime į klausimus ir suderinsime vizito laiką.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="info-list">
+          <div class="info"><div class="k">Adresas</div><div class="v">Garažų g. 4<br/><small>LT-28139 Utena</small></div></div>
+          <div class="info"><div class="k">Telefonas</div><div class="v"><a href="tel:+37065979264">+370 659 79264</a></div></div>
+          <div class="info"><div class="k">El. paštas</div><div class="v"><a href="mailto:info@raimita.lt">info@raimita.lt</a></div></div>
+          <div class="info"><div class="k">Darbo laikas</div><div class="v">I–V 8:00–18:00<small>VI 9:00–14:00 · VII nedirbame</small></div></div>
+          <div class="info"><div class="k">Įmonė</div><div class="v">Raimita, MB<small>Įmonės kodas 306059275</small></div></div>
+        </div>
+        <div class="map">
+          <iframe title="Raimita žemėlapyje" src="https://www.google.com/maps?q=Gara%C5%BE%C5%B3%20g.%204,%2028139%20Utena&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <form class="form reveal" id="contactForm" novalidate>
+        <h3>Registracija remontui</h3>
+        <p class="sub">Palikite kontaktus ir trumpą problemos aprašymą – su jumis susisieksime.</p>
+        <div class="row2">
+          <div class="field"><label for="name">Vardas</label><input id="name" name="name" type="text" placeholder="Jūsų vardas" required /></div>
+          <div class="field"><label for="phone">Telefonas</label><input id="phone" name="phone" type="tel" placeholder="+370" required /></div>
+        </div>
+        <div class="field"><label for="car">Automobilis</label><input id="car" name="car" type="text" placeholder="Markė, modelis, metai" /></div>
+        <div class="field"><label for="msg">Žinutė</label><textarea id="msg" name="msg" placeholder="Trumpai aprašykite gedimą ar pageidaujamą paslaugą"></textarea></div>
+        <button class="btn btn-primary" type="submit">Siųsti užklausą</button>
+        <p class="form-note">Paspaudę „Siųsti“ sutinkate, kad su jumis būtų susisiekta dėl jūsų užklausos.</p>
+        <div class="form-ok" id="formOk">Ačiū! Jūsų užklausa gauta – netrukus su jumis susisieksime telefonu.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand"><span class="dot"></span><span>RAIMITA<small>Autoservisas · Utena</small></span></a>
+        <p>Patikimas automobilių remontas ir diagnostika Utenoje. Rūpinamės jūsų automobiliu kaip savu – nuo 2022 metų.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Nuorodos</h4>
+        <a href="#apie">Apie mus</a>
+        <a href="#paslaugos">Paslaugos</a>
+        <a href="#kodel">Kodėl mes</a>
+        <a href="#galerija">Galerija</a>
+        <a href="#kontaktai">Kontaktai</a>
+      </div>
+      <div class="foot-col">
+        <h4>Kontaktai</h4>
+        <a href="tel:+37065979264">+370 659 79264</a>
+        <a href="mailto:info@raimita.lt">info@raimita.lt</a>
+        <p>Garažų g. 4, LT-28139 Utena</p>
+        <p>I–V 8:00–18:00 · VI 9:00–14:00</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="reg">Raimita, MB · Įmonės kodas 306059275</span>
+      <span>© 2026 Raimita, MB. Visos teisės saugomos.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // nav scroll state + progress bar
+  var nav = document.getElementById('nav');
+  var progress = document.getElementById('progress');
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    nav.classList.toggle('scrolled', y > 30);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // mobile menu
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  function closeMenu(){ burger.classList.remove('open'); menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+
+  // reveal on scroll
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el, i){
+    el.style.transitionDelay = (Math.min(i % 6, 5) * 70) + 'ms';
+    io.observe(el);
+  });
+
+  // count-up stats
+  function animateCount(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var start = null, dur = 1400;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var countIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ animateCount(e.target); countIO.unobserve(e.target); }
+    });
+  }, {threshold:0.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){ countIO.observe(el); });
+
+  // contact form (no backend — confirmation only)
+  var form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var name = document.getElementById('name');
+    var phone = document.getElementById('phone');
+    if(!name.value.trim() || !phone.value.trim()){
+      (name.value.trim() ? phone : name).focus();
+      return;
+    }
+    document.getElementById('formOk').classList.add('show');
+    form.querySelector('button').textContent = 'Užklausa išsiųsta ✓';
+    form.querySelector('button').disabled = true;
+  });
+</script>
+</body>
+</html>
