@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0c0e12" />
+<title>FERRUM — Suvirinimas, metalo konstrukcijos, laivų remontas</title>
+<meta name="description" content="FERRUM — metalo apdirbimo ir suvirinimo įmonė: suvirinimo darbai, vamzdynų remontas, montavimas, metalo konstrukcijų surinkimas, tiltinių kranų montavimas, subranga ir laivų remontas. Klaipėda, Lietuva." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff7a18'/%3E%3Cstop offset='1' stop-color='%23ffb347'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23g)'/%3E%3Cpath d='M9 22l4-12 3 7 2-4 5 9' fill='none' stroke='%23121212' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================== TOKENS ============================== */
+:root{
+  --bg:#0c0e12; --bg-2:#0f1217; --surface:#14181f; --surface-2:#1a1f27;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+  --text:#e8ecf1; --muted:#9aa6b3; --faint:#6b7682;
+  --brand:#ff7a18; --brand-2:#ffb347; --brand-ink:#1a1206;
+  --grad:linear-gradient(120deg,#ff7a18,#ffb347);
+  --grad-soft:linear-gradient(120deg,rgba(255,122,24,.16),rgba(255,179,71,.06));
+  --glow:rgba(255,122,24,.45);
+  --steel:#7d93a8;
+  --font-d:'Oswald','Arial Narrow',system-ui,sans-serif;
+  --font-b:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --container:1200px;
+  --r:16px; --r-lg:22px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --shadow:0 24px 60px -24px rgba(0,0,0,.7);
+}
+/* ============================== RESET ============================== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-b);background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;font-size:16px;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+ul{list-style:none}
+::selection{background:var(--brand);color:#1a1206}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:6px}
+/* scrollbar */
+::-webkit-scrollbar{width:11px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#2a313b;border-radius:20px;border:3px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#3a434f}
+
+/* ============================== HELPERS ============================== */
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:24px}
+.hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);
+  text-transform:uppercase;letter-spacing:.22em;font-size:.78rem;font-weight:600;
+  color:var(--brand-2);margin-bottom:18px;
+}
+.kicker::before{content:"";width:26px;height:2px;background:var(--grad);border-radius:2px}
+.kicker.center::after{content:"";width:26px;height:2px;background:var(--grad);border-radius:2px}
+.kicker.center{justify-content:center}
+h1,h2,h3,.display{font-family:var(--font-d);font-weight:600;line-height:1.05;letter-spacing:.01em}
+h2.title{font-size:clamp(2rem,4.6vw,3.4rem);text-transform:uppercase;line-height:1;margin-bottom:18px}
+.lead{color:var(--muted);font-size:1.06rem;max-width:62ch}
+.section{padding:clamp(70px,9vw,130px) 0;position:relative}
+.center-head{text-align:center;max-width:760px;margin-inline:auto;margin-bottom:60px}
+.center-head .lead{margin-inline:auto}
+.eyebrow-row{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:56px}
+.eyebrow-row .lead{margin-top:6px}
+
+/* photo helper — gradient overlay layered over real photo; if photo fails, gradient+color remains */
+.ph{
+  background-color:#11151b;background-size:cover;background-position:center;
+  background-repeat:no-repeat;position:relative;
+}
+
+/* buttons */
+.btn{
+  --pad:15px 26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:var(--pad);border-radius:50px;font-weight:600;font-size:.96rem;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s,color .3s,border-color .3s;
+  white-space:nowrap;letter-spacing:.01em;position:relative;
+}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--grad);color:#1a1206;box-shadow:0 10px 30px -10px var(--glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px -12px var(--glow)}
+.btn-ghost{border:1px solid var(--line-2);color:var(--text);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{border-color:var(--brand);color:#fff;background:rgba(255,122,24,.08);transform:translateY(-3px)}
+.btn-lg{--pad:18px 34px;font-size:1.02rem}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+.reveal-x{opacity:0;transform:translateX(-40px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
+.reveal-x.in{opacity:1;transform:none}
+
+/* ============================== SCROLL PROGRESS ============================== */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:200;box-shadow:0 0 12px var(--glow);transition:width .1s linear}
+
+/* ============================== HEADER ============================== */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:120;
+  transition:background .4s,backdrop-filter .4s,border-color .4s,padding .4s;
+  border-bottom:1px solid transparent;padding:8px 0;
+}
+header.scrolled{background:rgba(10,12,16,.82);backdrop-filter:blur(14px) saturate(140%);border-bottom-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-d);font-weight:600;font-size:1.4rem;letter-spacing:.12em;text-transform:uppercase;z-index:2}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:var(--grad);display:grid;place-items:center;box-shadow:0 8px 20px -8px var(--glow);flex:none}
+.logo-mark svg{width:22px;height:22px}
+.brand .dot{color:var(--brand)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{
+  position:relative;padding:9px 14px;font-size:.93rem;font-weight:500;color:var(--muted);
+  transition:color .25s;border-radius:8px;
+}
+.nav-links a::after{content:"";position:absolute;left:14px;right:14px;bottom:5px;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);border-radius:2px}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:14px;z-index:2}
+.lang{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:50px;padding:3px;font-family:var(--font-d);font-size:.82rem;font-weight:600;letter-spacing:.05em}
+.lang button{padding:5px 11px;border-radius:50px;color:var(--muted);transition:.25s;line-height:1}
+.lang button.on{background:var(--grad);color:#1a1206}
+.nav-cta{display:inline-flex}
+.burger{display:none;width:46px;height:46px;border-radius:12px;border:1px solid var(--line-2);place-items:center}
+.burger span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;position:relative;transition:.3s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+body.menu-open .burger span{background:transparent}
+body.menu-open .burger span::before{top:0;transform:rotate(45deg)}
+body.menu-open .burger span::after{top:0;transform:rotate(-45deg)}
+
+/* ============================== HERO ============================== */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:90px}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1920&q=80');
+  background-size:cover;background-position:center;will-change:transform;transform:scale(1.08)}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;
+  background:
+    radial-gradient(120% 90% at 80% 10%,rgba(255,122,24,.18),transparent 55%),
+    linear-gradient(90deg,rgba(8,10,13,.96) 0%,rgba(8,10,13,.82) 38%,rgba(8,10,13,.45) 70%,rgba(8,10,13,.7) 100%),
+    linear-gradient(0deg,var(--bg) 2%,transparent 35%)}
+#embers{position:absolute;inset:0;z-index:2;pointer-events:none}
+.hero-spot{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.5;mix-blend-mode:screen;
+  background:radial-gradient(280px 280px at var(--mx,70%) var(--my,30%),rgba(255,150,60,.22),transparent 70%);transition:opacity .4s}
+.hero-inner{position:relative;z-index:3;width:100%}
+.hero-tag{margin-bottom:22px}
+.hero h1{font-size:clamp(2.7rem,7.2vw,6rem);text-transform:uppercase;letter-spacing:.005em;margin-bottom:22px;text-shadow:0 8px 40px rgba(0,0,0,.5)}
+.hero p.lead{font-size:clamp(1.02rem,1.7vw,1.22rem);max-width:56ch;margin-bottom:34px}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:54px}
+.hero-badges{display:flex;gap:14px;flex-wrap:wrap}
+.hbadge{display:flex;align-items:center;gap:12px;padding:13px 18px;border:1px solid var(--line);border-radius:14px;background:rgba(18,21,27,.55);backdrop-filter:blur(8px)}
+.hbadge b{font-family:var(--font-d);font-size:1.5rem;line-height:1;color:#fff}
+.hbadge span{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.hbadge .ic{width:38px;height:38px;border-radius:10px;background:var(--grad-soft);display:grid;place-items:center;color:var(--brand-2)}
+.hbadge .ic svg{width:20px;height:20px}
+.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;font-family:var(--font-d)}
+.mouse{width:24px;height:38px;border:2px solid var(--line-2);border-radius:14px;position:relative}
+.mouse::before{content:"";position:absolute;top:7px;left:50%;width:4px;height:7px;background:var(--brand);border-radius:3px;transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* ============================== MARQUEE ============================== */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:20px 0;position:relative}
+.marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:120px;z-index:2}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--bg-2),transparent)}
+.marquee::after{right:0;background:linear-gradient(270deg,var(--bg-2),transparent)}
+.marquee-track{display:flex;gap:46px;width:max-content;animation:scrollx 34s linear infinite}
+.marquee-track span{font-family:var(--font-d);text-transform:uppercase;font-size:1.25rem;letter-spacing:.08em;color:#c2ccd6;display:flex;align-items:center;gap:46px;white-space:nowrap}
+.marquee-track span::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+
+/* ============================== ABOUT ============================== */
+.about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
+.about-media{position:relative}
+.about-media .img-main{height:520px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
+.about-media .img-main .ph{height:100%;
+  background-image:linear-gradient(180deg,rgba(12,14,18,.05),rgba(12,14,18,.45)),url('https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=900&q=80')}
+.about-media .img-sub{position:absolute;right:-26px;bottom:-34px;width:46%;height:230px;border-radius:18px;overflow:hidden;border:5px solid var(--bg);box-shadow:var(--shadow)}
+.about-media .img-sub .ph{height:100%;background-image:url('https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=600&q=80')}
+.about-media .badge-exp{position:absolute;left:-22px;top:34px;background:var(--grad);color:#1a1206;border-radius:16px;padding:16px 20px;box-shadow:var(--shadow);text-align:center}
+.about-media .badge-exp b{font-family:var(--font-d);font-size:2.6rem;line-height:.9;display:block}
+.about-media .badge-exp span{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.about-copy p{color:var(--muted);margin-bottom:18px}
+.about-list{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin:28px 0 30px}
+.about-list li{display:flex;gap:12px;align-items:flex-start;font-size:.96rem}
+.about-list .tick{width:24px;height:24px;border-radius:7px;background:var(--grad-soft);color:var(--brand-2);display:grid;place-items:center;flex:none;margin-top:2px}
+.about-list .tick svg{width:14px;height:14px}
+.certs{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.cert{font-family:var(--font-d);font-size:.8rem;letter-spacing:.06em;border:1px solid var(--line-2);border-radius:8px;padding:7px 12px;color:#cdd6df;background:rgba(255,255,255,.02)}
+.cert b{color:var(--brand-2)}
+
+/* ============================== SERVICES ============================== */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc{
+  position:relative;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--surface);min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:26px;transition:transform .45s var(--ease),border-color .45s,box-shadow .45s;isolation:isolate;
+}
+.svc .svc-img{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transition:transform .8s var(--ease);opacity:.5}
+.svc::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(15,18,23,.35) 0%,rgba(13,15,19,.82) 55%,rgba(12,14,18,.96) 100%)}
+.svc:hover{transform:translateY(-8px);border-color:rgba(255,122,24,.5);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.svc:hover .svc-img{transform:scale(1.1);opacity:.65}
+.svc .svc-ic{width:52px;height:52px;border-radius:13px;background:var(--grad);color:#1a1206;display:grid;place-items:center;margin-bottom:auto;box-shadow:0 10px 24px -10px var(--glow)}
+.svc .svc-ic svg{width:26px;height:26px}
+.svc h3{font-size:1.5rem;text-transform:uppercase;margin:18px 0 8px;letter-spacing:.01em}
+.svc p{color:var(--muted);font-size:.94rem;margin-bottom:14px}
+.svc .more{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-d);text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;color:var(--brand-2);transition:gap .3s}
+.svc .more svg{width:15px;height:15px;transition:transform .3s}
+.svc:hover .more{gap:14px}
+.svc:hover .more svg{transform:translateX(3px)}
+.svc .num{position:absolute;top:22px;right:26px;font-family:var(--font-d);font-size:1.1rem;color:var(--faint)}
+.svc.feat{grid-column:span 2;min-height:320px}
+.svc.feat h3{font-size:1.9rem}
+@media(max-width:980px){.svc.feat{grid-column:span 1}}
+
+/* ============================== WHY / FEATURES ============================== */
+.why{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.feat{background:var(--bg-2);padding:38px 32px;transition:background .4s}
+.feat:hover{background:var(--surface)}
+.feat .ic{width:56px;height:56px;border-radius:14px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--brand-2);margin-bottom:20px;transition:.4s;background:var(--grad-soft)}
+.feat:hover .ic{background:var(--grad);color:#1a1206;border-color:transparent;transform:rotate(-6deg)}
+.feat .ic svg{width:28px;height:28px}
+.feat h3{font-size:1.32rem;text-transform:uppercase;margin-bottom:8px}
+.feat p{color:var(--muted);font-size:.94rem}
+
+/* ============================== STATS ============================== */
+.stats{position:relative;overflow:hidden}
+.stats .stbg{position:absolute;inset:0;z-index:0;opacity:.14;
+  background-image:url('https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&q=80');background-size:cover;background-position:center}
+.stats::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--bg),rgba(12,14,18,.7),var(--bg))}
+.stat-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stat{padding:20px}
+.stat .n{font-family:var(--font-d);font-size:clamp(2.8rem,6vw,4.4rem);line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .l{margin-top:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:.82rem;font-weight:600}
+.stat+.stat{border-left:1px solid var(--line)}
+@media(max-width:760px){.stat+.stat{border-left:none}}
+
+/* ============================== PROCESS ============================== */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
+.step{position:relative;padding:32px 26px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);transition:.45s var(--ease);overflow:hidden}
+.step:hover{transform:translateY(-8px);border-color:rgba(255,122,24,.4)}
+.step .pnum{font-family:var(--font-d);font-size:3.4rem;line-height:.8;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.16);margin-bottom:18px;transition:.45s}
+.step:hover .pnum{-webkit-text-stroke-color:var(--brand)}
+.step h3{font-size:1.3rem;text-transform:uppercase;margin-bottom:10px}
+.step p{color:var(--muted);font-size:.92rem}
+.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad);transform:scaleY(0);transform-origin:top;transition:transform .45s var(--ease)}
+.step:hover::before{transform:scaleY(1)}
+
+/* ============================== PROJECTS / GALLERY ============================== */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.filters button{
+  padding:9px 18px;border:1px solid var(--line-2);border-radius:50px;font-size:.86rem;font-weight:600;
+  color:var(--muted);transition:.3s;letter-spacing:.02em;
+}
+.filters button:hover{color:#fff;border-color:var(--brand)}
+.filters button.on{background:var(--grad);color:#1a1206;border-color:transparent}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:230px;gap:16px}
+.gitem{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:opacity .5s,transform .5s,filter .5s}
+.gitem.tall{grid-row:span 2}
+.gitem.wide{grid-column:span 2}
+.gitem .ph{position:absolute;inset:0;transition:transform .8s var(--ease)}
+.gitem::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(10,12,16,.9));opacity:.85;transition:opacity .4s}
+.gitem:hover .ph{transform:scale(1.12)}
+.gitem:hover::after{opacity:1}
+.gcap{position:absolute;left:0;right:0;bottom:0;padding:20px;z-index:2;transform:translateY(12px);opacity:0;transition:.45s var(--ease)}
+.gitem:hover .gcap{transform:none;opacity:1}
+.gcap .cat{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--brand-2)}
+.gcap h4{font-size:1.12rem;font-weight:600;margin-top:4px;color:#fff;line-height:1.2}
+.gitem .corner{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:9px;background:rgba(12,14,18,.6);backdrop-filter:blur(6px);display:grid;place-items:center;color:#fff;opacity:0;transform:scale(.6);transition:.4s}
+.gitem:hover .corner{opacity:1;transform:none}
+.gitem.hide{display:none}
+
+/* ============================== TESTIMONIALS ============================== */
+.tst{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.quote{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:34px 30px;position:relative;transition:.4s var(--ease)}
+.quote:hover{transform:translateY(-6px);border-color:rgba(255,122,24,.35)}
+.quote .mark{font-family:var(--font-d);font-size:4rem;line-height:.5;color:var(--brand);height:30px;display:block}
+.quote .stars{display:flex;gap:3px;color:var(--brand-2);margin:6px 0 14px}
+.quote .stars svg{width:17px;height:17px}
+.quote p{color:#d4dbe2;font-size:1rem;margin-bottom:22px}
+.quote .who{display:flex;align-items:center;gap:13px;border-top:1px solid var(--line);padding-top:18px}
+.quote .av{width:46px;height:46px;border-radius:50%;background:var(--grad);color:#1a1206;display:grid;place-items:center;font-family:var(--font-d);font-size:1.2rem;font-weight:600;flex:none}
+.quote .who b{display:block;font-size:.96rem}
+.quote .who span{font-size:.84rem;color:var(--muted)}
+
+/* ============================== CTA BAND ============================== */
+.ctaband{position:relative;overflow:hidden;border-radius:0}
+.ctaband .cbg{position:absolute;inset:0;z-index:0;
+  background-image:url('https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1600&q=80');background-size:cover;background-position:center}
+.ctaband::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,12,16,.96),rgba(10,12,16,.7)),radial-gradient(80% 100% at 90% 50%,rgba(255,122,24,.25),transparent 60%)}
+.ctaband .inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:34px;flex-wrap:wrap;padding:clamp(50px,7vw,86px) 0}
+.ctaband h2{font-size:clamp(1.9rem,4.2vw,3.1rem);text-transform:uppercase;line-height:1;max-width:18ch}
+.ctaband p{color:var(--muted);margin-top:14px;max-width:46ch}
+
+/* ============================== CONTACT ============================== */
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px}
+.form-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:36px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em}
+.field input,.field select,.field textarea{
+  width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--line-2);border-radius:12px;
+  color:var(--text);font-family:inherit;font-size:.96rem;transition:border-color .3s,box-shadow .3s;
+}
+.field textarea{resize:vertical;min-height:124px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(255,122,24,.16)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa6b3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:42px}
+.form-note{font-size:.82rem;color:var(--faint);margin-top:6px}
+.form-ok{display:none;align-items:center;gap:12px;background:var(--grad-soft);border:1px solid rgba(255,122,24,.4);border-radius:12px;padding:14px 16px;color:#ffd9b3;font-size:.94rem;margin-top:16px}
+.form-ok.show{display:flex}
+.form-ok svg{width:20px;height:20px;color:var(--brand-2);flex:none}
+.info-block{display:flex;flex-direction:column;gap:14px}
+.info-card{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:20px 22px;transition:.4s}
+.info-card:hover{border-color:rgba(255,122,24,.4);transform:translateX(5px)}
+.info-card .ic{width:46px;height:46px;border-radius:12px;background:var(--grad-soft);color:var(--brand-2);display:grid;place-items:center;flex:none}
+.info-card .ic svg{width:22px;height:22px}
+.info-card .l{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:3px}
+.info-card .v{font-size:1.02rem;font-weight:500;color:#fff}
+.info-card a.v:hover{color:var(--brand-2)}
+.map{position:relative;height:200px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+  background:
+   linear-gradient(0deg,rgba(255,122,24,.05),transparent),
+   repeating-linear-gradient(0deg,transparent 0 28px,rgba(255,255,255,.045) 28px 29px),
+   repeating-linear-gradient(90deg,transparent 0 28px,rgba(255,255,255,.045) 28px 29px),
+   radial-gradient(circle at 60% 45%,#1a2129,#0f1217)}
+.map .road{position:absolute;background:rgba(255,255,255,.08)}
+.map .r1{top:0;bottom:0;left:38%;width:8px;transform:skewX(-12deg)}
+.map .r2{left:0;right:0;top:58%;height:7px}
+.map .r3{left:0;right:0;top:22%;height:4px;background:rgba(255,255,255,.05)}
+.pin{position:absolute;left:60%;top:45%;transform:translate(-50%,-100%);color:var(--brand);z-index:2}
+.pin svg{width:34px;height:34px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.pin::after{content:"";position:absolute;left:50%;bottom:-6px;width:46px;height:46px;border-radius:50%;background:var(--glow);transform:translate(-50%,0);animation:pulse 2.4s infinite;z-index:-1}
+@keyframes pulse{0%{transform:translate(-50%,0) scale(.5);opacity:.7}100%{transform:translate(-50%,0) scale(2.4);opacity:0}}
+.map .tagpin{position:absolute;left:60%;top:45%;transform:translate(14px,-34px);background:var(--bg);border:1px solid var(--line-2);border-radius:8px;padding:5px 10px;font-size:.76rem;color:#fff;white-space:nowrap;z-index:3}
+
+/* ============================== FOOTER ============================== */
+footer{background:var(--bg-2);border-top:1px solid var(--line);padding:72px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:50px}
+.foot-about p{color:var(--muted);font-size:.94rem;margin:18px 0 22px;max-width:34ch}
+.foot-soc{display:flex;gap:10px}
+.foot-soc a{width:40px;height:40px;border-radius:11px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--muted);transition:.3s}
+.foot-soc a:hover{background:var(--grad);color:#1a1206;border-color:transparent;transform:translateY(-3px)}
+.foot-soc svg{width:18px;height:18px}
+.foot-col h4{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.1em;font-size:.92rem;margin-bottom:18px;color:#fff}
+.foot-col ul li{margin-bottom:11px}
+.foot-col ul a,.foot-col ul span{color:var(--muted);font-size:.92rem;transition:color .25s;display:inline-flex;gap:8px;align-items:flex-start}
+.foot-col ul a:hover{color:var(--brand-2)}
+.foot-bottom{border-top:1px solid var(--line);padding-top:26px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;color:var(--faint);font-size:.86rem}
+.foot-bottom .made b{color:var(--brand-2)}
+
+/* back to top */
+#top{position:fixed;right:22px;bottom:22px;width:50px;height:50px;border-radius:14px;background:var(--grad);color:#1a1206;display:grid;place-items:center;box-shadow:0 12px 30px -10px var(--glow);opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;transition:.4s var(--ease);z-index:90}
+#top.show{opacity:1;transform:none;pointer-events:auto}
+#top:hover{transform:translateY(-3px)}
+#top svg{width:22px;height:22px}
+
+/* ============================== RESPONSIVE ============================== */
+@media(max-width:1080px){
+  .about-grid{gap:48px}
+  .svc-grid,.feat-grid,.proc-grid,.tst-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:880px){
+  .nav-links,.nav-cta{display:none}
+  .burger{display:grid}
+  .mobile-menu{display:flex}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .about-media{max-width:560px;margin-bottom:30px}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:30px 10px}
+  .f-row{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .container{padding-inline:18px}
+  .svc-grid,.feat-grid,.proc-grid,.tst-grid,.gallery,.stat-grid,.foot-grid,.about-list{grid-template-columns:1fr}
+  .feat-grid{border-radius:var(--r)}
+  .gallery{grid-auto-rows:200px}
+  .gitem.wide{grid-column:span 1}
+  .hero-cta .btn{flex:1}
+  .about-media .img-sub{position:static;width:100%;height:180px;margin-top:16px;border-width:1px}
+  .about-media .badge-exp{left:12px;top:12px}
+}
+
+/* mobile menu overlay */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:115;background:rgba(9,11,14,.97);backdrop-filter:blur(10px);
+  flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  opacity:0;pointer-events:none;transition:opacity .4s}
+body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
+.mobile-menu a{font-family:var(--font-d);text-transform:uppercase;font-size:1.7rem;letter-spacing:.04em;color:#cfd8e0;padding:10px;transition:.3s;opacity:0;transform:translateY(16px)}
+body.menu-open .mobile-menu a{opacity:1;transform:none}
+.mobile-menu a:hover{color:var(--brand)}
+.mobile-menu .btn{margin-top:22px}
+.mobile-menu a:nth-child(1){transition-delay:.05s}.mobile-menu a:nth-child(2){transition-delay:.1s}
+.mobile-menu a:nth-child(3){transition-delay:.15s}.mobile-menu a:nth-child(4){transition-delay:.2s}
+.mobile-menu a:nth-child(5){transition-delay:.25s}.mobile-menu a:nth-child(6){transition-delay:.3s}
+body.menu-open .mobile-menu a{transition:opacity .4s,transform .4s,color .3s}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal,.reveal-x{opacity:1!important;transform:none!important}
+  .hero-bg{transform:none}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- ============================== HEADER ============================== -->
+<header id="hdr">
+  <div class="container nav">
+    <a href="#home" class="brand" aria-label="FERRUM">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M9 23l4-13 3 7.5L19 13l5 10" stroke="#1a1206" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      FERRUM<span class="dot">.</span>
+    </a>
+    <nav class="nav-links" aria-label="Pagrindinė navigacija">
+      <a href="#home" data-en="Home" data-lt="Pradžia">Pradžia</a>
+      <a href="#about" data-en="About" data-lt="Apie">Apie</a>
+      <a href="#services" data-en="Services" data-lt="Paslaugos">Paslaugos</a>
+      <a href="#projects" data-en="Projects" data-lt="Darbai">Darbai</a>
+      <a href="#process" data-en="Process" data-lt="Procesas">Procesas</a>
+      <a href="#contact" data-en="Contact" data-lt="Kontaktai">Kontaktai</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Kalba / Language">
+        <button data-setlang="lt" class="on">LT</button>
+        <button data-setlang="en">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-primary nav-cta" data-en="Get a quote" data-lt="Pasiūlymas">Pasiūlymas</a>
+      <button class="burger" id="burger" aria-label="Meniu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" data-en="Home" data-lt="Pradžia">Pradžia</a>
+  <a href="#about" data-en="About" data-lt="Apie">Apie</a>
+  <a href="#services" data-en="Services" data-lt="Paslaugos">Paslaugos</a>
+  <a href="#projects" data-en="Projects" data-lt="Darbai">Darbai</a>
+  <a href="#process" data-en="Process" data-lt="Procesas">Procesas</a>
+  <a href="#contact" data-en="Contact" data-lt="Kontaktai">Kontaktai</a>
+  <a href="#contact" class="btn btn-primary btn-lg" data-en="Get a quote" data-lt="Gauti pasiūlymą">Gauti pasiūlymą</a>
+</div>
+
+<main>
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="home">
+  <div class="hero-bg ph" id="heroBg"></div>
+  <canvas id="embers"></canvas>
+  <div class="hero-spot" id="spot"></div>
+  <div class="container hero-inner">
+    <div class="hero-tag reveal in">
+      <span class="kicker" data-en="Welding · Metal structures · Ship repair" data-lt="Suvirinimas · Metalo konstrukcijos · Laivų remontas">Suvirinimas · Metalo konstrukcijos · Laivų remontas</span>
+    </div>
+    <h1 class="reveal in" style="--d:.08s" data-html
+        data-lt="Patikimi metalo darbai.<br><span class='hl'>Suvirinti tvirtai.</span>"
+        data-en="Heavy-duty metalwork.<br><span class='hl'>Welded to last.</span>">Patikimi metalo darbai.<br><span class="hl">Suvirinti tvirtai.</span></h1>
+    <p class="lead reveal in" style="--d:.16s"
+       data-lt="Nuo metalo konstrukcijų ir vamzdynų iki tiltinių kranų bei laivų remonto — FERRUM atlieka sertifikuotus suvirinimo ir gamybos darbus visame Baltijos regione."
+       data-en="From structural steel and pipelines to overhead cranes and ship repair — FERRUM delivers certified welding and fabrication across the Baltic region.">Nuo metalo konstrukcijų ir vamzdynų iki tiltinių kranų bei laivų remonto — FERRUM atlieka sertifikuotus suvirinimo ir gamybos darbus visame Baltijos regione.</p>
+    <div class="hero-cta reveal in" style="--d:.24s">
+      <a href="#contact" class="btn btn-primary btn-lg" data-en="Get a free quote" data-lt="Nemokamas pasiūlymas">Nemokamas pasiūlymas
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#services" class="btn btn-ghost btn-lg" data-en="Our services" data-lt="Mūsų paslaugos">Mūsų paslaugos</a>
+    </div>
+    <div class="hero-badges reveal in" style="--d:.32s">
+      <div class="hbadge">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>20+</b><br><span data-en="Years" data-lt="Metų">Metų</span></div>
+      </div>
+      <div class="hbadge">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke-linejoin="round"/></svg></span>
+        <div><b>850+</b><br><span data-en="Projects" data-lt="Projektų">Projektų</span></div>
+      </div>
+      <div class="hbadge">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z" stroke-linejoin="round"/></svg></span>
+        <div><b>EN 1090</b><br><span data-en="Certified" data-lt="Sertifikuota">Sertifikuota</span></div>
+      </div>
+    </div>
+  </div>
+  <a href="#about" class="scroll-cue" aria-label="Slinkti žemyn">
+    <span class="mouse"></span>
+    <span data-en="Scroll" data-lt="Slinkti">Slinkti</span>
+  </a>
+</section>
+
+<!-- ============================== MARQUEE ============================== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee"></div>
+</div>
+
+<!-- ============================== ABOUT ============================== -->
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-media reveal-x">
+      <div class="img-main"><div class="ph"></div></div>
+      <div class="img-sub"><div class="ph"></div></div>
+      <div class="badge-exp"><b>20</b><span data-en="Years on the floor" data-lt="Metų patirties">Metų patirties</span></div>
+    </div>
+    <div class="about-copy reveal">
+      <span class="kicker" data-en="About FERRUM" data-lt="Apie FERRUM">Apie FERRUM</span>
+      <h2 class="title" data-html
+          data-lt="Du dešimtmečiai — nuo <span class='hl'>žaliavos</span> iki patikimų konstrukcijų"
+          data-en="Two decades — from <span class='hl'>raw steel</span> to structures that last">Du dešimtmečiai — nuo <span class="hl">žaliavos</span> iki patikimų konstrukcijų</h2>
+      <p data-lt="Įkurta 2004 m. Klaipėdoje, FERRUM yra metalo apdirbimo ir suvirinimo įmonė, aptarnaujanti pramonės, statybos, energetikos ir jūrų sektorius. Mūsų sertifikuoti suvirintojai ir inžinieriai atlieka viską — nuo vienos siūlės iki ištisų metalo konstrukcijų."
+         data-en="Founded in 2004 in Klaipėda, FERRUM is a metalworking and welding company serving the industrial, construction, energy and marine sectors. Our certified welders and engineers handle everything — from a single weld to complete steel structures.">Įkurta 2004 m. Klaipėdoje, FERRUM yra metalo apdirbimo ir suvirinimo įmonė, aptarnaujanti pramonės, statybos, energetikos ir jūrų sektorius. Mūsų sertifikuoti suvirintojai ir inžinieriai atlieka viską — nuo vienos siūlės iki ištisų metalo konstrukcijų.</p>
+      <p data-lt="Dirbame pagal EN 1090 ir EN ISO 3834 standartus, derindami modernią įrangą su tikra meistryste, kad projektai būtų atlikti laiku, neviršijant biudžeto ir tarnautų ilgai."
+         data-en="We work to EN 1090 and EN ISO 3834 standards, combining modern equipment with genuine craftsmanship to deliver every project on time, on budget and built to last.">Dirbame pagal EN 1090 ir EN ISO 3834 standartus, derindami modernią įrangą su tikra meistryste, kad projektai būtų atlikti laiku, neviršijant biudžeto ir tarnautų ilgai.</p>
+      <ul class="about-list">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-en="Certified welders (EN ISO 9606)" data-lt="Sertifikuoti suvirintojai (EN ISO 9606)">Sertifikuoti suvirintojai (EN ISO 9606)</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-en="In-house engineering & design" data-lt="Inžinerija ir projektavimas vietoje">Inžinerija ir projektavimas vietoje</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-en="On-site & workshop capability" data-lt="Darbai objekte ir ceche">Darbai objekte ir ceche</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-en="24/7 emergency repairs" data-lt="Skubūs remontai 24/7">Skubūs remontai 24/7</span></li>
+      </ul>
+      <div class="certs">
+        <span class="cert"><b>EN 1090-2</b></span>
+        <span class="cert"><b>EN ISO 3834-2</b></span>
+        <span class="cert"><b>EN ISO 9001</b></span>
+        <span class="cert"><b>EN ISO 9606</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SERVICES ============================== -->
+<section class="section" id="services" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="eyebrow-row">
+      <div class="reveal">
+        <span class="kicker" data-en="What we do" data-lt="Ką mes darome">Ką mes darome</span>
+        <h2 class="title" data-en="Full-cycle metalworking" data-lt="Pilno ciklo metalo darbai">Pilno ciklo metalo darbai</h2>
+      </div>
+      <p class="lead reveal" style="--d:.1s" data-en="Seven core capabilities under one roof — from a single weld to turnkey steel structures." data-lt="Septynios pagrindinės kompetencijos po vienu stogu — nuo vienos siūlės iki „iki rakto“ metalo konstrukcijų.">Septynios pagrindinės kompetencijos po vienu stogu — nuo vienos siūlės iki „iki rakto“ metalo konstrukcijų.</p>
+    </div>
+    <div class="svc-grid">
+      <!-- 1 Welding (featured) -->
+      <article class="svc feat reveal">
+        <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1608126841548-dfad1d420a0f?auto=format&fit=crop&w=1100&q=80')"></div>
+        <span class="num">01</span>
+        <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 17l7-7" stroke-linecap="round"/><path d="M9.5 10.5l4-4 4 4-4 4z" stroke-linejoin="round"/><path d="M14 6l3-3M19 14l2 2-2 2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="20" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <h3 data-en="Welding works" data-lt="Suvirinimo darbai">Suvirinimo darbai</h3>
+        <p data-en="MIG/MAG, TIG and arc welding of steel, stainless and aluminium — to certified, inspected quality." data-lt="MIG/MAG, TIG ir lankinis plieno, nerūdijančio plieno bei aliuminio suvirinimas — sertifikuota, patikrinta kokybe.">MIG/MAG, TIG ir lankinis plieno, nerūdijančio plieno bei aliuminio suvirinimas — sertifikuota, patikrinta kokybe.</p>
+        <a class="more" href="#contact" data-en="Learn more" data-lt="Plačiau">Plačiau <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <!-- 2 Pipeline -->
+      <article class="svc reveal" style="--d:.06s">
+        <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=800&q=80')"></div>
+        <span class="num">02</span>
+        <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 8h8a3 3 0 0 1 3 3v2a3 3 0 0 0 3 3h4" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="5" width="4" height="6" rx="1"/><rect x="18" y="13" width="4" height="6" rx="1"/></svg></span>
+        <h3 data-en="Pipeline repair" data-lt="Vamzdynų remontas">Vamzdynų remontas</h3>
+        <p data-en="Repair, replacement and installation of industrial pipelines and pressure pipework." data-lt="Pramoninių vamzdynų ir slėginių vamzdžių remontas, keitimas ir montavimas.">Pramoninių vamzdynų ir slėginių vamzdžių remontas, keitimas ir montavimas.</p>
+        <a class="more" href="#contact" data-en="Learn more" data-lt="Plačiau">Plačiau <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <!-- 3 Installation -->
+      <article class="svc reveal" style="--d:.12s">
+        <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80')"></div>
+        <span class="num">03</span>
+        <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 1 5.4-5.4l-2.6 2.6-2-2 2.6-2.6z" stroke-linejoin="round"/></svg></span>
+        <h3 data-en="Installation & assembly" data-lt="Montavimo darbai">Montavimo darbai</h3>
+        <p data-en="Mechanical installation and assembly of equipment, lines and steelwork on site." data-lt="Įrangos, linijų ir metalo konstrukcijų mechaninis montavimas objekte.">Įrangos, linijų ir metalo konstrukcijų mechaninis montavimas objekte.</p>
+        <a class="more" href="#contact" data-en="Learn more" data-lt="Plačiau">Plačiau <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <!-- 4 Metal structures -->
+      <article class="svc reveal" style="--d:.06s">
+        <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80')"></div>
+        <span class="num">04</span>
+        <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 20L20 4M4 4l16 16M4 4h16v16H4z" stroke-linejoin="round"/></svg></span>
+        <h3 data-en="Metal structures" data-lt="Metalo konstrukcijos">Metalo konstrukcijos</h3>
+        <p data-en="Fabrication and assembly of frames, platforms, stairs and load-bearing steel structures." data-lt="Rėmų, aikštelių, laiptų ir laikančiųjų metalo konstrukcijų gamyba bei surinkimas.">Rėmų, aikštelių, laiptų ir laikančiųjų metalo konstrukcijų gamyba bei surinkimas.</p>
+        <a class="more" href="#contact" data-en="Learn more" data-lt="Plačiau">Plačiau <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <!-- 5 Cranes -->
+      <article class="svc reveal" style="--d:.12s">
+        <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80')"></div>
+        <span class="num">05</span>
+        <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 20h16M6 20V5l13 2M6 5l3-2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 7v3M19 10l-3 0M16 10v3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3 data-en="Overhead cranes" data-lt="Tiltinių kranų montavimas">Tiltinių kranų montavimas</h3>
+        <p data-en="Supply, installation and servicing of bridge, gantry and overhead cranes." data-lt="Tiltinių, ožinių ir mostinių kranų tiekimas, montavimas ir aptarnavimas.">Tiltinių, ožinių ir mostinių kranų tiekimas, montavimas ir aptarnavimas.</p>
+        <a class="more" href="#contact" data-en="Learn more" data-lt="Plačiau">Plačiau <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <!-- 6 Subcontracting -->
+      <article class="svc reveal" style="--d:.06s">
+        <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=800&q=80')"></div>
+        <span class="num">06</span>
+        <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke-linejoin="round"/><path d="M2 20c0-3 2.7-5 6-5s6 2 6 5M14 20c0-2.4 1.6-4.2 4-4.7" stroke-linecap="round"/></svg></span>
+        <h3 data-en="Subcontracting" data-lt="Subranga">Subranga</h3>
+        <p data-en="Skilled welding and fabrication teams for your projects, on demand." data-lt="Kvalifikuotos suvirinimo ir gamybos komandos jūsų projektams pagal poreikį.">Kvalifikuotos suvirinimo ir gamybos komandos jūsų projektams pagal poreikį.</p>
+        <a class="more" href="#contact" data-en="Learn more" data-lt="Plačiau">Plačiau <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <!-- 7 Ship repair -->
+      <article class="svc reveal" style="--d:.12s">
+        <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1566140967404-b8b3932483f5?auto=format&fit=crop&w=800&q=80')"></div>
+        <span class="num">07</span>
+        <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 14l9-3 9 3-2.5 5.5a3 3 0 0 1-2.7 1.5H8.2a3 3 0 0 1-2.7-1.5L3 14z" stroke-linejoin="round"/><path d="M12 11V4M9 6h3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3 data-en="Ship repair" data-lt="Laivų remontas">Laivų remontas</h3>
+        <p data-en="Hull, deck and onboard steel repair and welding for vessels in port and dry dock." data-lt="Korpuso, denio ir laivo metalo konstrukcijų remontas bei suvirinimas uoste ir doke.">Korpuso, denio ir laivo metalo konstrukcijų remontas bei suvirinimas uoste ir doke.</p>
+        <a class="more" href="#contact" data-en="Learn more" data-lt="Plačiau">Plačiau <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WHY ============================== -->
+<section class="section why" id="why">
+  <div class="container">
+    <div class="center-head reveal">
+      <span class="kicker center" data-en="Why FERRUM" data-lt="Kodėl FERRUM">Kodėl FERRUM</span>
+      <h2 class="title" data-en="Certification, speed & craftsmanship" data-lt="Sertifikuota kokybė, greitis ir meistrystė">Sertifikuota kokybė, greitis ir meistrystė</h2>
+      <p class="lead" data-en="Everything we do is built on certified quality and a team that treats every weld as if their name is on it." data-lt="Viskas, ką darome, remiasi sertifikuota kokybe ir komanda, kuriai kiekviena siūlė — garbės reikalas.">Viskas, ką darome, remiasi sertifikuota kokybe ir komanda, kuriai kiekviena siūlė — garbės reikalas.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 data-en="Certified quality" data-lt="Sertifikuota kokybė">Sertifikuota kokybė</h3>
+        <p data-en="Welding to EN 1090 and EN ISO 3834 standards, with full traceability." data-lt="Suvirinimas pagal EN 1090 ir EN ISO 3834 standartus su pilnu atsekamumu.">Suvirinimas pagal EN 1090 ir EN ISO 3834 standartus su pilnu atsekamumu.</p></div>
+      <div class="feat reveal" style="--d:.06s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-6 7-6s7 2.7 7 6" stroke-linecap="round"/><path d="M17 8l2 2 3-3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 data-en="Experienced team" data-lt="Patyrusi komanda">Patyrusi komanda</h3>
+        <p data-en="Welders and engineers with 20+ years on the shop floor and on site." data-lt="Suvirintojai ir inžinieriai su daugiau nei 20 metų patirtimi.">Suvirintojai ir inžinieriai su daugiau nei 20 metų patirtimi.</p></div>
+      <div class="feat reveal" style="--d:.12s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke-linecap="round"/></svg></div>
+        <h3 data-en="Modern equipment" data-lt="Moderni įranga">Moderni įranga</h3>
+        <p data-en="Up-to-date machines and tooling for precise, repeatable results." data-lt="Šiuolaikinės staklės ir įranga tiksliam, pakartojamam rezultatui.">Šiuolaikinės staklės ir įranga tiksliam, pakartojamam rezultatui.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 data-en="On time, on budget" data-lt="Laiku ir pagal biudžetą">Laiku ir pagal biudžetą</h3>
+        <p data-en="Clear timelines, transparent pricing, no surprises." data-lt="Aiškūs terminai, skaidrios kainos, jokių netikėtumų.">Aiškūs terminai, skaidrios kainos, jokių netikėtumų.</p></div>
+      <div class="feat reveal" style="--d:.06s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke-linejoin="round"/></svg></div>
+        <h3 data-en="On-site & workshop" data-lt="Objekte ir ceche">Objekte ir ceche</h3>
+        <p data-en="We come to your site or fabricate in our equipped workshop." data-lt="Atvykstame į jūsų objektą arba gaminame įrengtame ceche.">Atvykstame į jūsų objektą arba gaminame įrengtame ceche.</p></div>
+      <div class="feat reveal" style="--d:.12s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke-linejoin="round"/></svg></div>
+        <h3 data-en="24/7 emergency" data-lt="Skubūs darbai 24/7">Skubūs darbai 24/7</h3>
+        <p data-en="Breakdown or urgent repair? Our crew is on call around the clock." data-lt="Avarija ar skubus remontas? Mūsų brigada budi visą parą.">Avarija ar skubus remontas? Mūsų brigada budi visą parą.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== STATS ============================== -->
+<section class="section stats">
+  <div class="stbg"></div>
+  <div class="container">
+    <div class="stat-grid">
+      <div class="stat reveal"><div class="n" data-count="20" data-suffix="+">0</div><div class="l" data-en="Years of experience" data-lt="Metų patirties">Metų patirties</div></div>
+      <div class="stat reveal" style="--d:.08s"><div class="n" data-count="850" data-suffix="+">0</div><div class="l" data-en="Completed projects" data-lt="Užbaigtų projektų">Užbaigtų projektų</div></div>
+      <div class="stat reveal" style="--d:.16s"><div class="n" data-count="12000" data-suffix="+" data-group="1">0</div><div class="l" data-en="Tons of steel processed" data-lt="Tonų apdirbto metalo">Tonų apdirbto metalo</div></div>
+      <div class="stat reveal" style="--d:.24s"><div class="n" data-count="60" data-suffix="+">0</div><div class="l" data-en="Specialists & welders" data-lt="Specialistų ir suvirintojų">Specialistų ir suvirintojų</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROCESS ============================== -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="center-head reveal">
+      <span class="kicker center" data-en="How we work" data-lt="Kaip dirbame">Kaip dirbame</span>
+      <h2 class="title" data-en="From first call to final handover" data-lt="Nuo pirmo skambučio iki pridavimo">Nuo pirmo skambučio iki pridavimo</h2>
+    </div>
+    <div class="proc-grid">
+      <div class="step reveal"><div class="pnum">01</div><h3 data-en="Consultation" data-lt="Konsultacija">Konsultacija</h3><p data-en="We review your needs, site and drawings, then scope the work." data-lt="Įvertiname poreikius, objektą ir brėžinius, apibrėžiame darbų apimtį.">Įvertiname poreikius, objektą ir brėžinius, apibrėžiame darbų apimtį.</p></div>
+      <div class="step reveal" style="--d:.08s"><div class="pnum">02</div><h3 data-en="Engineering" data-lt="Projektavimas">Projektavimas</h3><p data-en="Our engineers prepare the solution, materials and a clear quote." data-lt="Inžinieriai parengia sprendimą, medžiagas ir aiškų pasiūlymą.">Inžinieriai parengia sprendimą, medžiagas ir aiškų pasiūlymą.</p></div>
+      <div class="step reveal" style="--d:.16s"><div class="pnum">03</div><h3 data-en="Fabrication" data-lt="Gamyba">Gamyba</h3><p data-en="Certified welders build to spec in our shop or on your site." data-lt="Sertifikuoti suvirintojai gamina pagal specifikaciją ceche ar objekte.">Sertifikuoti suvirintojai gamina pagal specifikaciją ceche ar objekte.</p></div>
+      <div class="step reveal" style="--d:.24s"><div class="pnum">04</div><h3 data-en="Handover" data-lt="Pridavimas">Pridavimas</h3><p data-en="We install, test, document and hand over the finished work." data-lt="Sumontuojame, išbandome, dokumentuojame ir priduodame darbą.">Sumontuojame, išbandome, dokumentuojame ir priduodame darbą.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROJECTS ============================== -->
+<section class="section" id="projects" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="eyebrow-row">
+      <div class="reveal">
+        <span class="kicker" data-en="Selected work" data-lt="Atrinkti darbai">Atrinkti darbai</span>
+        <h2 class="title" data-en="Projects in industry & marine" data-lt="Projektai pramonėje ir jūroje">Projektai pramonėje ir jūroje</h2>
+      </div>
+      <div class="filters reveal" style="--d:.1s" id="filters">
+        <button class="on" data-filter="all" data-en="All" data-lt="Visi">Visi</button>
+        <button data-filter="weld" data-en="Welding" data-lt="Suvirinimas">Suvirinimas</button>
+        <button data-filter="struct" data-en="Structures" data-lt="Konstrukcijos">Konstrukcijos</button>
+        <button data-filter="crane" data-en="Cranes" data-lt="Kranai">Kranai</button>
+        <button data-filter="marine" data-en="Marine" data-lt="Jūra">Jūra</button>
+      </div>
+    </div>
+    <div class="gallery reveal" id="gallery">
+      <div class="gitem tall" data-cat="struct"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=700&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Structures" data-lt="Konstrukcijos">Konstrukcijos</span><h4 data-en="Structural steel frame — logistics hub" data-lt="Metalo karkasas — logistikos centras">Metalo karkasas — logistikos centras</h4></div></div>
+      <div class="gitem" data-cat="weld"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1615219023549-5c9abdb7df9a?auto=format&fit=crop&w=600&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Welding" data-lt="Suvirinimas">Suvirinimas</span><h4 data-en="TIG welding — pressure piping" data-lt="TIG suvirinimas — slėginiai vamzdžiai">TIG suvirinimas — slėginiai vamzdžiai</h4></div></div>
+      <div class="gitem" data-cat="crane"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1586075010633-2470fd205514?auto=format&fit=crop&w=600&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Cranes" data-lt="Kranai">Kranai</span><h4 data-en="Overhead crane install — 20 t" data-lt="Tiltinio krano montavimas — 20 t">Tiltinio krano montavimas — 20 t</h4></div></div>
+      <div class="gitem wide" data-cat="marine"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1569263979104-865ab7dd8d3d?auto=format&fit=crop&w=1000&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Marine" data-lt="Jūra">Jūra</span><h4 data-en="Hull steel repair — cargo vessel" data-lt="Korpuso remontas — krovininis laivas">Korpuso remontas — krovininis laivas</h4></div></div>
+      <div class="gitem" data-cat="weld"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1547555706-54bcf05bbad1?auto=format&fit=crop&w=600&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Welding" data-lt="Suvirinimas">Suvirinimas</span><h4 data-en="Precision weld beads — stainless" data-lt="Tikslios siūlės — nerūdijantis plienas">Tikslios siūlės — nerūdijantis plienas</h4></div></div>
+      <div class="gitem" data-cat="struct"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=600&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Structures" data-lt="Konstrukcijos">Konstrukcijos</span><h4 data-en="Pipe rack & supports — plant" data-lt="Vamzdynų estakada — gamykla">Vamzdynų estakada — gamykla</h4></div></div>
+      <div class="gitem tall" data-cat="marine"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1516216628859-9bccecab13ca?auto=format&fit=crop&w=700&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Marine" data-lt="Jūra">Jūra</span><h4 data-en="Dock-side fabrication — port" data-lt="Gamybos darbai — uostas">Gamybos darbai — uostas</h4></div></div>
+      <div class="gitem" data-cat="crane"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80')"></div><span class="corner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="gcap"><span class="cat" data-en="Cranes" data-lt="Kranai">Kranai</span><h4 data-en="Gantry crane retrofit" data-lt="Ožinio krano modernizacija">Ožinio krano modernizacija</h4></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TESTIMONIALS ============================== -->
+<section class="section tst" id="testimonials">
+  <div class="container">
+    <div class="center-head reveal">
+      <span class="kicker center" data-en="Client words" data-lt="Klientų atsiliepimai">Klientų atsiliepimai</span>
+      <h2 class="title" data-en="Trusted by industry & the port" data-lt="Mumis pasitiki pramonė ir uostas">Mumis pasitiki pramonė ir uostas</h2>
+    </div>
+    <div class="tst-grid">
+      <figure class="quote reveal">
+        <span class="mark">&ldquo;</span>
+        <div class="stars" aria-label="5/5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg></div>
+        <p data-en="FERRUM replaced our production-line pipework over a single weekend shutdown — clean welds, zero leaks, back online by Monday." data-lt="FERRUM per vieną savaitgalio prastovą pakeitė mūsų gamybos linijos vamzdyną — kokybiškos siūlės, jokių nuotėkių, pirmadienį jau dirbome.">FERRUM per vieną savaitgalio prastovą pakeitė mūsų gamybos linijos vamzdyną — kokybiškos siūlės, jokių nuotėkių, pirmadienį jau dirbome.</p>
+        <figcaption class="who"><span class="av">M</span><div><b>Mindaugas K.</b><span data-en="Operations Manager, food processing" data-lt="Gamybos vadovas, maisto perdirbimas">Gamybos vadovas, maisto perdirbimas</span></div></figcaption>
+      </figure>
+      <figure class="quote reveal" style="--d:.08s">
+        <span class="mark">&ldquo;</span>
+        <div class="stars" aria-label="5/5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg></div>
+        <p data-en="Their crew installed two 20-tonne overhead cranes on schedule and exactly to spec. Professional from quote to handover." data-lt="Jų brigada laiku ir tiksliai pagal specifikaciją sumontavo du 20 t tiltinius kranus. Profesionalu nuo pasiūlymo iki pridavimo.">Jų brigada laiku ir tiksliai pagal specifikaciją sumontavo du 20 t tiltinius kranus. Profesionalu nuo pasiūlymo iki pridavimo.</p>
+        <figcaption class="who"><span class="av">R</span><div><b>Rasa Ž.</b><span data-en="Project Director, construction" data-lt="Projektų direktorė, statyba">Projektų direktorė, statyba</span></div></figcaption>
+      </figure>
+      <figure class="quote reveal" style="--d:.16s">
+        <span class="mark">&ldquo;</span>
+        <div class="stars" aria-label="5/5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.6.6-4 4 1 5.4-5-2.8-5 2.8 1-5.4-4-4 5.6-.6L12 2z"/></svg></div>
+        <p data-en="A reliable partner for ship repair in Klaipėda port — fast response and certified welds we can trust, every time." data-lt="Patikimas partneris laivų remontui Klaipėdos uoste — greita reakcija ir sertifikuotos siūlės, kuriomis visada pasitikime.">Patikimas partneris laivų remontui Klaipėdos uoste — greita reakcija ir sertifikuotos siūlės, kuriomis visada pasitikime.</p>
+        <figcaption class="who"><span class="av">T</span><div><b>Tomas B.</b><span data-en="Fleet Superintendent, shipping line" data-lt="Laivyno vadovas, laivybos kompanija">Laivyno vadovas, laivybos kompanija</span></div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA BAND ============================== -->
+<section class="ctaband">
+  <div class="cbg"></div>
+  <div class="container inner">
+    <div class="reveal-x">
+      <h2 data-en="Have a project in steel? Let's talk." data-lt="Turite metalo projektą? Pakalbėkime.">Turite metalo projektą? Pakalbėkime.</h2>
+      <p data-en="Get a free, no-obligation quote within 48 hours." data-lt="Gaukite nemokamą pasiūlymą be įsipareigojimų per 48 valandas.">Gaukite nemokamą pasiūlymą be įsipareigojimų per 48 valandas.</p>
+    </div>
+    <a href="#contact" class="btn btn-primary btn-lg reveal" data-en="Request a quote" data-lt="Užsakyti pasiūlymą">Užsakyti pasiūlymą
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="kicker" data-en="Get in touch" data-lt="Susisiekite">Susisiekite</span>
+        <h2 class="title" data-en="Request a quote" data-lt="Užsakykite pasiūlymą">Užsakykite pasiūlymą</h2>
+        <p class="lead" style="margin-bottom:26px" data-en="Tell us about your project and we'll get back to you within one business day." data-lt="Papasakokite apie savo projektą — atsakysime per vieną darbo dieną.">Papasakokite apie savo projektą — atsakysime per vieną darbo dieną.</p>
+        <form class="form-card" id="quoteForm" novalidate>
+          <div class="f-row">
+            <div class="field"><label data-en="Name" data-lt="Vardas">Vardas</label><input type="text" name="name" required data-en-ph="Your name" data-lt-ph="Jūsų vardas" placeholder="Jūsų vardas"></div>
+            <div class="field"><label data-en="Company" data-lt="Įmonė">Įmonė</label><input type="text" name="company" data-en-ph="Company (optional)" data-lt-ph="Įmonė (neprivaloma)" placeholder="Įmonė (neprivaloma)"></div>
+          </div>
+          <div class="f-row">
+            <div class="field"><label data-en="Email" data-lt="El. paštas">El. paštas</label><input type="email" name="email" required data-en-ph="you@email.com" data-lt-ph="jusu@pastas.lt" placeholder="jusu@pastas.lt"></div>
+            <div class="field"><label data-en="Phone" data-lt="Telefonas">Telefonas</label><input type="tel" name="phone" data-en-ph="+370 ..." data-lt-ph="+370 ..." placeholder="+370 ..."></div>
+          </div>
+          <div class="field"><label data-en="Service" data-lt="Paslauga">Paslauga</label>
+            <select name="service">
+              <option data-en="Select a service…" data-lt="Pasirinkite paslaugą…">Pasirinkite paslaugą…</option>
+              <option data-en="Welding works" data-lt="Suvirinimo darbai">Suvirinimo darbai</option>
+              <option data-en="Pipeline repair" data-lt="Vamzdynų remontas">Vamzdynų remontas</option>
+              <option data-en="Installation & assembly" data-lt="Montavimo darbai">Montavimo darbai</option>
+              <option data-en="Metal structures" data-lt="Metalo konstrukcijos">Metalo konstrukcijos</option>
+              <option data-en="Overhead cranes" data-lt="Tiltinių kranų montavimas">Tiltinių kranų montavimas</option>
+              <option data-en="Subcontracting" data-lt="Subranga">Subranga</option>
+              <option data-en="Ship repair" data-lt="Laivų remontas">Laivų remontas</option>
+              <option data-en="Other" data-lt="Kita">Kita</option>
+            </select>
+          </div>
+          <div class="field"><label data-en="Message" data-lt="Žinutė">Žinutė</label><textarea name="message" required data-en-ph="Describe your project, location and timeline…" data-lt-ph="Aprašykite projektą, vietą ir terminus…" placeholder="Aprašykite projektą, vietą ir terminus…"></textarea></div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%" data-en="Send request" data-lt="Siųsti užklausą">Siųsti užklausą</button>
+          <p class="form-note" data-en="By sending, you agree to be contacted regarding your request." data-lt="Siųsdami sutinkate, kad su jumis būtų susisiekta dėl užklausos.">Siųsdami sutinkate, kad su jumis būtų susisiekta dėl užklausos.</p>
+          <div class="form-ok" id="formOk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Thank you! Your request has been sent. We'll contact you shortly." data-lt="Ačiū! Jūsų užklausa išsiųsta. Netrukus susisieksime.">Ačiū! Jūsų užklausa išsiųsta. Netrukus susisieksime.</span></div>
+        </form>
+      </div>
+      <div class="reveal" style="--d:.1s">
+        <div class="info-block">
+          <a class="info-card" href="https://maps.google.com/?q=Klaipeda" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="l" data-en="Address" data-lt="Adresas">Adresas</div><div class="v">Pramonės g. 12, LT-94101 Klaipėda</div></div></a>
+          <a class="info-card" href="tel:+37061234567"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h3l2 5-2 1.5a11 11 0 0 0 5 5L19 18l2 2v0a2 2 0 0 1-2 2 17 17 0 0 1-15-15 2 2 0 0 1 1-2z" stroke-linejoin="round"/></svg></span><div><div class="l" data-en="Phone" data-lt="Telefonas">Telefonas</div><div class="v">+370 612 34567</div></div></a>
+          <a class="info-card" href="mailto:info@ferrum.lt"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="l" data-en="Email" data-lt="El. paštas">El. paštas</div><div class="v">info@ferrum.lt</div></div></a>
+          <div class="info-card"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="l" data-en="Working hours" data-lt="Darbo laikas">Darbo laikas</div><div class="v" data-en="Mon–Fri 8:00–17:00 · 24/7 emergency" data-lt="I–V 8:00–17:00 · Avarijoms 24/7">I–V 8:00–17:00 · Avarijoms 24/7</div></div></div>
+        </div>
+        <div class="map" role="img" aria-label="Klaipėda, Lietuva">
+          <span class="road r3"></span><span class="road r1"></span><span class="road r2"></span>
+          <span class="pin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10.5" r="2.6" fill="#0c0e12"/></svg></span>
+          <span class="tagpin">FERRUM · Klaipėda</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="#home" class="brand"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M9 23l4-13 3 7.5L19 13l5 10" stroke="#1a1206" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>FERRUM<span class="dot">.</span></a>
+        <p data-en="Certified welding, metal structures and ship repair for industry, construction and the marine sector across the Baltics." data-lt="Sertifikuoti suvirinimo darbai, metalo konstrukcijos ir laivų remontas pramonei, statybai ir jūrų sektoriui visame Baltijos regione.">Sertifikuoti suvirinimo darbai, metalo konstrukcijos ir laivų remontas pramonei, statybai ir jūrų sektoriui visame Baltijos regione.</p>
+        <div class="foot-soc">
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21H20v-5.3c0-1.27-.02-2.9-1.77-2.9s-2.04 1.38-2.04 2.8V21H9z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h2.7l.4-3H13V9c0-.9.25-1.5 1.5-1.5H16V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.7 1.4-3.7 3.9V11H7.5v3H10v8z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4 data-en="Services" data-lt="Paslaugos">Paslaugos</h4>
+        <ul>
+          <li><a href="#services" data-en="Welding works" data-lt="Suvirinimo darbai">Suvirinimo darbai</a></li>
+          <li><a href="#services" data-en="Pipeline repair" data-lt="Vamzdynų remontas">Vamzdynų remontas</a></li>
+          <li><a href="#services" data-en="Installation" data-lt="Montavimo darbai">Montavimo darbai</a></li>
+          <li><a href="#services" data-en="Metal structures" data-lt="Metalo konstrukcijos">Metalo konstrukcijos</a></li>
+          <li><a href="#services" data-en="Overhead cranes" data-lt="Tiltiniai kranai">Tiltiniai kranai</a></li>
+          <li><a href="#services" data-en="Ship repair" data-lt="Laivų remontas">Laivų remontas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4 data-en="Company" data-lt="Įmonė">Įmonė</h4>
+        <ul>
+          <li><a href="#about" data-en="About us" data-lt="Apie mus">Apie mus</a></li>
+          <li><a href="#projects" data-en="Projects" data-lt="Darbai">Darbai</a></li>
+          <li><a href="#process" data-en="Process" data-lt="Procesas">Procesas</a></li>
+          <li><a href="#why" data-en="Why FERRUM" data-lt="Kodėl FERRUM">Kodėl FERRUM</a></li>
+          <li><a href="#contact" data-en="Contact" data-lt="Kontaktai">Kontaktai</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4 data-en="Contact" data-lt="Kontaktai">Kontaktai</h4>
+        <ul>
+          <li><span>Pramonės g. 12,<br>LT-94101 Klaipėda, LT</span></li>
+          <li><a href="tel:+37061234567">+370 612 34567</a></li>
+          <li><a href="mailto:info@ferrum.lt">info@ferrum.lt</a></li>
+          <li><span data-en="Mon–Fri 8:00–17:00" data-lt="I–V 8:00–17:00">I–V 8:00–17:00</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> FERRUM. <span data-en="All rights reserved." data-lt="Visos teisės saugomos.">Visos teisės saugomos.</span></span>
+      <span class="made" data-html data-en="Forged with <b>steel &amp; sparks</b>" data-lt="Sukurta su <b>plienu ir kibirkštimis</b>">Sukurta su <b>plienu ir kibirkštimis</b></span>
+    </div>
+  </div>
+</footer>
+
+<button id="top" aria-label="Į viršų"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M6 11l6-6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- i18n via data-attributes ---------- */
+  var TITLES = {
+    lt:'FERRUM — Suvirinimas, metalo konstrukcijos, laivų remontas',
+    en:'FERRUM — Welding, metal structures & ship repair'
+  };
+  function setLang(lang){
+    document.documentElement.lang = lang;
+    document.title = TITLES[lang] || TITLES.lt;
+    document.querySelectorAll('[data-lt],[data-en]').forEach(function(el){
+      var val = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-lt');
+      if(val == null) return;
+      if(el.hasAttribute('data-html')) el.innerHTML = val; else el.textContent = val;
+    });
+    document.querySelectorAll('[data-lt-ph],[data-en-ph]').forEach(function(el){
+      var v = lang === 'en' ? el.getAttribute('data-en-ph') : el.getAttribute('data-lt-ph');
+      if(v != null) el.setAttribute('placeholder', v);
+    });
+    document.querySelectorAll('[data-setlang]').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-setlang') === lang);
+    });
+    try{ localStorage.setItem('ferrum-lang', lang); }catch(e){}
+    buildMarquee(lang);
+  }
+  document.querySelectorAll('[data-setlang]').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-setlang')); });
+  });
+  var saved = 'lt';
+  try{ saved = localStorage.getItem('ferrum-lang') || 'lt'; }catch(e){}
+
+  /* ---------- marquee ---------- */
+  function buildMarquee(lang){
+    var items = lang === 'en'
+      ? ['Welding','Steel structures','Pipelines','Overhead cranes','Ship repair','Subcontracting','Installation','Fabrication']
+      : ['Suvirinimas','Metalo konstrukcijos','Vamzdynai','Tiltiniai kranai','Laivų remontas','Subranga','Montavimas','Gamyba'];
+    var track = document.getElementById('marquee');
+    if(!track) return;
+    var html = '';
+    var seq = items.concat(items); // duplicate for seamless loop
+    seq.forEach(function(t){ html += '<span>'+t+'</span>'; });
+    track.innerHTML = html;
+  }
+
+  /* ---------- header scroll + progress + back to top ---------- */
+  var hdr = document.getElementById('hdr');
+  var progress = document.getElementById('progress');
+  var toTop = document.getElementById('top');
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    hdr.classList.toggle('scrolled', y > 40);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+    toTop.classList.toggle('show', y > 600);
+    if(!reduce){
+      var bg = document.getElementById('heroBg');
+      if(bg && y < window.innerHeight) bg.style.transform = 'scale(1.08) translateY(' + (y * 0.18) + 'px)';
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior: reduce ? 'auto':'smooth'}); });
+
+  /* ---------- mobile menu ---------- */
+  var burger = document.getElementById('burger');
+  var mm = document.getElementById('mobileMenu');
+  function closeMenu(){ document.body.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false'); }
+  burger.addEventListener('click', function(){
+    var open = document.body.classList.toggle('menu-open');
+    burger.setAttribute('aria-expanded', open ? 'true':'false');
+  });
+  mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+
+  /* ---------- reveal on scroll ---------- */
+  var revEls = document.querySelectorAll('.reveal, .reveal-x');
+  if(reduce || !('IntersectionObserver' in window)){
+    revEls.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    revEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- count-up stats ---------- */
+  function fmt(n, group){
+    n = Math.round(n);
+    if(group){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+    return n.toString();
+  }
+  function animateCount(el){
+    var target = parseFloat(el.getAttribute('data-count')) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    var group = el.getAttribute('data-group');
+    if(reduce){ el.textContent = fmt(target, group) + suffix; return; }
+    var dur = 1700, start = performance.now();
+    function tick(now){
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(target * eased, group) + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var counters = document.querySelectorAll('[data-count]');
+  if(!('IntersectionObserver' in window)){
+    counters.forEach(animateCount);
+  } else {
+    var co = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ animateCount(en.target); co.unobserve(en.target); } });
+    }, {threshold:0.5});
+    counters.forEach(function(c){ co.observe(c); });
+  }
+
+  /* ---------- active nav link ---------- */
+  var sections = ['home','about','services','why','process','projects','contact'];
+  var navMap = {};
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    var id = a.getAttribute('href').slice(1); navMap[id] = a;
+  });
+  if('IntersectionObserver' in window){
+    var so = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var id = en.target.id;
+          document.querySelectorAll('.nav-links a').forEach(function(a){ a.classList.remove('active'); });
+          if(navMap[id]) navMap[id].classList.add('active');
+        }
+      });
+    }, {threshold:0.4, rootMargin:'-20% 0px -50% 0px'});
+    sections.forEach(function(id){ var s = document.getElementById(id); if(s) so.observe(s); });
+  }
+
+  /* ---------- gallery filter ---------- */
+  var filters = document.getElementById('filters');
+  if(filters){
+    filters.addEventListener('click', function(e){
+      var btn = e.target.closest('button'); if(!btn) return;
+      filters.querySelectorAll('button').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      var f = btn.getAttribute('data-filter');
+      document.querySelectorAll('#gallery .gitem').forEach(function(it){
+        var show = f === 'all' || it.getAttribute('data-cat') === f;
+        it.classList.toggle('hide', !show);
+      });
+    });
+  }
+
+  /* ---------- contact form ---------- */
+  var form = document.getElementById('quoteForm');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ok = true;
+      ['name','email','message'].forEach(function(n){
+        var f = form.elements[n];
+        if(f && !f.value.trim()){ f.style.borderColor = '#ff5a5a'; ok = false; }
+        else if(f){ f.style.borderColor = ''; }
+      });
+      var email = form.elements['email'];
+      if(email && email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){ email.style.borderColor = '#ff5a5a'; ok = false; }
+      if(!ok) return;
+      document.getElementById('formOk').classList.add('show');
+      form.reset();
+      setTimeout(function(){ document.getElementById('formOk').classList.remove('show'); }, 6000);
+    });
+  }
+
+  /* ---------- hero spotlight ---------- */
+  var hero = document.getElementById('home');
+  var spot = document.getElementById('spot');
+  if(hero && spot && !reduce && window.matchMedia('(pointer:fine)').matches){
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      spot.style.setProperty('--mx', ((e.clientX - r.left)/r.width*100) + '%');
+      spot.style.setProperty('--my', ((e.clientY - r.top)/r.height*100) + '%');
+    });
+  }
+
+  /* ---------- ember particle canvas ---------- */
+  var canvas = document.getElementById('embers');
+  if(canvas && !reduce){
+    var ctx = canvas.getContext('2d');
+    var W, H, parts = [], raf, running = true;
+    function size(){ W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+    function rnd(a,b){ return a + Math.random()*(b-a); }
+    function spawn(){
+      return { x: rnd(0,W), y: H + rnd(0,40), r: rnd(.6,2.4), vy: rnd(.3,1.3), vx: rnd(-.3,.3), life: rnd(0,1), flick: rnd(.01,.05) };
+    }
+    function init(){ size(); parts = []; var n = Math.min(70, Math.floor(W/22)); for(var i=0;i<n;i++){ var p = spawn(); p.y = rnd(0,H); parts.push(p); } }
+    function draw(){
+      if(!running) return;
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<parts.length;i++){
+        var p = parts[i];
+        p.y -= p.vy; p.x += p.vx; p.life += p.flick;
+        var a = 0.5 + Math.sin(p.life*6)*0.4;
+        if(p.y < -10){ parts[i] = spawn(); }
+        var g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
+        g.addColorStop(0,'rgba(255,180,90,'+(a*0.9)+')');
+        g.addColorStop(.5,'rgba(255,120,30,'+(a*0.5)+')');
+        g.addColorStop(1,'rgba(255,90,20,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2); ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    init(); draw();
+    window.addEventListener('resize', init);
+    // pause embers when hero off-screen for performance
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){
+        running = en[0].isIntersecting;
+        if(running && !raf){ draw(); } if(!running){ cancelAnimationFrame(raf); raf = null; }
+      }, {threshold:0}).observe(canvas);
+    }
+  }
+
+  /* ---------- year + init lang ---------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+  setLang(saved);
+  onScroll();
+})();
+</script>
+</body>
+</html>
