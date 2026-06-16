@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#0a0a0b" />
-<title>Plieno Pulsas — Precision Metal Fabrication &amp; Welding · Vilnius</title>
-<meta name="description" content="Plieno Pulsas, MB — a modern metal fabrication workshop in the Vilnius region. Laser cutting, CNC bending, casting and certified welding that turns raw steel into work that lasts." />
+<title>Plieno Pulsas — Precizinis metalo apdirbimas ir suvirinimas · Vilnius</title>
+<meta name="description" content="Plieno pulsas, MB — modernios metalo apdirbimo dirbtuvės Vilniaus rajone. Lazerinis pjovimas, CNC lankstymas, liejimas ir sertifikuotas suvirinimas — žaliavinį plieną paverčiame gaminiais, sukurtais tarnauti ilgai." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -245,6 +245,10 @@ body.ready .hero-stats{opacity:1}
 .scroll-hint .mouse{width:22px;height:34px;border:1px solid var(--line-strong);border-radius:12px;position:relative}
 .scroll-hint .mouse::after{content:"";position:absolute;top:6px;left:50%;width:3px;height:6px;background:var(--molten-2);border-radius:2px;transform:translateX(-50%);animation:scrolldot 1.8s var(--ease) infinite}
 @keyframes scrolldot{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
+
+/* hero with a real photo (set via MEDIA.hero) */
+#hero.has-photo{background-size:cover;background-position:center}
+#hero.has-photo .hero-bg::after{background:linear-gradient(180deg,rgba(8,8,9,.62),rgba(8,8,9,.32) 38%,rgba(8,8,9,.55) 72%,var(--bg) 100%)}
 
 /* =====================  REVEAL SYSTEM  ===================== */
 [data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
@@ -548,7 +552,7 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
   <div class="loader-inner">
     <div class="loader-mark">PLIENO <b>PULSAS</b></div>
     <div class="loader-bar"><span id="loaderBar"></span></div>
-    <div class="loader-pct"><span id="loaderPct">0</span>% — FORGING</div>
+    <div class="loader-pct"><span id="loaderPct">0</span>% — KAITINAMA</div>
   </div>
 </div>
 
@@ -560,7 +564,7 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 <!-- ===== HEADER ===== -->
 <header id="header">
   <div class="wrap nav">
-    <a href="#hero" class="brand" aria-label="Plieno Pulsas home">
+    <a href="#hero" class="brand" aria-label="Plieno Pulsas — pradžia">
       <span class="logo" aria-hidden="true">
         <svg viewBox="0 0 40 40" fill="none">
           <rect x="1" y="1" width="38" height="38" rx="10" stroke="rgba(255,255,255,.14)"/>
@@ -573,17 +577,17 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
     </a>
 
     <div class="nav-right">
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#about" class="navlink">About</a>
-        <a href="#services" class="navlink">Services</a>
-        <a href="#process" class="navlink">Process</a>
-        <a href="#work" class="navlink">Work</a>
-        <a href="#capabilities" class="navlink">Capabilities</a>
+      <nav class="nav-links" aria-label="Pagrindinė navigacija">
+        <a href="#about" class="navlink">Apie mus</a>
+        <a href="#services" class="navlink">Paslaugos</a>
+        <a href="#process" class="navlink">Procesas</a>
+        <a href="#work" class="navlink">Darbai</a>
+        <a href="#capabilities" class="navlink">Galimybės</a>
       </nav>
-      <a href="#contact" class="btn btn-primary nav-cta" data-magnetic>Request a quote
+      <a href="#contact" class="btn btn-primary nav-cta" data-magnetic>Gauti pasiūlymą
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+      <button class="burger" id="burger" aria-label="Atidaryti meniu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -592,13 +596,13 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 
 <!-- ===== MOBILE MENU ===== -->
 <div id="mobile">
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#process">Process</a>
-  <a href="#work">Work</a>
-  <a href="#capabilities">Capabilities</a>
-  <a href="#contact">Contact</a>
-  <div class="m-contact">+370 684 66531 · Vilnius, Lithuania</div>
+  <a href="#about">Apie mus</a>
+  <a href="#services">Paslaugos</a>
+  <a href="#process">Procesas</a>
+  <a href="#work">Darbai</a>
+  <a href="#capabilities">Galimybės</a>
+  <a href="#contact">Kontaktai</a>
+  <div class="m-contact">+370 684 66531 · Vilnius, Lietuva</div>
 </div>
 
 <main>
@@ -611,17 +615,17 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 
   <div class="hero-inner">
     <div class="wrap">
-      <div class="hero-eyebrow eyebrow">Plieno Pulsas · Est. 2024 · Vilnius, LT</div>
+      <div class="hero-eyebrow eyebrow">Plieno Pulsas · Įkurta 2024 · Vilnius, LT</div>
       <h1>
-        <span class="line"><span class="t-steel">The pulse</span></span>
-        <span class="line"><span>of <span class="t-molten">steel.</span></span></span>
+        <span class="line"><span class="t-steel">Plienas,</span></span>
+        <span class="line"><span>sukurtas <span class="t-molten">ilgam.</span></span></span>
       </h1>
-      <p class="hero-sub">A modern metal fabrication workshop — laser cutting, CNC bending, casting and certified welding that turns raw steel into work built to outlast its purpose.</p>
+      <p class="hero-sub">Modernios metalo apdirbimo dirbtuvės. Lazerinis pjovimas, CNC lankstymas, liejimas ir sertifikuotas suvirinimas — žaliavinį plieną paverčiame gaminiais, kurie tarnauja ilgiau, nei tikitės.</p>
       <div class="hero-cta">
-        <a href="#contact" class="btn btn-primary" data-magnetic>Start your project
+        <a href="#contact" class="btn btn-primary" data-magnetic>Pradėti projektą
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a href="#work" class="btn btn-ghost" data-magnetic>See our work
+        <a href="#work" class="btn btn-ghost" data-magnetic>Žiūrėti darbus
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
@@ -630,50 +634,50 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 
   <div class="hero-stats">
     <div class="wrap">
-      <div class="hstat"><div class="n"><em>A</em></div><div class="l">Lowest credit risk</div></div>
-      <div class="hstat"><div class="n">2024</div><div class="l">Workshop established</div></div>
-      <div class="hstat"><div class="n">100<em>%</em></div><div class="l">On-time delivery</div></div>
-      <div class="hstat"><div class="n">3<em>+</em></div><div class="l">Metals mastered</div></div>
+      <div class="hstat"><div class="n"><em>A</em></div><div class="l">Mažiausia kredito rizika</div></div>
+      <div class="hstat"><div class="n">2024</div><div class="l">Įkurtos dirbtuvės</div></div>
+      <div class="hstat"><div class="n">100<em>%</em></div><div class="l">Pristatymas laiku</div></div>
+      <div class="hstat"><div class="n">3<em>+</em></div><div class="l">Įvaldyti metalai</div></div>
     </div>
   </div>
 
-  <div class="scroll-hint" aria-hidden="true"><span class="mouse"></span>Scroll</div>
+  <div class="scroll-hint" aria-hidden="true"><span class="mouse"></span>Slinkite</div>
 </section>
 
 <!-- ============================ 2 · ABOUT ============================ -->
 <section id="about" class="section about">
   <div class="wrap about-grid">
     <div data-reveal="left">
-      <div class="eyebrow">Who we are</div>
-      <h2 class="t-steel" style="margin-bottom:1.6rem">Small workshop.<br>Industrial standards.</h2>
-      <p class="lead" style="color:var(--muted)">Plieno Pulsas is an independent metalworking shop in the Vilnius region, founded in 2024 on a simple belief: that precision and honesty never go out of style.</p>
-      <p style="color:var(--muted);margin-top:1.2rem">We pair traditional craftsmanship with modern CNC equipment to cut, bend, cast, weld and finish steel, stainless and aluminium — from one-off custom pieces to repeat production runs. Every weld is inspected, every edge is deburred, and every deadline is treated as a promise.</p>
+      <div class="eyebrow">Kas mes esame</div>
+      <h2 class="t-steel" style="margin-bottom:1.6rem">Mažos dirbtuvės.<br>Pramoniniai standartai.</h2>
+      <p class="lead" style="color:var(--muted)">Plieno Pulsas — nepriklausomos metalo apdirbimo dirbtuvės Vilniaus rajone, įkurtos 2024 m. remiantis paprastu įsitikinimu: tikslumas ir sąžiningumas niekada nepasensta.</p>
+      <p style="color:var(--muted);margin-top:1.2rem">Tradicinį meistriškumą deriname su modernia CNC įranga — pjauname, lankstome, liejame, suviriname ir apdailiname plieną, nerūdijantįjį plieną ir aliuminį: nuo vienetinių užsakymų iki kartotinių gamybos serijų. Kiekvieną siūlę patikriname, kiekvieną kraštą sutvarkome, o kiekvieną terminą laikome pažadu.</p>
 
       <ul class="about-list">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Certified welding across MIG/MAG, TIG and MMA processes.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Fiber-laser cutting and CNC bending for tight tolerances.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Transparent quoting and a top-tier (A) credit rating.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sertifikuotas suvirinimas MIG/MAG, TIG ir MMA būdais.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pluoštinio lazerio pjovimas ir CNC lankstymas dideliu tikslumu.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Skaidrūs pasiūlymai ir aukščiausio lygio (A) kredito reitingas.</span></li>
       </ul>
 
       <div class="sig">
         <span class="scribble">Gediminas</span>
         <div>
           <div class="who">Gediminas Žukas</div>
-          <div class="role">Founder &amp; Director</div>
+          <div class="role">Įkūrėjas ir direktorius</div>
         </div>
       </div>
     </div>
 
     <div class="about-media" data-reveal="right">
       <!-- REPLACE WITH PHOTO → set MEDIA['about'] in the script -->
-      <div class="media m-forge reveal-clip" data-media="about" role="img" aria-label="Molten metal being poured in the foundry">
+      <div class="media m-forge reveal-clip" data-media="about" role="img" aria-label="Liejykloje pilamas išlydytas metalas">
         <span class="pulse-glow"></span>
         <span class="sheen"></span>
-        <span class="tag">Foundry · pour day</span>
+        <span class="tag">Liejykla · liejimo diena</span>
       </div>
       <div class="about-badge">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z" stroke-linejoin="round"/></svg></span>
-        <span class="rate">A<small>Credit risk · lowest</small></span>
+        <span class="rate">A<small>Kredito rizika · mažiausia</small></span>
       </div>
     </div>
   </div>
@@ -686,59 +690,59 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
   <div class="wrap">
     <div class="shead-row">
       <div class="shead">
-        <div class="eyebrow">What we do</div>
-        <h2 class="t-steel">Every stage, under one roof</h2>
+        <div class="eyebrow">Ką mes darome</div>
+        <h2 class="t-steel">Visi etapai — vienoje vietoje</h2>
       </div>
-      <p class="lead">From a raw sheet of steel to a finished, inspected assembly — we keep the whole process in-house, so quality never gets lost in hand-offs.</p>
+      <p class="lead">Nuo žaliavinio plieno lakšto iki baigto ir patikrinto gaminio — visą procesą atliekame patys, todėl kokybė neprarandama perduodant darbus.</p>
     </div>
 
     <div class="svc-grid">
       <article class="svc" data-tilt data-reveal data-delay="1">
-        <div class="num">01 / SERVICE</div>
+        <div class="num">01 / PASLAUGA</div>
         <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21l6-6m0 0l3.5-3.5M9 15l-2-2m12.5-8.5a2.1 2.1 0 010 3L9.5 17l-3 1 1-3L18 4.5a2.1 2.1 0 013 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Welding &amp; Joining</h3>
-        <p>Certified MIG/MAG, TIG and stick welding on structural and precision work — strong, clean seams that pass inspection.</p>
+        <h3>Suvirinimas ir jungimas</h3>
+        <p>Sertifikuotas MIG/MAG, TIG ir elektrodinis suvirinimas konstrukciniams ir tiksliems darbams — tvirtos, švarios siūlės, atlaikančios patikrą.</p>
         <div class="tags"><span>MIG / MAG</span><span>TIG</span><span>MMA</span></div>
       </article>
 
       <article class="svc" data-tilt data-reveal data-delay="2">
-        <div class="num">02 / SERVICE</div>
+        <div class="num">02 / PASLAUGA</div>
         <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v6m0 0l-2.5 12.5M12 8l2.5 12.5M5 9h14" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="8" r="2"/></svg></div>
-        <h3>Laser Cutting</h3>
-        <p>Fiber-laser cutting of sheet and plate with crisp edges and intricate detail, repeatable down to the tenth of a millimetre.</p>
-        <div class="tags"><span>Sheet</span><span>Plate</span><span>CNC</span></div>
+        <h3>Lazerinis pjovimas</h3>
+        <p>Pluoštinio lazerio lakštų ir plokščių pjovimas — aiškūs kraštai ir sudėtingos detalės, tikslumas iki dešimtosios milimetro dalies.</p>
+        <div class="tags"><span>Lakštas</span><span>Plokštė</span><span>CNC</span></div>
       </article>
 
       <article class="svc" data-tilt data-reveal data-delay="3">
-        <div class="num">03 / SERVICE</div>
+        <div class="num">03 / PASLAUGA</div>
         <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17L13 7m0 0V3m0 4h4M3 21h7m11-4l-4 4-2-2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Bending &amp; Forming</h3>
-        <p>CNC press-brake bending and forming that turns flat profiles into accurate, consistent three-dimensional parts.</p>
-        <div class="tags"><span>Press brake</span><span>Rolling</span></div>
+        <h3>Lankstymas ir formavimas</h3>
+        <p>CNC lankstymas presu ir formavimas — plokščius profilius paverčiame tiksliomis, vientisomis erdvinėmis detalėmis.</p>
+        <div class="tags"><span>Presas</span><span>Valcavimas</span></div>
       </article>
 
       <article class="svc" data-tilt data-reveal data-delay="1">
-        <div class="num">04 / SERVICE</div>
+        <div class="num">04 / PASLAUGA</div>
         <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3m0 14v3m10-10h-3M5 12H2m15.5-6.5l-2 2m-7 7l-2 2m11 0l-2-2m-7-7l-2-2" stroke-linecap="round"/></svg></div>
-        <h3>Machining &amp; Drilling</h3>
-        <p>Precision drilling, tapping and machining for holes, threads and features that have to fit the first time.</p>
-        <div class="tags"><span>Drilling</span><span>Tapping</span><span>Milling</span></div>
+        <h3>Apdirbimas ir gręžimas</h3>
+        <p>Tikslus gręžimas, sriegimas ir apdirbimas — skylės, sriegiai ir detalės, kurios privalo tikti iš pirmo karto.</p>
+        <div class="tags"><span>Gręžimas</span><span>Sriegimas</span><span>Frezavimas</span></div>
       </article>
 
       <article class="svc" data-tilt data-reveal data-delay="2">
-        <div class="num">05 / SERVICE</div>
+        <div class="num">05 / PASLAUGA</div>
         <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3h8l-1 6c2 1 3 3 3 5a6 6 0 01-12 0c0-2 1-4 3-5L8 3z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 14h6" stroke-linecap="round"/></svg></div>
-        <h3>Casting &amp; Foundry</h3>
-        <p>Melting and pouring metal into moulds for custom cast components — bespoke shapes that can't be cut from stock.</p>
-        <div class="tags"><span>Melting</span><span>Pouring</span><span>Moulds</span></div>
+        <h3>Liejimas ir liejykla</h3>
+        <p>Metalo lydymas ir liejimas į formas individualioms detalėms — formos, kurių neįmanoma išpjauti iš ruošinio.</p>
+        <div class="tags"><span>Lydymas</span><span>Liejimas</span><span>Formos</span></div>
       </article>
 
       <article class="svc" data-tilt data-reveal data-delay="3">
-        <div class="num">06 / SERVICE</div>
+        <div class="num">06 / PASLAUGA</div>
         <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M6 21V8l6-5 6 5v13M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Finishing &amp; Assembly</h3>
-        <p>Grinding, deburring, polishing and final assembly — the details that make a part feel genuinely premium in the hand.</p>
-        <div class="tags"><span>Grinding</span><span>Polishing</span><span>Assembly</span></div>
+        <h3>Apdaila ir surinkimas</h3>
+        <p>Šlifavimas, atplaišų šalinimas, poliravimas ir galutinis surinkimas — detalės, dėl kurių gaminys atrodo tikrai aukščiausios klasės.</p>
+        <div class="tags"><span>Šlifavimas</span><span>Poliravimas</span><span>Surinkimas</span></div>
       </article>
     </div>
   </div>
@@ -748,34 +752,34 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 <section id="process" class="section">
   <div class="wrap">
     <div class="shead center" data-reveal>
-      <div class="eyebrow">How we work</div>
-      <h2 class="t-steel">From sketch to steel in six steps</h2>
+      <div class="eyebrow">Kaip dirbame</div>
+      <h2 class="t-steel">Nuo eskizo iki plieno — šešiais žingsniais</h2>
     </div>
 
     <div class="steps">
       <div class="step" data-reveal data-delay="1">
         <div class="sn">01</div><div class="line"><i></i></div>
-        <h3>Consult</h3><p>We learn the goal, the loads and the deadline, then quote it clearly.</p>
+        <h3>Konsultacija</h3><p>Išsiaiškiname tikslą, apkrovas ir terminą, tada aiškiai pateikiame pasiūlymą.</p>
       </div>
       <div class="step" data-reveal data-delay="2">
         <div class="sn">02</div><div class="line"><i></i></div>
-        <h3>Design &amp; CAD</h3><p>Drawings and nesting are prepared for an efficient, accurate cut.</p>
+        <h3>Projektavimas ir CAD</h3><p>Parengiami brėžiniai ir detalių išdėstymas efektyviam, tiksliam pjovimui.</p>
       </div>
       <div class="step" data-reveal data-delay="3">
         <div class="sn">03</div><div class="line"><i></i></div>
-        <h3>Cutting</h3><p>Laser and saw bring raw stock down to exact profiles.</p>
+        <h3>Pjovimas</h3><p>Lazeriu ir pjūklu žaliava supjaustoma į tikslius profilius.</p>
       </div>
       <div class="step" data-reveal data-delay="4">
         <div class="sn">04</div><div class="line"><i></i></div>
-        <h3>Form &amp; weld</h3><p>Bending and certified welding bring the part to life.</p>
+        <h3>Formavimas ir suvirinimas</h3><p>Lankstant ir sertifikuotai suvirinant detalė įgauna formą.</p>
       </div>
       <div class="step" data-reveal data-delay="5">
         <div class="sn">05</div><div class="line"><i></i></div>
-        <h3>Finish</h3><p>Grinding, deburring and coating for a clean, durable surface.</p>
+        <h3>Apdaila</h3><p>Šlifavimas, atplaišų šalinimas ir dengimas švariam, atspariam paviršiui.</p>
       </div>
       <div class="step" data-reveal data-delay="6">
         <div class="sn">06</div><div class="line"><i></i></div>
-        <h3>Deliver</h3><p>Quality-checked, packed and shipped — on the date we promised.</p>
+        <h3>Pristatymas</h3><p>Patikrinta, supakuota ir išsiųsta — sutartą dieną.</p>
       </div>
     </div>
   </div>
@@ -786,28 +790,28 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
   <div class="wrap">
     <div class="shead-row">
       <div class="shead">
-        <div class="eyebrow">By the numbers</div>
-        <h2 class="t-steel">Measured by what we ship</h2>
+        <div class="eyebrow">Skaičiais</div>
+        <h2 class="t-steel">Vertiname pagal tai, ką pristatome</h2>
       </div>
-      <p class="lead">Young workshop, serious standards. The figures below reflect a fast-growing shop that treats every job as a reference for the next.</p>
+      <p class="lead">Jaunos dirbtuvės, rimti standartai. Šie skaičiai atspindi sparčiai augančias dirbtuves, kurioms kiekvienas darbas — rekomendacija kitam.</p>
     </div>
 
     <div class="num-grid">
       <div class="metric" data-reveal data-delay="1">
         <div class="big" data-count="320" data-suffix="+">0</div>
-        <div class="lbl">Projects delivered</div>
+        <div class="lbl">Įgyvendinti projektai</div>
       </div>
       <div class="metric" data-reveal data-delay="2">
         <div class="big" data-count="540" data-suffix="t">0</div>
-        <div class="lbl">Steel processed</div>
+        <div class="lbl">Apdirbta plieno</div>
       </div>
       <div class="metric" data-reveal data-delay="3">
         <div class="big" data-count="98" data-suffix="%">0</div>
-        <div class="lbl">On-time &amp; in-spec</div>
+        <div class="lbl">Laiku ir pagal specifikaciją</div>
       </div>
       <div class="metric" data-reveal data-delay="4">
         <div class="big" data-count="12" data-suffix="">0</div>
-        <div class="lbl">In-house processes</div>
+        <div class="lbl">Vidiniai procesai</div>
       </div>
     </div>
   </div>
@@ -820,42 +824,42 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
   <div class="wrap">
     <div class="shead-row">
       <div class="shead">
-        <div class="eyebrow">Selected work</div>
-        <h2 class="t-steel">Steel, made to matter</h2>
+        <div class="eyebrow">Atrinkti darbai</div>
+        <h2 class="t-steel">Darbai, kuriais didžiuojamės</h2>
       </div>
-      <a href="#contact" class="alink">Commission a piece →</a>
+      <a href="#contact" class="alink">Užsakyti gaminį →</a>
     </div>
 
     <!-- Each tile is a self-contained CSS "photo". Drop real photos via MEDIA['work-1'] … -->
     <div class="gallery">
       <div class="tile big" data-reveal data-delay="1">
         <div class="media m-arc" data-media="work-1"><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Certified welding</div><h3>Structural steel frame</h3></div>
+        <div class="overlay"><div class="cat">Sertifikuotas suvirinimas</div><h3>Plieninis konstrukcijos karkasas</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
       <div class="tile t-reg" data-reveal data-delay="2">
         <div class="media m-steel" data-media="work-2"><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Stainless</div><h3>Polished railing</h3></div>
+        <div class="overlay"><div class="cat">Nerūdijantis plienas</div><h3>Poliruotas turėklas</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
       <div class="tile t-reg" data-reveal data-delay="3">
         <div class="media m-laser" data-media="work-3"><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Laser cut</div><h3>Perforated façade</h3></div>
+        <div class="overlay"><div class="cat">Lazerinis pjovimas</div><h3>Perforuotas fasadas</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
       <div class="tile t-reg" data-reveal data-delay="1">
         <div class="media m-cast" data-media="work-4"><span class="pulse-glow"></span><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Casting</div><h3>Custom cast base</h3></div>
+        <div class="overlay"><div class="cat">Liejimas</div><h3>Individualus lietas pagrindas</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
       <div class="tile big" data-reveal data-delay="2">
         <div class="media m-plate" data-media="work-5"><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Fabrication</div><h3>Machine enclosure</h3></div>
+        <div class="overlay"><div class="cat">Gamyba</div><h3>Įrenginio korpusas</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
       <div class="tile t-wide" data-reveal data-delay="3">
         <div class="media m-forge" data-media="work-6"><span class="pulse-glow"></span><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Architectural</div><h3>Bespoke staircase &amp; balustrade</h3></div>
+        <div class="overlay"><div class="cat">Architektūra</div><h3>Individualūs laiptai ir turėklai</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
     </div>
@@ -866,35 +870,35 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 <section id="capabilities" class="section">
   <div class="wrap">
     <div class="shead" data-reveal>
-      <div class="eyebrow">Materials &amp; equipment</div>
-      <h2 class="t-steel">Built for the hard jobs</h2>
+      <div class="eyebrow">Medžiagos ir įranga</div>
+      <h2 class="t-steel">Sukurta sunkiems darbams</h2>
     </div>
 
     <div class="cap-grid">
       <div class="cap-panel" data-reveal="left">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4m-18 5l9 4 9-4" stroke-linecap="round" stroke-linejoin="round"/></svg>Materials we master</h3>
-        <div class="mat" data-reveal data-delay="1" style="--w:94%"><div class="top"><b>Mild &amp; carbon steel</b><span>94%</span></div><div class="bar"><i></i></div></div>
-        <div class="mat" data-reveal data-delay="2" style="--w:88%"><div class="top"><b>Stainless steel</b><span>88%</span></div><div class="bar"><i></i></div></div>
-        <div class="mat" data-reveal data-delay="3" style="--w:76%"><div class="top"><b>Aluminium</b><span>76%</span></div><div class="bar"><i></i></div></div>
-        <div class="mat" data-reveal data-delay="4" style="--w:62%"><div class="top"><b>Tool &amp; alloy steel</b><span>62%</span></div><div class="bar"><i></i></div></div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4m-18 5l9 4 9-4" stroke-linecap="round" stroke-linejoin="round"/></svg>Medžiagos, kurias įvaldėme</h3>
+        <div class="mat" data-reveal data-delay="1" style="--w:94%"><div class="top"><b>Konstrukcinis ir anglinis plienas</b><span>94%</span></div><div class="bar"><i></i></div></div>
+        <div class="mat" data-reveal data-delay="2" style="--w:88%"><div class="top"><b>Nerūdijantis plienas</b><span>88%</span></div><div class="bar"><i></i></div></div>
+        <div class="mat" data-reveal data-delay="3" style="--w:76%"><div class="top"><b>Aliuminis</b><span>76%</span></div><div class="bar"><i></i></div></div>
+        <div class="mat" data-reveal data-delay="4" style="--w:62%"><div class="top"><b>Įrankinis ir legiruotasis plienas</b><span>62%</span></div><div class="bar"><i></i></div></div>
       </div>
 
       <div class="cap-panel" data-reveal="right">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 7l-1.5-3h-3L8 7l-3 1.5v3L6.5 14m11 0L19 11.5v-3L16 7M9 14a3 3 0 106 0 3 3 0 00-6 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>On the shop floor</h3>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 7l-1.5-3h-3L8 7l-3 1.5v3L6.5 14m11 0L19 11.5v-3L16 7M9 14a3 3 0 106 0 3 3 0 00-6 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>Mūsų ceche</h3>
         <ul class="equip">
-          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v8m0 0l-3 12m3-12l3 12M4 10h16" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="et"><b>Fiber laser cutter</b><span>High-speed sheet &amp; plate profiling</span></div></li>
-          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 16L21 8M3 16v4h18M3 16l4-8h10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="et"><b>CNC press brake</b><span>Accurate, repeatable bending</span></div></li>
-          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 3h8l-1 6c2 1 3 3 3 5a6 6 0 01-12 0c0-2 1-4 3-5L8 3z" stroke-linejoin="round"/></svg></span><div class="et"><b>Casting &amp; foundry</b><span>Melting and pouring to mould</span></div></li>
-          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21l6-6m9.5-11.5a2.1 2.1 0 010 3L8 17l-3 1 1-3L17.5 3.5a2.1 2.1 0 013 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="et"><b>Welding bays</b><span>MIG/MAG · TIG · MMA stations</span></div></li>
-          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v4m0 8v4m8-8h-4M8 12H4" stroke-linecap="round"/></svg></span><div class="et"><b>Grinding &amp; finishing</b><span>Deburring, polishing, prep for coating</span></div></li>
+          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v8m0 0l-3 12m3-12l3 12M4 10h16" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="et"><b>Pluoštinio lazerio pjaustyklė</b><span>Greitas lakštų ir plokščių profiliavimas</span></div></li>
+          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 16L21 8M3 16v4h18M3 16l4-8h10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="et"><b>CNC lankstymo presas</b><span>Tikslus, pakartojamas lankstymas</span></div></li>
+          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 3h8l-1 6c2 1 3 3 3 5a6 6 0 01-12 0c0-2 1-4 3-5L8 3z" stroke-linejoin="round"/></svg></span><div class="et"><b>Liejimas ir liejykla</b><span>Lydymas ir liejimas į formas</span></div></li>
+          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21l6-6m9.5-11.5a2.1 2.1 0 010 3L8 17l-3 1 1-3L17.5 3.5a2.1 2.1 0 013 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="et"><b>Suvirinimo postai</b><span>MIG/MAG · TIG · MMA įranga</span></div></li>
+          <li><span class="ei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 4v4m0 8v4m8-8h-4M8 12H4" stroke-linecap="round"/></svg></span><div class="et"><b>Šlifavimas ir apdaila</b><span>Atplaišų šalinimas, poliravimas, paruošimas dengimui</span></div></li>
         </ul>
       </div>
     </div>
 
     <div class="marquee" aria-hidden="true">
       <div class="track">
-        <span class="item">Laser cutting</span><span class="item">Press braking</span><span class="item">TIG welding</span><span class="item">Metal casting</span><span class="item">CNC drilling</span><span class="item">Finishing</span>
-        <span class="item">Laser cutting</span><span class="item">Press braking</span><span class="item">TIG welding</span><span class="item">Metal casting</span><span class="item">CNC drilling</span><span class="item">Finishing</span>
+        <span class="item">Lazerinis pjovimas</span><span class="item">Lankstymas presu</span><span class="item">TIG suvirinimas</span><span class="item">Metalo liejimas</span><span class="item">CNC gręžimas</span><span class="item">Apdaila</span>
+        <span class="item">Lazerinis pjovimas</span><span class="item">Lankstymas presu</span><span class="item">TIG suvirinimas</span><span class="item">Metalo liejimas</span><span class="item">CNC gręžimas</span><span class="item">Apdaila</span>
       </div>
     </div>
   </div>
@@ -906,13 +910,13 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 <section id="voices" class="section">
   <div class="wrap">
     <div class="shead center" data-reveal>
-      <div class="eyebrow">Client voices</div>
-      <h2 class="t-steel">Trusted where it counts</h2>
+      <div class="eyebrow">Klientų atsiliepimai</div>
+      <h2 class="t-steel">Patikima ten, kur svarbu</h2>
     </div>
 
     <div class="voices">
       <article class="voice" data-tilt data-reveal data-delay="1">
-        <div class="stars" aria-label="5 out of 5">
+        <div class="stars" aria-label="5 iš 5">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
@@ -920,12 +924,12 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
         </div>
         <div class="quote">&ldquo;</div>
-        <p>The welds were flawless and the parts arrived exactly when promised. It's rare to find a shop this precise that's also genuinely easy to work with.</p>
-        <div class="who"><span class="av">RŠ</span><div><b>Rokas Š.</b><span>Construction contractor</span></div></div>
+        <p>Suvirinimo siūlės — nepriekaištingos, o detalės atkeliavo lygiai tada, kada žadėta. Retai pasitaiko tokios tikslios dirbtuvės, su kuriomis dar ir tikrai malonu dirbti.</p>
+        <div class="who"><span class="av">RŠ</span><div><b>Rokas Š.</b><span>Statybų rangovas</span></div></div>
       </article>
 
       <article class="voice" data-tilt data-reveal data-delay="2">
-        <div class="stars" aria-label="5 out of 5">
+        <div class="stars" aria-label="5 iš 5">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
@@ -933,12 +937,12 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
         </div>
         <div class="quote">&ldquo;</div>
-        <p>We brought them a difficult laser-cut design and they nailed the tolerances on the first run. The finish quality lifted the whole product.</p>
-        <div class="who"><span class="av">IM</span><div><b>Ingrida M.</b><span>Product designer</span></div></div>
+        <p>Atnešėme sudėtingą lazerinio pjovimo projektą — tolerancijas jie pataikė iš pirmo karto. Apdailos kokybė pakėlė viso gaminio lygį.</p>
+        <div class="who"><span class="av">IM</span><div><b>Ingrida M.</b><span>Produkto dizainerė</span></div></div>
       </article>
 
       <article class="voice" data-tilt data-reveal data-delay="3">
-        <div class="stars" aria-label="5 out of 5">
+        <div class="stars" aria-label="5 iš 5">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
@@ -946,8 +950,8 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
         </div>
         <div class="quote">&ldquo;</div>
-        <p>Reliable, fairly priced and straight-talking. They became our go-to fabricator for custom steelwork after a single project together.</p>
-        <div class="who"><span class="av">TK</span><div><b>Tomas K.</b><span>Workshop owner</span></div></div>
+        <p>Patikimi, sąžiningos kainos ir kalba tiesiai. Po vieno bendro projekto tapo mūsų pagrindiniais individualių plieno gaminių gamintojais.</p>
+        <div class="who"><span class="av">TK</span><div><b>Tomas K.</b><span>Dirbtuvių savininkas</span></div></div>
       </article>
     </div>
   </div>
@@ -957,50 +961,50 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 <section id="contact" class="section">
   <div class="wrap contact-grid">
     <div class="contact-info" data-reveal="left">
-      <div class="eyebrow">Get in touch</div>
-      <h2 class="t-steel">Let's build something in steel.</h2>
-      <p class="lead">Tell us what you need fabricated. We'll review your drawings or sketch, and come back with an honest quote and a realistic timeline.</p>
+      <div class="eyebrow">Susisiekite</div>
+      <h2 class="t-steel">Sukurkime ką nors iš plieno.</h2>
+      <p class="lead">Parašykite, ką reikia pagaminti. Peržiūrėsime jūsų brėžinius ar eskizą ir grįšime su sąžiningu pasiūlymu bei realiu terminu.</p>
 
       <ul class="cinfo">
         <li>
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <div><div class="k">Call us</div><div class="v"><a href="tel:+37068466531">+370 684 66531</a></div></div>
+          <div><div class="k">Skambinkite</div><div class="v"><a href="tel:+37068466531">+370 684 66531</a></div></div>
         </li>
         <li>
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <div><div class="k">Email</div><div class="v"><a href="mailto:info@plienopulsas.lt">info@plienopulsas.lt</a></div></div>
+          <div><div class="k">El. paštas</div><div class="v"><a href="mailto:info@plienopulsas.lt">info@plienopulsas.lt</a></div></div>
         </li>
         <li>
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z" stroke-linejoin="round"/><circle cx="12" cy="10" r="3"/></svg></span>
-          <div><div class="k">Workshop</div><div class="v">Petronių g. 95, Vabalių k.,<br>LT-14200 Vilniaus r., Lithuania</div></div>
+          <div><div class="k">Dirbtuvės</div><div class="v">Petronių g. 95, Vabalių k.,<br>LT-14200 Vilniaus r., Lietuva</div></div>
         </li>
       </ul>
     </div>
 
     <form class="form" id="quoteForm" data-reveal="right" novalidate>
       <div class="field-row">
-        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" placeholder="Your name" required></div>
-        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@company.com" required></div>
+        <div class="field"><label for="f-name">Vardas</label><input id="f-name" name="name" type="text" placeholder="Jūsų vardas" required></div>
+        <div class="field"><label for="f-email">El. paštas</label><input id="f-email" name="email" type="email" placeholder="jus@imone.lt" required></div>
       </div>
       <div class="field-row">
-        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="+370 …"></div>
-        <div class="field"><label for="f-service">Service</label>
+        <div class="field"><label for="f-phone">Telefonas</label><input id="f-phone" name="phone" type="tel" placeholder="+370 …"></div>
+        <div class="field"><label for="f-service">Paslauga</label>
           <select id="f-service" name="service">
-            <option>Welding &amp; joining</option>
-            <option>Laser cutting</option>
-            <option>Bending &amp; forming</option>
-            <option>Machining &amp; drilling</option>
-            <option>Casting &amp; foundry</option>
-            <option>Finishing &amp; assembly</option>
-            <option>Full custom fabrication</option>
+            <option>Suvirinimas ir jungimas</option>
+            <option>Lazerinis pjovimas</option>
+            <option>Lankstymas ir formavimas</option>
+            <option>Apdirbimas ir gręžimas</option>
+            <option>Liejimas ir liejykla</option>
+            <option>Apdaila ir surinkimas</option>
+            <option>Pilna individuali gamyba</option>
           </select>
         </div>
       </div>
-      <div class="field"><label for="f-msg">Project details</label><textarea id="f-msg" name="message" placeholder="Materials, quantities, dimensions, deadline…" required></textarea></div>
-      <button type="submit" class="btn btn-primary" data-magnetic>Send request
+      <div class="field"><label for="f-msg">Projekto informacija</label><textarea id="f-msg" name="message" placeholder="Medžiagos, kiekiai, matmenys, terminas…" required></textarea></div>
+      <button type="submit" class="btn btn-primary" data-magnetic>Siųsti užklausą
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <p class="form-note">This is a demo form — submissions aren't sent anywhere.</p>
+      <p class="form-note">Tai demonstracinė forma — užklausos niekur nesiunčiamos.</p>
     </form>
   </div>
 </section>
@@ -1022,37 +1026,37 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
           </span>
           <span><b>PLIENO</b> <span>PULSAS</span></span>
         </a>
-        <p>A modern metal fabrication workshop in the Vilnius region — cutting, bending, casting, welding and finishing steel built to last.</p>
+        <p>Modernios metalo apdirbimo dirbtuvės Vilniaus rajone — pjauname, lankstome, liejame, suviriname ir apdailiname plieną, sukurtą tarnauti ilgai.</p>
         <div class="foot-reg">
-          Plieno pulsas, MB · Company code 306747909<br>
-          VAT LT100016879016 · Director Gediminas Žukas
+          Plieno pulsas, MB · Įmonės kodas 306747909<br>
+          PVM LT100016879016 · Direktorius Gediminas Žukas
         </div>
       </div>
 
       <div class="foot-col">
-        <h4>Explore</h4>
+        <h4>Naršyti</h4>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="#about">Apie mus</a></li>
+          <li><a href="#services">Paslaugos</a></li>
+          <li><a href="#process">Procesas</a></li>
+          <li><a href="#work">Darbai</a></li>
+          <li><a href="#capabilities">Galimybės</a></li>
         </ul>
       </div>
 
       <div class="foot-col">
-        <h4>Contact</h4>
+        <h4>Kontaktai</h4>
         <ul>
           <li><a href="tel:+37068466531">+370 684 66531</a></li>
           <li><a href="mailto:info@plienopulsas.lt">info@plienopulsas.lt</a></li>
           <li><a href="#contact">Petronių g. 95, Vilniaus r.</a></li>
-          <li><a href="#contact">Request a quote</a></li>
+          <li><a href="#contact">Gauti pasiūlymą</a></li>
         </ul>
       </div>
     </div>
 
     <div class="foot-bottom">
-      <div>© <span id="year">2026</span> Plieno pulsas, MB. All rights reserved. <span style="color:var(--faint)">· Demo website.</span></div>
+      <div>© <span id="year">2026</span> Plieno pulsas, MB. Visos teisės saugomos. <span style="color:var(--faint)">· Demonstracinė svetainė.</span></div>
       <div class="foot-social">
         <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3a4 4 0 00-4 4v2H8v3h2v6h3v-6h2.5l.5-3H13v-1a1 1 0 011-1z"/></svg></a>
         <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
@@ -1065,27 +1069,27 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 <!-- ===== TOAST ===== -->
 <div id="toast">
   <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-  <div><b>Request received</b><span>Thanks — we'll be in touch shortly.</span></div>
+  <div><b>Užklausa gauta</b><span>Ačiū — netrukus susisieksime.</span></div>
 </div>
 
 <script>
 /* =========================================================================
-   PLIENO PULSAS — interactions
+   PLIENO PULSAS — interakcijos
    -------------------------------------------------------------------------
-   ▶ TO ADD REAL PHOTOS: paste an image URL (or a data: URI) into MEDIA below,
-     keyed by slot name. The matching CSS-art tile will be replaced by the photo
-     while keeping the premium gradient as a graceful fallback. Slots:
-        hero, about, work-1 … work-6
+   ▶ NUOTRAUKOS: įdėkite savo nuotraukas į aplanką  assets/  šiais pavadinimais:
+        assets/hero.jpg · assets/about.jpg · assets/work-1.jpg … work-6.jpg
+     Daugiau – žr. assets/README.md. Jei failo nėra, lieka dailus CSS fonas.
+     Vietoj failų galima nurodyti ir nuorodas (URL) – tiesiog įrašykite jas žemiau.
    ========================================================================= */
 const MEDIA = {
-  // hero:   'https://your-cdn/hero.jpg',
-  // about:  'https://your-cdn/foundry.jpg',
-  // 'work-1':'https://your-cdn/frame.jpg',
-  // 'work-2':'https://your-cdn/railing.jpg',
-  // 'work-3':'https://your-cdn/facade.jpg',
-  // 'work-4':'https://your-cdn/cast.jpg',
-  // 'work-5':'https://your-cdn/enclosure.jpg',
-  // 'work-6':'https://your-cdn/stair.jpg',
+  hero:     'assets/hero.jpg',
+  about:    'assets/about.jpg',
+  'work-1': 'assets/work-1.jpg',
+  'work-2': 'assets/work-2.jpg',
+  'work-3': 'assets/work-3.jpg',
+  'work-4': 'assets/work-4.jpg',
+  'work-5': 'assets/work-5.jpg',
+  'work-6': 'assets/work-6.jpg',
 };
 
 (function(){
@@ -1095,15 +1099,16 @@ const MEDIA = {
   const $  = (s,c=document)=>c.querySelector(s);
   const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
 
-  /* ---------- apply optional real photos ---------- */
+  /* ---------- apply optional real photos (graceful fallback to CSS art) ---------- */
   $$('[data-media]').forEach(el=>{
     const key = el.getAttribute('data-media');
     const src = MEDIA[key];
-    if(src){
-      const target = el.classList.contains('media') ? el : (el.querySelector('.media') || el);
-      target.style.backgroundImage = `url("${src}")`;
-      target.classList.add('has-photo');
-    }
+    if(!src) return;
+    const target = el.classList.contains('media') ? el : (el.querySelector('.media') || el);
+    const probe = new Image();
+    probe.onload  = ()=>{ target.style.backgroundImage = `url("${src}")`; target.classList.add('has-photo'); };
+    probe.onerror = ()=>{}; /* file missing -> keep the premium CSS-art fallback */
+    probe.src = src;
   });
 
   /* ---------- preloader ---------- */
