@@ -248,7 +248,14 @@ body.ready .hero-stats{opacity:1}
 
 /* hero with a real photo (set via MEDIA.hero) */
 #hero.has-photo{background-size:cover;background-position:center}
-#hero.has-photo .hero-bg::after{background:linear-gradient(180deg,rgba(8,8,9,.62),rgba(8,8,9,.32) 38%,rgba(8,8,9,.55) 72%,var(--bg) 100%)}
+#hero.has-photo .hero-bg::after{background:
+  radial-gradient(100% 72% at 50% 45%,rgba(6,6,7,.78),rgba(6,6,7,.36) 52%,transparent 80%),
+  linear-gradient(180deg,rgba(6,6,7,.42),rgba(6,6,7,.26) 34%,rgba(6,6,7,.6) 80%,var(--bg) 100%)}
+/* hero copy: centered + legible over the photo */
+.hero-inner{text-align:center}
+#hero h1{filter:drop-shadow(0 2px 18px rgba(0,0,0,.55))}
+.hero-sub{margin-inline:auto;color:#eef1f4;text-shadow:0 1px 16px rgba(0,0,0,.7),0 1px 2px rgba(0,0,0,.55)}
+.hero-cta{justify-content:center}
 
 /* =====================  REVEAL SYSTEM  ===================== */
 [data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
@@ -641,7 +648,7 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
     </div>
   </div>
 
-  <div class="scroll-hint" aria-hidden="true"><span class="mouse"></span>Slinkite</div>
+  <!-- scroll hint removed: the stats bar anchors the hero bottom -->
 </section>
 
 <!-- ============================ 2 · ABOUT ============================ -->
