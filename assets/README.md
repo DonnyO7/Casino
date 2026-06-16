@@ -1,36 +1,36 @@
 # Nuotraukos svetainei „Plieno Pulsas“
 
-Svetainė (`plieno-pulsas.html`) nuotraukas automatiškai įkelia iš šio aplanko
-pagal **failų pavadinimus**. Tiesiog įdėkite savo nuotraukas tokiais pat
-pavadinimais, kaip nurodyta žemiau — kodo keisti **nereikia**.
+Svetainė **jau įkelta su tikromis nuotraukomis** — pagal nutylėjimą jos
+traukiamos iš nemokamo „Pexels.com“ banko (Pexels licencija: nemokama
+naudoti, atribucija neprivaloma). Nuorodos surašytos `MEDIA` sąraše,
+svetainės `<script>` bloko viršuje (`plieno-pulsas.html`).
 
-> Jei failo nėra, vietoje jo lieka dailus animuotas CSS fonas (svetainė
-> niekada neatrodo „sugadinta“). Laikykite `plieno-pulsas.html` ir aplanką
-> `assets/` **kartu** — kelias yra reliatyvus.
+> Nuotraukos užsikrauna atidarius failą su interneto ryšiu. Jei kuri nors
+> nuoroda nepasiekiama, toje vietoje automatiškai lieka firminis tamsus
+> „lydyto plieno“ CSS fonas — svetainė niekada neatrodo sugadinta.
 
-## Kokį failą kur dėti
+## Kuri nuotrauka kurioje vietoje
 
-| Failo pavadinimas   | Vieta svetainėje                         | Rekomenduojama nuotrauka                                            |
-|---------------------|------------------------------------------|---------------------------------------------------------------------|
-| `hero.jpg`          | Pradžios ekranas (didelis fonas)         | Tamsus, dramatiškas kadras su kibirkštimis (kampinis šlifuoklis juodame fone arba suvirintojas raudonoje šviesoje) |
-| `about.jpg`         | „Apie mus“ kortelė (žyma „Liejykla“)     | Išlydyto metalo liejimas liejykloje (oranžinė srovė)                |
-| `work-1.jpg`        | Darbai → „Plieninis konstrukcijos karkasas“ | Suvirinimo lankas iš arti (mėlyni dūmai + kibirkštys)            |
-| `work-2.jpg`        | Darbai → „Poliruotas turėklas“           | Nerūdijančio vamzdžio šlifavimas (kibirkščių vėduoklė)              |
-| `work-3.jpg`        | Darbai → „Perforuotas fasadas“           | Lazerinė pjaustyklė pjauna lakštą                                   |
-| `work-4.jpg`        | Darbai → „Individualus lietas pagrindas“ | Liejimas / liejykla (antra liejimo nuotrauka)                       |
-| `work-5.jpg`        | Darbai → „Įrenginio korpusas“            | Taškinio suvirinimo staklės su darbuotoju                           |
-| `work-6.jpg`        | Darbai → „Individualūs laiptai ir turėklai“ | Lakštų lankstymas presu arba šlifavimo kibirkštys               |
+| Vieta svetainėje                         | Pexels nuotrauka |
+|------------------------------------------|------------------|
+| Pradžios ekranas (`hero`)                | https://www.pexels.com/photo/9665344/  (kibirkštys nuo šlifuoklio, tamsu) |
+| „Apie mus“ kortelė (`about`)             | https://www.pexels.com/photo/19757234/ (suvirintojas tamsiose dirbtuvėse) |
+| Darbai → Konstrukcijos karkasas (`work-1`)| https://www.pexels.com/photo/29976478/ (suvirinimas su kibirkštimis) |
+| Darbai → Poliruotas turėklas (`work-2`)  | https://www.pexels.com/photo/18651254/ (darbas šlifuokliu) |
+| Darbai → Profilių pjovimas (`work-3`)    | https://www.pexels.com/photo/7461112/  (metalo pjovimas) |
+| Darbai → Kalimas ir formavimas (`work-4`)| https://www.pexels.com/photo/16456724/ (įkaitintas metalas) |
+| Darbai → Įrenginio korpusas (`work-5`)   | https://www.pexels.com/photo/2760343/  (suvirinimas) |
+| Darbai → Galutinė apdaila (`work-6`)     | https://www.pexels.com/photo/13296065/ (šlifavimas) |
 
-## Patarimai
+## Kaip pakeisti savo nuotraukomis
 
-- **Formatai:** tinka `.jpg`, `.jpeg`, `.png`, `.webp`. Jei naudojate kitą
-  plėtinį nei `.jpg`, pakeiskite pavadinimą `MEDIA` sąraše svetainės `<script>`
-  bloke (pačioje viršuje).
-- **Dydžiai (rekomendacija):** `hero` ~1920×1080 px; darbų kadrai ~1200×900 px.
-  Suspauskite iki ~70–80 % kokybės, kad puslapis greitai krautųsi.
-- **Nuorodos (URL) vietoj failų:** jei nuotraukos talpinamos internete,
-  galite vietoje failų pavadinimų `MEDIA` sąraše įrašyti pilnas nuorodas,
-  pvz. `hero: 'https://.../hero.jpg'`.
+Atidarykite `plieno-pulsas.html`, raskite `MEDIA` sąrašą (viršuje, `<script>`
+bloke) ir kiekvienai vietai įrašykite arba:
 
-Svetainė nuotraukas uždeda virš firminio tamsaus „lydyto plieno“ stiliaus su
-švelniu užtamsinimu, kad tekstas visada liktų gerai įskaitomas.
+- **savo internetinę nuorodą**, pvz. `hero: 'https://.../mano-nuotrauka.jpg'`,
+  arba
+- **vietinį failą**: įdėkite paveikslėlį į šį `assets/` aplanką ir nurodykite
+  `hero: 'assets/hero.jpg'` (laikykite HTML ir `assets/` kartu).
+
+**Dydžiai (rekomendacija):** `hero` ~1920 px pločio; darbų kadrai ~1200 px.
+Tinka `.jpg`, `.png`, `.webp`.

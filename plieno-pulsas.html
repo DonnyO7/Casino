@@ -670,10 +670,10 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 
     <div class="about-media" data-reveal="right">
       <!-- REPLACE WITH PHOTO → set MEDIA['about'] in the script -->
-      <div class="media m-forge reveal-clip" data-media="about" role="img" aria-label="Liejykloje pilamas išlydytas metalas">
+      <div class="media m-forge reveal-clip" data-media="about" role="img" aria-label="Suvirintojas dirba tamsiose dirbtuvėse">
         <span class="pulse-glow"></span>
         <span class="sheen"></span>
-        <span class="tag">Liejykla · liejimo diena</span>
+        <span class="tag">Cechas · darbo diena</span>
       </div>
       <div class="about-badge">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z" stroke-linejoin="round"/></svg></span>
@@ -844,12 +844,12 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
       </div>
       <div class="tile t-reg" data-reveal data-delay="3">
         <div class="media m-laser" data-media="work-3"><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Lazerinis pjovimas</div><h3>Perforuotas fasadas</h3></div>
+        <div class="overlay"><div class="cat">Metalo pjovimas</div><h3>Tikslus profilių pjovimas</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
       <div class="tile t-reg" data-reveal data-delay="1">
         <div class="media m-cast" data-media="work-4"><span class="pulse-glow"></span><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Liejimas</div><h3>Individualus lietas pagrindas</h3></div>
+        <div class="overlay"><div class="cat">Karštasis apdirbimas</div><h3>Kalimas ir formavimas</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
       <div class="tile big" data-reveal data-delay="2">
@@ -859,7 +859,7 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
       </div>
       <div class="tile t-wide" data-reveal data-delay="3">
         <div class="media m-forge" data-media="work-6"><span class="pulse-glow"></span><span class="sheen"></span></div>
-        <div class="overlay"><div class="cat">Architektūra</div><h3>Individualūs laiptai ir turėklai</h3></div>
+        <div class="overlay"><div class="cat">Šlifavimas</div><h3>Galutinė apdaila</h3></div>
         <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
       </div>
     </div>
@@ -1076,20 +1076,21 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding-block:clamp
 /* =========================================================================
    PLIENO PULSAS — interakcijos
    -------------------------------------------------------------------------
-   ▶ NUOTRAUKOS: įdėkite savo nuotraukas į aplanką  assets/  šiais pavadinimais:
-        assets/hero.jpg · assets/about.jpg · assets/work-1.jpg … work-6.jpg
-     Daugiau – žr. assets/README.md. Jei failo nėra, lieka dailus CSS fonas.
-     Vietoj failų galima nurodyti ir nuorodas (URL) – tiesiog įrašykite jas žemiau.
+   ▶ NUOTRAUKOS: pagal nutylėjimą naudojamos nemokamos Pexels.com nuotraukos
+     (žr. nuorodas MEDIA sąraše žemiau; Pexels licencija — nemokama, be
+     privalomos atribucijos). Norėdami naudoti savo nuotraukas, pakeiskite
+     nuorodą arba nurodykite vietinį failą, pvz. 'assets/hero.jpg'.
+     Jei nuoroda nepasiekiama, automatiškai lieka firminis CSS fonas.
    ========================================================================= */
 const MEDIA = {
-  hero:     'assets/hero.jpg',
-  about:    'assets/about.jpg',
-  'work-1': 'assets/work-1.jpg',
-  'work-2': 'assets/work-2.jpg',
-  'work-3': 'assets/work-3.jpg',
-  'work-4': 'assets/work-4.jpg',
-  'work-5': 'assets/work-5.jpg',
-  'work-6': 'assets/work-6.jpg',
+  hero:     'https://images.pexels.com/photos/9665344/pexels-photo-9665344.jpeg?auto=compress&cs=tinysrgb&w=1920',
+  about:    'https://images.pexels.com/photos/19757234/pexels-photo-19757234.jpeg?auto=compress&cs=tinysrgb&w=1280',
+  'work-1': 'https://images.pexels.com/photos/29976478/pexels-photo-29976478.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'work-2': 'https://images.pexels.com/photos/18651254/pexels-photo-18651254.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'work-3': 'https://images.pexels.com/photos/7461112/pexels-photo-7461112.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'work-4': 'https://images.pexels.com/photos/16456724/pexels-photo-16456724.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'work-5': 'https://images.pexels.com/photos/2760343/pexels-photo-2760343.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  'work-6': 'https://images.pexels.com/photos/13296065/pexels-photo-13296065.jpeg?auto=compress&cs=tinysrgb&w=1200',
 };
 
 (function(){
