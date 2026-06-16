@@ -198,15 +198,11 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
 /* =========================================================
    HERO
    ========================================================= */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:120px;padding-bottom:60px}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.42;transform:scale(1.08);will-change:transform}
-.hero-bg::after{
-  content:"";position:absolute;inset:0;
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding-top:140px;padding-bottom:90px}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
-    linear-gradient(180deg,rgba(10,13,17,.55) 0%,rgba(10,13,17,.35) 35%,rgba(10,13,17,.92) 100%),
-    linear-gradient(90deg,rgba(10,13,17,.9) 0%,rgba(10,13,17,.3) 55%,transparent 100%);
-}
+    radial-gradient(60% 50% at 50% 26%,rgba(255,106,26,.12),transparent 60%),
+    radial-gradient(75% 60% at 50% 118%,rgba(79,182,230,.12),transparent 60%);}
 /* technical grid overlay */
 .hero-grid{position:absolute;inset:0;z-index:1;opacity:.5;pointer-events:none;
   background-image:linear-gradient(rgba(208,222,236,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(208,222,236,.05) 1px,transparent 1px);
@@ -220,13 +216,13 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
   background:radial-gradient(420px circle at var(--mx,50%) var(--my,40%),rgba(255,255,255,.07),transparent 60%);}
 .hero:hover .hero-spot{opacity:1}
 
-.hero-inner{position:relative;z-index:2;max-width:880px}
-.hero h1{font-size:clamp(2.5rem,6.4vw,5.2rem);font-weight:700;letter-spacing:-.03em;margin:22px 0 24px}
+.hero-inner{position:relative;z-index:2;max-width:920px;margin-inline:auto}
+.hero h1{font-size:clamp(2.5rem,6.4vw,5.2rem);font-weight:700;letter-spacing:-.03em;margin:22px auto 24px;max-width:16ch}
 .hero h1 .ln{display:block;overflow:hidden}
-.hero p.lead{font-size:clamp(1.05rem,1.7vw,1.32rem);color:#c4d0dc;max-width:620px;margin-bottom:36px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:48px}
+.hero p.lead{font-size:clamp(1.05rem,1.7vw,1.32rem);color:#c4d0dc;max-width:640px;margin:0 auto 38px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:48px;justify-content:center}
 
-.hero-stats{display:flex;flex-wrap:wrap;gap:14px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
 .chip{
   display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:16px;
   border:1px solid var(--line);background:rgba(16,22,29,.55);backdrop-filter:blur(8px);
@@ -377,6 +373,29 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
 .sector h3{font-size:1.32rem;margin-bottom:8px}
 .sector p{color:#c4d0dc;font-size:.92rem;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s var(--ease)}
 .sector:hover p{max-height:120px;opacity:1}
+
+/* =========================================================
+   VISUAL — self-contained on-theme industrial graphics
+   (replaces external photos; always renders, never off-theme)
+   ========================================================= */
+.visual{background:linear-gradient(150deg,#1a2531 0%,#0e151c 58%,#0a1016 100%);overflow:hidden}
+.visual::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(58% 58% at 78% 14%,rgba(255,106,26,.12),transparent 60%)}
+.visual--b{background:linear-gradient(150deg,#162430 0%,#0f1822 58%,#0a1016 100%)}
+.visual--b::before{background:radial-gradient(58% 58% at 22% 16%,rgba(79,182,230,.14),transparent 60%)}
+.visual--c{background:linear-gradient(150deg,#1d2029 0%,#12151c 58%,#0a1016 100%)}
+.visual--c::before{background:radial-gradient(60% 60% at 80% 84%,rgba(255,106,26,.10),transparent 60%)}
+.visual .pattern{position:absolute;inset:0;z-index:0;opacity:.6;pointer-events:none;
+  background-image:linear-gradient(rgba(208,222,236,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(208,222,236,.06) 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(120% 110% at 50% 35%,#000,transparent 82%);mask-image:radial-gradient(120% 110% at 50% 35%,#000,transparent 82%)}
+.visual .art{position:absolute;inset:0;z-index:1;display:grid;place-items:center;color:var(--steel-2)}
+.visual .art svg{width:46%;max-width:150px;height:auto;filter:drop-shadow(0 12px 26px rgba(0,0,0,.55));transition:transform .8s var(--ease)}
+.visual .art.art-lg svg{width:56%;max-width:210px}
+.proj .art{padding-bottom:24%}
+.sector .art{padding-bottom:30%}
+.proj:hover .art svg{transform:scale(1.07) translateY(-5px)}
+.sector:hover .art svg{transform:scale(1.07)}
 
 /* =========================================================
    TESTIMONIALS + CERTS
@@ -556,11 +575,105 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   [data-reveal]{opacity:1!important;transform:none!important}
-  .hero-bg img{transform:none!important}
 }
 </style>
 </head>
 <body>
+
+<!-- ===== Reusable on-theme industrial graphics (SVG sprite) ===== -->
+<svg width="0" height="0" class="svg-sprite" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <linearGradient id="vsteel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef3f8"/><stop offset=".5" stop-color="#aab7c4"/><stop offset="1" stop-color="#7c8a98"/>
+    </linearGradient>
+  </defs>
+  <!-- pipe run with valve -->
+  <symbol id="s-pipes" viewBox="0 0 120 120">
+    <g fill="none" stroke="url(#vsteel)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 40 H60 a18 18 0 0 1 18 18 V106"/>
+      <path d="M28 30 V50 M48 30 V50"/>
+      <path d="M64 72 H92 M64 90 H92"/>
+    </g>
+    <circle cx="86" cy="36" r="11" fill="none" stroke="#ff6a1a" stroke-width="5"/>
+    <path d="M86 25 V17" stroke="#ff6a1a" stroke-width="5" stroke-linecap="round"/>
+  </symbol>
+  <!-- cylindrical tank -->
+  <symbol id="s-tank" viewBox="0 0 120 120">
+    <g fill="none" stroke="url(#vsteel)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M38 32 q22 -15 44 0 V86 q-22 15 -44 0 Z"/>
+      <path d="M38 32 q22 15 44 0"/>
+      <path d="M46 92 L40 108 M74 92 L80 108"/>
+      <path d="M50 52 H70"/>
+    </g>
+    <circle cx="60" cy="70" r="7" fill="none" stroke="#ff6a1a" stroke-width="4"/>
+  </symbol>
+  <!-- CIP spray ball -->
+  <symbol id="s-spray" viewBox="0 0 120 120">
+    <circle cx="60" cy="50" r="21" fill="none" stroke="url(#vsteel)" stroke-width="6"/>
+    <path d="M60 29 V13" stroke="url(#vsteel)" stroke-width="6" stroke-linecap="round"/>
+    <g fill="url(#vsteel)"><circle cx="52" cy="48" r="2.6"/><circle cx="68" cy="48" r="2.6"/><circle cx="60" cy="58" r="2.6"/></g>
+    <g stroke="#ff6a1a" stroke-width="5" stroke-linecap="round"><path d="M44 70 L36 92 M60 74 V98 M76 70 L84 92"/></g>
+  </symbol>
+  <!-- pressure gauge -->
+  <symbol id="s-gauge" viewBox="0 0 120 120">
+    <circle cx="60" cy="54" r="27" fill="none" stroke="url(#vsteel)" stroke-width="6"/>
+    <g stroke="url(#vsteel)" stroke-width="4" stroke-linecap="round"><path d="M60 31 V27 M83 54 H87 M37 54 H33 M60 77 V81"/></g>
+    <path d="M60 54 L76 42" stroke="#ff6a1a" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="60" cy="54" r="3.5" fill="#ff6a1a"/>
+    <path d="M52 84 H68 V96 H52 Z" fill="none" stroke="url(#vsteel)" stroke-width="6" stroke-linejoin="round"/>
+  </symbol>
+  <!-- bottling line -->
+  <symbol id="s-bottles" viewBox="0 0 120 120">
+    <g fill="none" stroke="url(#vsteel)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="36" y="22" width="8" height="12" rx="2"/>
+      <path d="M32 34 q8 5 16 0 v44 a5 5 0 0 1 -5 5 h-6 a5 5 0 0 1 -5 -5 Z"/>
+      <rect x="76" y="22" width="8" height="12" rx="2"/>
+      <path d="M72 34 q8 5 16 0 v44 a5 5 0 0 1 -5 5 h-6 a5 5 0 0 1 -5 -5 Z"/>
+    </g>
+    <path d="M14 98 H106" stroke="#ff6a1a" stroke-width="6" stroke-linecap="round"/>
+    <g fill="url(#vsteel)"><circle cx="26" cy="98" r="3"/><circle cx="60" cy="98" r="3"/><circle cx="94" cy="98" r="3"/></g>
+  </symbol>
+  <!-- droplet (dairy / liquids) -->
+  <symbol id="s-drop" viewBox="0 0 120 120">
+    <path d="M60 20 C60 20 36 54 36 74 a24 24 0 0 0 48 0 C84 54 60 20 60 20 Z" fill="none" stroke="url(#vsteel)" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M50 76 a10 10 0 0 0 10 10" fill="none" stroke="#ff6a1a" stroke-width="5" stroke-linecap="round"/>
+  </symbol>
+  <!-- barley / hops (brewery) -->
+  <symbol id="s-hops" viewBox="0 0 120 120">
+    <g fill="none" stroke="url(#vsteel)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M60 28 V98"/>
+      <path d="M60 44 q-18 -7 -27 5 q17 7 27 -5 Z"/>
+      <path d="M60 44 q18 -7 27 5 q-17 7 -27 -5 Z"/>
+      <path d="M60 66 q-18 -7 -27 5 q17 7 27 -5 Z"/>
+      <path d="M60 66 q18 -7 27 5 q-17 7 -27 -5 Z"/>
+    </g>
+    <circle cx="60" cy="26" r="4" fill="#ff6a1a"/>
+  </symbol>
+  <!-- factory -->
+  <symbol id="s-factory" viewBox="0 0 120 120">
+    <g fill="none" stroke="url(#vsteel)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 96 V58 L50 72 V58 L76 72 V58 L96 72 V96 Z"/>
+      <path d="M40 96 V84 M60 96 V84 M80 96 V84"/>
+    </g>
+    <path d="M32 52 V36 h9 v18" fill="none" stroke="#ff6a1a" stroke-width="5" stroke-linejoin="round"/>
+  </symbol>
+  <!-- lab flask (pharma) -->
+  <symbol id="s-flask" viewBox="0 0 120 120">
+    <path d="M51 24 H69 M54 24 V50 L35 88 a7 7 0 0 0 6 11 H79 a7 7 0 0 0 6 -11 L66 50 V24" fill="none" stroke="url(#vsteel)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M44 74 H76" stroke="#ff6a1a" stroke-width="5" stroke-linecap="round"/>
+    <g fill="#ff6a1a"><circle cx="54" cy="86" r="2.6"/><circle cx="66" cy="82" r="2.2"/></g>
+  </symbol>
+  <!-- conveyor (food production) -->
+  <symbol id="s-conveyor" viewBox="0 0 120 120">
+    <g fill="none" stroke="url(#vsteel)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="34" cy="80" r="12"/><circle cx="86" cy="80" r="12"/>
+      <path d="M34 68 H86 M34 92 H86"/>
+      <rect x="42" y="42" width="18" height="15" rx="2"/>
+      <rect x="66" y="46" width="14" height="11" rx="2"/>
+    </g>
+    <path d="M40 34 H64" stroke="#ff6a1a" stroke-width="5" stroke-linecap="round"/>
+  </symbol>
+</svg>
 
 <!-- scroll progress -->
 <div class="progress" id="progress" aria-hidden="true"></div>
@@ -605,19 +718,13 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
 
 <!-- ============================ HERO ============================ -->
 <section class="hero" id="hero">
-  <div class="hero-bg" data-img>
-    <!-- Primary photo (Unsplash CDN). Falls back to grayscale photo, then to CSS gradient. -->
-    <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1920&q=80"
-         data-fb="https://picsum.photos/seed/nordinox-hero/1920/1200?grayscale"
-         alt="Nerūdijančio plieno technologinė įranga gamykloje" fetchpriority="high" onerror="imgErr(this)">
-  </div>
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-glow g1" aria-hidden="true"></div>
   <div class="hero-glow g2" aria-hidden="true"></div>
   <div class="hero-spot" id="heroSpot" aria-hidden="true"></div>
 
   <div class="container hero-inner">
-    <span class="eyebrow" data-reveal>Nerūdijančio plieno inžinerija · nuo 2009</span>
+    <span class="eyebrow center" data-reveal>Nerūdijančio plieno inžinerija · nuo 2009</span>
     <h1 data-reveal style="--i:1">
       Higieniški vamzdynai ir
       <span class="gradient-text">nerūdijančio plieno</span>
@@ -694,10 +801,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
       </div>
 
       <div class="about-visual" data-reveal="right">
-        <div class="frame" data-img>
-          <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1100&q=80"
-               data-fb="https://picsum.photos/seed/nordinox-about/1100/1300?grayscale"
-               alt="Inžinierius prie nerūdijančio plieno gamybos" loading="lazy" decoding="async" onerror="imgErr(this)">
+        <div class="frame visual visual--b">
+          <span class="pattern" aria-hidden="true"></span>
+          <span class="art art-lg"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-tank"/></svg></span>
         </div>
         <div class="badge-float">
           <div class="big">100%</div>
@@ -857,24 +963,29 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
     </div>
 
     <div class="gallery">
-      <article class="proj" data-reveal="scale" style="--i:0" data-img>
-        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=80" data-fb="https://picsum.photos/seed/nx-p1/1400/900?grayscale" alt="Pieno perdirbimo linijos vamzdynai" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="proj visual visual--a" data-reveal="scale" style="--i:0">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-pipes"/></svg></span>
         <div class="meta"><span class="tag">Vamzdynai</span><h3>Pieno perdirbimo linija</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Kaunas</span></div>
       </article>
-      <article class="proj" data-reveal="scale" style="--i:1" data-img>
-        <img src="https://images.unsplash.com/photo-1532634726-8b9fb99825c1?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-p2/900/900?grayscale" alt="Alaus daryklos talpos" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="proj visual visual--b" data-reveal="scale" style="--i:1">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-tank"/></svg></span>
         <div class="meta"><span class="tag">Talpos</span><h3>Alaus daryklos vamzdynai</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Vilnius</span></div>
       </article>
-      <article class="proj" data-reveal="scale" style="--i:2" data-img>
-        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-p3/900/900?grayscale" alt="CIP plovimo stotis" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="proj visual visual--c" data-reveal="scale" style="--i:2">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-spray"/></svg></span>
         <div class="meta"><span class="tag">CIP / SIP</span><h3>CIP plovimo stotis</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Klaipėda</span></div>
       </article>
-      <article class="proj" data-reveal="scale" style="--i:1" data-img>
-        <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-p4/900/900?grayscale" alt="Buferinės talpos" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="proj visual visual--a" data-reveal="scale" style="--i:1">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-gauge"/></svg></span>
         <div class="meta"><span class="tag">Rezervuarai</span><h3>Buferinės talpos 20 m³</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Panevėžys</span></div>
       </article>
-      <article class="proj" data-reveal="scale" style="--i:2" data-img>
-        <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-p5/900/900?grayscale" alt="Gėrimų išpilstymo linija" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="proj visual visual--b" data-reveal="scale" style="--i:2">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-bottles"/></svg></span>
         <div class="meta"><span class="tag">Linijos</span><h3>Gėrimų išpilstymo linija</h3><span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Šiauliai</span></div>
       </article>
     </div>
@@ -891,28 +1002,34 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
     </div>
 
     <div class="sectors">
-      <article class="sector" data-reveal style="--i:0" data-img>
-        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-s1/900/940?grayscale" alt="Pieno pramonė" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="sector visual visual--b" data-reveal style="--i:0">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-drop"/></svg></span>
         <div class="body"><span class="knum">01</span><h3>Pieno pramonė</h3><p>Higieniški vamzdynai, talpos ir CIP sistemos pieno ir sūrio gamybai.</p></div>
       </article>
-      <article class="sector" data-reveal style="--i:1" data-img>
-        <img src="https://images.unsplash.com/photo-1532634726-8b9fb99825c1?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-s2/900/940?grayscale" alt="Alaus daryklos" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="sector visual visual--a" data-reveal style="--i:1">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-hops"/></svg></span>
         <div class="body"><span class="knum">02</span><h3>Alaus daryklos</h3><p>Virimo, fermentavimo ir išpilstymo įrangos vamzdynai bei talpos.</p></div>
       </article>
-      <article class="sector" data-reveal style="--i:2" data-img>
-        <img src="https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-s3/900/940?grayscale" alt="Gėrimų gamyba" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="sector visual visual--c" data-reveal style="--i:2">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-bottles"/></svg></span>
         <div class="body"><span class="knum">03</span><h3>Gėrimų gamyba</h3><p>Sirupų, sulčių ir vandens linijos su aukščiausiais higienos reikalavimais.</p></div>
       </article>
-      <article class="sector" data-reveal style="--i:0" data-img>
-        <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-s4/900/940?grayscale" alt="Mėsos perdirbimas" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="sector visual visual--a" data-reveal style="--i:0">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-factory"/></svg></span>
         <div class="body"><span class="knum">04</span><h3>Mėsos perdirbimas</h3><p>Atsparios, lengvai plaunamos konstrukcijos ir technologinė įranga.</p></div>
       </article>
-      <article class="sector" data-reveal style="--i:1" data-img>
-        <img src="https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-s5/900/940?grayscale" alt="Farmacija" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="sector visual visual--b" data-reveal style="--i:1">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-flask"/></svg></span>
         <div class="body"><span class="knum">05</span><h3>Farmacija ir kosmetika</h3><p>Švarūs vamzdynai, WFI sistemos ir aukšto poliravimo paviršiai.</p></div>
       </article>
-      <article class="sector" data-reveal style="--i:2" data-img>
-        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80" data-fb="https://picsum.photos/seed/nx-s6/900/940?grayscale" alt="Maisto gamyba" loading="lazy" decoding="async" onerror="imgErr(this)">
+      <article class="sector visual visual--c" data-reveal style="--i:2">
+        <span class="pattern" aria-hidden="true"></span>
+        <span class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-conveyor"/></svg></span>
         <div class="body"><span class="knum">06</span><h3>Maisto gamyba</h3><p>Padažų, konservų ir kepinių linijų vamzdynai bei nerūdijančio plieno gaminiai.</p></div>
       </article>
     </div>
@@ -1092,13 +1209,6 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
   "use strict";
   var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- image fallback: Unsplash -> grayscale photo -> CSS gradient ---------- */
-  window.imgErr = function(el){
-    if(el.dataset.fb){ var fb = el.dataset.fb; el.removeAttribute('data-fb'); el.src = fb; return; }
-    el.style.opacity = '0';
-    var box = el.closest('[data-img]'); if(box) box.classList.add('img-failed');
-  };
-
   document.addEventListener('DOMContentLoaded', function(){
     var header   = document.getElementById('header');
     var progress = document.getElementById('progress');
@@ -1198,16 +1308,9 @@ h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;letter-spacing:-.02
     });
     toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior: rm ? 'auto':'smooth'}); });
 
-    /* ---------- hero parallax + cursor spotlight ---------- */
-    var heroImg = document.querySelector('.hero-bg img');
+    /* ---------- hero cursor spotlight ---------- */
     var heroSpot = document.getElementById('heroSpot');
     var hero = document.getElementById('hero');
-    if(heroImg && !rm){
-      window.addEventListener('scroll', function(){
-        var y = window.scrollY;
-        if(y < window.innerHeight){ heroImg.style.transform = 'scale(1.08) translateY(' + (y * 0.18) + 'px)'; }
-      }, {passive:true});
-    }
     if(hero && heroSpot && !rm && window.matchMedia('(pointer:fine)').matches){
       hero.addEventListener('mousemove', function(e){
         var r = hero.getBoundingClientRect();
